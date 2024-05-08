@@ -1,0 +1,146 @@
+.test {
+    /* Frame 0 */
+
+    position: absolute;
+    width: 1440px;
+    height: 122px;
+    left: calc(50% - 1440px / 2);
+    top: 0px;
+
+    /* BIG PICTURE */
+
+    position: absolute;
+    width: 123px;
+    height: 63px;
+    left: 163px;
+    top: 24px;
+
+    font-family: "Marko One";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #702828;
+
+    /* 책만들기 */
+
+    position: absolute;
+    width: 76px;
+    height: 49px;
+    left: 346px;
+    top: 41px;
+
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+
+    /* P-Book 도서관 */
+
+    position: absolute;
+    width: 145px;
+    height: 49px;
+    left: 443px;
+    top: 41px;
+
+    font-family: "Marko One";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+
+    /* 커뮤니티 */
+
+    position: absolute;
+    width: 79px;
+    height: 49px;
+    left: 602px;
+    top: 41px;
+
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+
+    /* 로그인 */
+
+    position: absolute;
+    width: 53px;
+    height: 49px;
+    left: 1066px;
+    top: 38px;
+
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+
+    /* Drive file rename outline */
+
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 282px;
+    top: 61px;
+
+    /* Vector */
+
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    /* Vector */
+
+    position: absolute;
+    left: 16%;
+    right: 16%;
+    top: 12%;
+    bottom: 24%;
+
+    background: #000000;
+
+    /* Search */
+
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 1137px;
+    top: 47px;
+
+    background: url(.png);
+
+    /* Menu */
+
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 1195px;
+    top: 47px;
+
+    background: url(.png);
+}

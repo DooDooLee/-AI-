@@ -6,8 +6,8 @@ function Header() {
     const search_uri = "./public_assets/search.svg";
     const menu_uri = "./public_assets/menu.svg";
     return (
-        <div className={styles.container}>
-            <div>
+        <div className={styles.wrapper}>
+            <div className={styles.left}>
                 <a href="/" id="logo">
                     <img src={logo_uri} alt="logo" />
                 </a>
@@ -19,7 +19,7 @@ function Header() {
                     </ul>
                 </div>
             </div>
-            <div>
+            <div className={styles.right}>
                 <ul>
                     <li>로그인</li>
                     <li>

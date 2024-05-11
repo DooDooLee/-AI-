@@ -1,5 +1,5 @@
-# Dingdong
-2024-1 웹4팀 깃허브 레포지토리
+# Big Picture
+2024 국립부경대학교 캡스톤디자인 빅픽처팀
 
 <div align=center><h2>📚 Stacks</h2></div>
 
@@ -34,9 +34,7 @@
   </tr>
     <tr>
     <td align="center"><a href="https://github.com/SHSong99" title="Code">SHSong99</a></td>
-    <td align="center"><a href="https://github.com/sihyeon-an" title="Code">sihyeon-an</a></td>
-    <td align="center"><a href="https://github.com/Hun0906" title="Code">Hun0906</a></td>
-    <td align="center"><a href="https://github.com/dhlee777" title="Code">dhlee777</a></td>
+    
   </tr>
 </table>
 </div>

@@ -38,4 +38,6 @@ out/
 
 #MacOs
 .DS_Store
-../.DS_Store
+
+#로그인 키
+application.properties

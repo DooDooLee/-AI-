@@ -28,9 +28,7 @@
 <table>
   <tr>
     <td align="center"><a href="https://github.com/SHSong99"><img src="https://avatars.githubusercontent.com/u/161740297?v=4" width="100px;" alt=""/>
-    <td align="center"><a href="https://github.com/sihyeon-an"><img src="https://avatars.githubusercontent.com/u/144617039?v=4" width="100px;" alt=""/>
-    <td align="center"><a href="https://github.com/Hun0906"><img src="https://avatars.githubusercontent.com/u/134472292?v=4" width="100px;" alt=""/>
-    <td align="center"><a href="https://github.com/dhlee777"><img src="https://avatars.githubusercontent.com/u/117627976?v=4" width="100px;" alt=""/>
+    
   </tr>
     <tr>
     <td align="center"><a href="https://github.com/SHSong99" title="Code">SHSong99</a></td>

@@ -32,7 +32,7 @@
   </tr>
     <tr>
     <td align="center"><a href="https://github.com/SHSong99" title="Code">SHSong99</a></td>
-    <td align="center"><a href="https://github.com/DooDooLee" title="Code">이승엽/a></td>
+    <td align="center"><a href="https://github.com/DooDooLee" title="Code">이승엽</a></td>
   </tr>
 </table>
 </div>

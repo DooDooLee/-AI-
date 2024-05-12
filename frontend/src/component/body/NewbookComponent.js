@@ -1,15 +1,18 @@
+import styles from "../../styles/NewbookComponent.module.css";
+
 function NewbookComponent(props) {
     const Bookcover_default_uri = "./public_assets/bookcover_example4.svg";
     const thumbsup_uri = "./public_assets/thumbsup.svg";
     return (
-        <div>
+        <div className={styles.wrapper}>
             <img src={Bookcover_default_uri} alt="책 표지"></img>
             <span>{props.no.toString()}</span>
-            <div>
-                <strong>책 제목</strong>
-                <br></br>
-                저자<br></br>
-                <img src={thumbsup_uri} alt="Thumbsup"></img>추천수(총 추천수)
+            <div className={styles.bookinfo}>
+                <span className={styles.bookname}>책 제목</span>
+                <span className={styles.author}>저자</span>
+                <span className={styles.likes}>
+                    <img src={thumbsup_uri} alt="Thumbsup"></img>추천수(댓글수)
+                </span>
             </div>
         </div>
     );

@@ -4,8 +4,13 @@
 }
 
 .wrapper {
-    font: normal 20px "MarkoOne-Regular", "맑은 고딕";
+    font: normal 20px "MarkoOne-Regular", "Malgun Gothic";
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.wrapper h3 {
+    color: #702828;
+    align-self: flex-start;
 }

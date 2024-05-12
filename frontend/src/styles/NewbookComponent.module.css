@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    min-width: 320px;
+}
+
+.bookinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bookname {
+    font-size: 18px;
+}
+
+.author {
+    font-size: 16px;
+}
+
+.likes {
+    font-size: 16px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

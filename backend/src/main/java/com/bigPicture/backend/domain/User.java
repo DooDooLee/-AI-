@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter @Setter
@@ -35,6 +38,12 @@ public class User {
 
     private String providerId;
 
+    //연관관계 매핑
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Book> books = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Review> reviews = new ArrayList<>();
 
 }

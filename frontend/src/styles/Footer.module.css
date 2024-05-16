@@ -1,0 +1,16 @@
+.wrapper {
+    width: calc(100% - 300px);
+    padding: 2em 150px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-top: 1px solid gainsboro;
+}
+
+.wrapper span {
+    color: gray;
+    font-size: 16px;
+}

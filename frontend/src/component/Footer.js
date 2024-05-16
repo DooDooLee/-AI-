@@ -1,20 +1,11 @@
+import styles from "../styles/Footer.module.css";
 const logo_grayscale_uri = "./public_assets/logo_grayscale.svg";
 
 function Footer() {
-    const footerStyle = {
-        width: "100%",
-        alignSelf: "flex-start",
-        margin: "2em 0",
-        borderTop: "1px solid gainsboro",
-    };
-
     return (
-        <div style={footerStyle}>
-            <img
-                src={logo_grayscale_uri}
-                alt="grayscale logo"
-                style={{ margin: "2em 200px" }}
-            />
+        <div className={styles.wrapper}>
+            <img src={logo_grayscale_uri} alt="grayscale logo" />
+            <span>서비스소개</span>
         </div>
     );
 }

@@ -1,6 +1,5 @@
 package com.bigPicture.backend.domain;
 
-import com.bigPicture.backend.payload.pageDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
@@ -43,11 +42,4 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     List<Review> reviews = new ArrayList<>();
 
-    public Book(User user, String title, String cover, Long bookLike, List<Page> pages) {
-        this.user = user;
-        this.bookLike = bookLike;
-        this.cover = cover;
-        this.title = title;
-        this.pages = pages;
-    }
 }

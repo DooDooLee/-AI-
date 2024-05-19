@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class pageDto {
+public class PageDto {
 
     private String image;
     private String content;

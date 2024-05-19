@@ -3,8 +3,9 @@ package com.bigPicture.backend.service;
 import com.bigPicture.backend.domain.Book;
 import com.bigPicture.backend.domain.Page;
 import com.bigPicture.backend.domain.User;
-import com.bigPicture.backend.payload.pageDto;
+import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.request.BookCreateRequest;
+import com.bigPicture.backend.payload.response.BookResponse;
 import com.bigPicture.backend.repository.BookRepository;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -40,6 +41,12 @@ public class BookService {
         pages.forEach(page -> page.updateBook(book));
 
         bookRepository.save(book);
+    }
+
+    public BookResponse getBookDetails(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+        return BookResponse.of(book);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.bigPicture.backend.payload.request;
 
-import com.bigPicture.backend.payload.pageDto;
+import com.bigPicture.backend.payload.PageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class BookCreateRequest {
     private String title;
     private String cover;
     private Long BookLike;
-    private List<pageDto> pages;
+    private List<PageDto> pages;
 
 
 }

@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBookResponse {
+public class BooksResponse {
 
-    private List<UserBookInfoResponse> userBookResponse;
+    private List<BookInfoResponse> bookInfoResponses;
 
-    public static List<UserBookInfoResponse> of(List<Book> books) {
+    public static List<BookInfoResponse> of(List<Book> books) {
         return books.stream()
-                .map(UserBookInfoResponse::of)
+                .map(BookInfoResponse::of)
                 .collect(Collectors.toList());
     }
 

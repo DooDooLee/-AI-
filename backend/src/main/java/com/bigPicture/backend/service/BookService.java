@@ -5,7 +5,7 @@ import com.bigPicture.backend.domain.Page;
 import com.bigPicture.backend.domain.User;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.request.BookCreateRequest;
-import com.bigPicture.backend.payload.response.BookResponse;
+import com.bigPicture.backend.payload.response.*;
 import com.bigPicture.backend.repository.BookRepository;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -49,6 +49,9 @@ public class BookService {
         return BookResponse.of(book);
     }
 
-
+    public List<BookInfoResponse> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        return BooksResponse.of(books); //응답 데이터를 던져야 함으로 DTO 로 변환
+    }
 
 }

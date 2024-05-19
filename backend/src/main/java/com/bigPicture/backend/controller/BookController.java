@@ -20,11 +20,12 @@ public class BookController {
     //책 등록
     @PostMapping("/book/create")
     public ResponseEntity<?> createBook(@CurrentUser UserPrincipal userPrincipal, //User 와 요청 DTO 를 별개로 취급
-                                           @RequestBody BookCreateRequest request) {
+                                        @RequestBody BookCreateRequest request) {
         bookService.save(userPrincipal, request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //책 열람
     @GetMapping("/book/{bookId}")
     public ResponseEntity<?> getBookDetails(@PathVariable Long bookId) {
         BookResponse response = bookService.getBookDetails(bookId);

@@ -25,6 +25,7 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //책 열람
     @GetMapping("/book/{bookId}")
     public ResponseEntity<?> getBookDetails(@PathVariable Long bookId) {
         BookResponse response = bookService.getBookDetails(bookId);

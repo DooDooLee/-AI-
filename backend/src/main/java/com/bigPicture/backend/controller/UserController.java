@@ -3,7 +3,7 @@ package com.bigPicture.backend.controller;
 import com.bigPicture.backend.domain.User;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.response.UserBookInfoResponse;
-import com.bigPicture.backend.payload.response.UserBookResponse;
+import com.bigPicture.backend.payload.response.UserBooksResponse;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.CurrentUser;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/myPage/{userId}/list")
     public ResponseEntity<?> findAllUserBooks(@PathVariable Long userId) {
         List<UserBookInfoResponse> userBooks = userBookService.getAllUserBooks(userId);
-        UserBookResponse response = new UserBookResponse(userBooks);
+        UserBooksResponse response = new UserBooksResponse(userBooks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

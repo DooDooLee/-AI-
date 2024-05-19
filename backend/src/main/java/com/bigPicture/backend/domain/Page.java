@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Page {
@@ -28,5 +27,13 @@ public class Page {
 
     private Long pageNumber;
 
+    public void updateBook(Book book) {
+        this.book = book;
+    }
 
+    public Page(String image, String contents, Long pageNumber) {
+        this.image = image;
+        this.contents = contents;
+        this.pageNumber = pageNumber;
+    }
 }

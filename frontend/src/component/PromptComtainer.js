@@ -6,14 +6,21 @@ function PromptContainer() {
     const onChange = (event) => {
         setReferenceDegree(event.target.value);
     };
-
+    const [generatedImage, setGeneratedImage] = useState("");
+    const onClick = (event) => {
+        event.preventDefault();
+        /*
+        이미지 받아오기
+        */
+        setGeneratedImage();
+    };
     return (
         <div id="wrapper" className={styles.wrapper}>
             <div id="left" className={styles.left}>
-                <img alt="생성된 이미지" />
+                <img src={generatedImage} alt="생성된 이미지" />
             </div>
-            <div id="right" className={styles.right}>
-                <form>
+            <form id="right" className={styles.right}>
+                <div id="upperForm" className={styles.upperForm}>
                     <div id="prompt" className={styles.prompt}>
                         <input
                             type="text"
@@ -23,7 +30,6 @@ function PromptContainer() {
                     </div>
                     <div id="option" className={styles.option}>
                         <span>프롬프트 참조 정도</span>
-                        <br />
                         {referenceDegree}
                         <br />
                         <input
@@ -37,14 +43,28 @@ function PromptContainer() {
                         <span>시드 유지</span>
                         <input type="checkbox" />
                         <br />
-                        <button type="submit">이미지 생성</button>
+                        <button type="submit" onClick={onClick}>
+                            이미지 생성
+                        </button>
                     </div>
-                    <textarea placeholder="글 내용을 입력해주세요" />
-                </form>
+                </div>
+                <textarea placeholder="글 내용을 입력해주세요" />
+            </form>
+            <div id="buttonArea" className={styles.buttonArea}>
+                <div>
+                    <button id="tempSaveBtn" className={styles.tempSaveBtn}>
+                        임시 저장
+                    </button>
+                </div>
+                <div>
+                    <button id="righteBtn" className={styles.rightBtn}>
+                        다음 페이지
+                    </button>
+                    <button id="righteBtn" className={styles.rightBtn}>
+                        제작 완성
+                    </button>
+                </div>
             </div>
-            <button>임시 저장</button>
-            <button>다음 페이지</button>
-            <button>제작 완성</button>
         </div>
     );
 }

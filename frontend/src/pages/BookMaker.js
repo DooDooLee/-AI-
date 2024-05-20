@@ -7,16 +7,13 @@ function BookMaker() {
     return (
         <div id="wrapper" className={styles.wrapper}>
             <div>
-                <Header id="Header" className={styles.Header} />
+                <Header />
             </div>
             <div>
-                <LeftPanel id="LeftPanel" className={styles.LeftPanel} />
+                <LeftPanel />
             </div>
             <div>
-                <PromptContainer
-                    id="PromptContainer"
-                    className={styles.PromptContainer}
-                />
+                <PromptContainer />
             </div>
         </div>
     );

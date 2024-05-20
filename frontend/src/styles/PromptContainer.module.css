@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     flex-flow: row wrap;
-    width: 1450px;
+    width: 1408px;
 }
 
 .left {
@@ -11,41 +11,87 @@
     align-items: center;
 
     width: 700px;
-    height: 700px;
+    height: 600px;
 
     background-color: #fcf4e2;
     border-radius: 80px 0 0 80px;
     border: 2px solid #cdc4c4;
+    box-shadow: 5px 5px 5px 5px gainsboro;
 }
 
 .right {
     display: inline-flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     width: 700px;
-    height: 700px;
+    height: 600px;
 
     background-color: #fcf4e2;
     border-radius: 0 80px 80px 0;
     border: 2px solid #cdc4c4;
+    box-shadow: 5px 5px 5px 5px gainsboro;
     text-align: center;
 }
-
+.upperForm {
+    width: 650px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
 .prompt {
     display: inline-block;
 }
 .prompt input {
     width: 450px;
     height: 220px;
+    background-color: #f3e7ca;
+    border: 0px;
+    border-radius: 40px 40px 0 40px;
 }
 
 .option {
-    display: inline-block;
+    height: 220px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .right textarea {
-    width: 700px;
-    height: 400px;
+    width: 696px;
+    height: 300px;
     align-self: flex-end;
+
+    background-color: #f3e7ca;
+    border: 0px;
+    border-radius: 0px 0px 80px 0px;
+    resize: none;
+}
+
+.wrapper button {
+    display: inline-block;
+    background-color: #f3e7ca;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+
+    width: 110px;
+    height: 50px;
+    border: 0px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px gainsboro;
+}
+
+.wrapper button:hover {
+    background-color: #cdc4c4;
+}
+
+.buttonArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1400px;
+    height: 60px;
 }

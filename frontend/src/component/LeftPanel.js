@@ -9,36 +9,26 @@ function LeftPanel() {
     console.log(temporary_library_url);
     return (
         <div id="wrapper" className={styles.wrapper}>
-            <ul>
-                <li>
-                    <div>
-                        <img src={temporary_library_url} alt="임시서재" />
-                        <span>임시서재</span>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src={bookmaker_url} alt="새P-Book 만들기" />
-                        <span>
-                            새P-Book
-                            <br />
-                            만들기
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src={my_library_url} alt="나의서재" />
-                        <span>나의서재</span>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src={review_management_url} alt="서평관리" />
-                        <span>서평관리</span>
-                    </div>
-                </li>
-            </ul>
+            <div>
+                <img src={temporary_library_url} alt="임시서재" />
+                <span>임시서재</span>
+            </div>
+            <div>
+                <img src={bookmaker_url} alt="새P-Book 만들기" />
+                <span>
+                    새P-Book
+                    <br />
+                    만들기
+                </span>
+            </div>
+            <div>
+                <img src={my_library_url} alt="나의서재" />
+                <span>나의서재</span>
+            </div>
+            <div>
+                <img src={review_management_url} alt="서평관리" />
+                <span>서평관리</span>
+            </div>
         </div>
     );
 }

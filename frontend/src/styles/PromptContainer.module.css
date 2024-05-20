@@ -1,0 +1,51 @@
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    width: 1450px;
+}
+
+.left {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 700px;
+    height: 700px;
+
+    background-color: #fcf4e2;
+    border-radius: 80px 0 0 80px;
+    border: 2px solid #cdc4c4;
+}
+
+.right {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 700px;
+    height: 700px;
+
+    background-color: #fcf4e2;
+    border-radius: 0 80px 80px 0;
+    border: 2px solid #cdc4c4;
+    text-align: center;
+}
+
+.prompt {
+    display: inline-block;
+}
+.prompt input {
+    width: 450px;
+    height: 220px;
+}
+
+.option {
+    display: inline-block;
+}
+.right textarea {
+    width: 700px;
+    height: 400px;
+    align-self: flex-end;
+}

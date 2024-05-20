@@ -1,29 +1,22 @@
 .wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    justify-content: space-between;
+    align-items: center;
+
     width: 180px;
-    height: calc(100% - 120px);
-    min-height: 900px;
+    height: 100%;
+    min-height: 600px;
 
     border-right: 1px solid gainsboro;
 }
 
-.wrapper ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.wrapper ul li {
-    display: block;
-
-    list-style-type: none;
-}
-
-.wrapper li > div > img {
+.wrapper img {
     display: block;
 }
 
-.wrapper li > div > span {
+.wrapper span {
     display: block;
     text-align: center;
 }

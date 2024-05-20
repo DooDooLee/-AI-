@@ -28,11 +28,14 @@
 <table>
   <tr>
     <td align="center"><a href="https://github.com/SHSong99"><img src="https://avatars.githubusercontent.com/u/161740297?v=4" width="100px;" alt=""/>
-    <td align="center"><a href="https://github.com/DooDooLee"><img src="https://avatars.githubusercontent.com/u/161740297?v=4" width="100px;" alt=""/>
+    <td align="center"><a href="https://github.com/DooDooLee"><img src="https://avatars.githubusercontent.com/u/126196812?v=4" width="100px;" alt=""/>
+    <td align="center"><a href="https://github.com/regrevvv"><img src="https://avatars.githubusercontent.com/u/95934846?v=4" width="100px;" alt=""/>
   </tr>
     <tr>
-    <td align="center"><a href="https://github.com/SHSong99" title="Code">SHSong99</a></td>
+    <td align="center"><a href="https://github.com/SHSong99" title="Code">송성현</a></td>
     <td align="center"><a href="https://github.com/DooDooLee" title="Code">이승엽</a></td>
+    <td align="center"><a href="https://github.com/regrevvv" title="Code">송태근</a></td>
+   
   </tr>
 </table>
 </div>

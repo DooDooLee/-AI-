@@ -27,13 +27,9 @@
     display: inline-block;
     align-self: center;
     list-style-type: none;
-    font-size: 1.5em;
-    padding: 0px 10px;
+    font-size: 1.4em;
+    padding: 0px 8px;
     transition: text-shadow 0.5s;
-}
-
-.wrapper li:hover {
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 .left {
@@ -41,6 +37,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
+}
+
+.left li:hover {
+    color: #dda0dd;
 }
 
 .right {
@@ -48,4 +49,5 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    cursor: pointer;
 }

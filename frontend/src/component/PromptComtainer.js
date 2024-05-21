@@ -13,7 +13,6 @@ const PromptContainer = () => {
   const [seed, setSeed] = useState('');
 
   useEffect(() => {
-    // PromptContainer가 처음 렌더링될 때 초기 페이지 설정
     setPages([{ pageNumber: 0, image: '', content: '' }]);
     setCurrentIndex(0);
   }, []);
@@ -63,6 +62,13 @@ const PromptContainer = () => {
   };
 
   const handleNextPage = () => {
+    const currentPage = pages[currentIndex];
+    if (!currentPage.content & !currentPage.image) {
+      alert('글 내용이나 이미지를 입력해주세요.');
+      return; // 다음 페이지로 이동하지 않고 함수 종료
+    }
+
+    // 현재 페이지가 마지막 페이지인지 확인하고, 마지막 페이지가 아니라면 다음 페이지로 이동
     setPages((prevPages) => {
       const newPages = [...prevPages];
       if (currentIndex < prevPages.length - 1) {
@@ -123,7 +129,7 @@ const PromptContainer = () => {
             src={generatedImage}
             alt="생성된 이미지"
             style={{
-              maxWidth: '700px',
+              maxWidth: '750px',
               maxHeight: '550px',
               width: 'auto',
               height: 'auto',
@@ -131,7 +137,20 @@ const PromptContainer = () => {
             }}
           />
         )}
-        <span className={styles.pageNumber}>{currentIndex + 1}</span>
+        <span
+          style={{
+            position: 'absolute',
+            bottom: '20px',
+            right: '1340px',
+            color: 'black',
+            padding: '5px 10px',
+            borderRadius: '5px',
+            fontSize: '35px',
+            zIndex: 1,
+          }}
+        >
+          {currentIndex + 1}
+        </span>
       </div>
       <form id="right" className={styles.right}>
         <div id="upperForm" className={styles.upperForm}>

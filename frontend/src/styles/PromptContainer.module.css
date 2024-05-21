@@ -1,7 +1,9 @@
 .wrapper {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   width: 1408px;
+  position: relative;
+  top: -35px;
 }
 
 .left {
@@ -46,13 +48,18 @@
   display: inline-block;
 }
 .prompt input {
-  width: 450px;
-  height: 220px;
+  width: 440px;
+  height: 210px;
+  padding: 5px;
   background-color: #f3e7ca;
   border: 0px;
   border-radius: 40px 40px 0 40px;
+  font-size: 20px;
 }
-
+.prompt input::placeholder {
+  font-size: 18px;
+  text-align: center;
+}
 .option {
   height: 220px;
   display: inline-flex;
@@ -60,15 +67,39 @@
   justify-content: center;
   align-items: center;
 }
+
+.bookTitle {
+  margin-bottom: 75px;
+  width: 500px;
+  height: 200px;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f3e7ca;
+  border: 0px;
+}
+
+.bookTitle::placeholder {
+  text-align: center;
+}
+
 .right textarea {
-  width: 696px;
-  height: 300px;
+  width: 686px;
+  height: 290px;
+  padding: 5px;
   align-self: flex-end;
+
+  font-family: 'MarkoOne-Regular', 'NotoSans';
+  font-size: 18px;
 
   background-color: #f3e7ca;
   border: 0px;
   border-radius: 0px 0px 80px 0px;
   resize: none;
+}
+
+.right textarea::placeholder {
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .wrapper button {
@@ -89,6 +120,8 @@
 }
 
 .buttonArea {
+  position: absolute;
+  bottom: -70px;
   display: flex;
   justify-content: space-between;
   align-items: center;

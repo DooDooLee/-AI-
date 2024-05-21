@@ -6,7 +6,7 @@
     align-items: stretch;
 
     width: 180px;
-    height: calc(100vh - 180px);
+    height: 800px;
     min-height: 600px;
 
     border-right: 1px solid gainsboro;

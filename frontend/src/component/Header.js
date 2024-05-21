@@ -14,6 +14,11 @@ function Header() {
     window.location.href = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
   };
 
+  const handleLoginSuccess = (token) => {
+    sessionStorage.setItem('authToken', token);
+    fetchUserInfo(token);
+  };
+
   const fetchUserInfo = (token) => {
     fetch('http://localhost:8080/user/me', {
       method: 'GET',
@@ -31,9 +36,18 @@ function Header() {
   };
 
   useEffect(() => {
-    const token = sessionStorage.getItem('authToken');
+    // 현재 URL에서 토큰을 가져옴
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
     if (token) {
-      fetchUserInfo(token);
+      handleLoginSuccess(token);
+      // URL에서 토큰 제거
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const storedToken = sessionStorage.getItem('authToken');
+      if (storedToken) {
+        fetchUserInfo(storedToken);
+      }
     }
   }, []);
 

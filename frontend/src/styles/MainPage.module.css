@@ -1,10 +1,5 @@
-@font-face {
-    font-family: "MarkoOne-Regular";
-    src: url(../../public/public_assets/MarkoOne-Regular.ttf);
-}
-
 .wrapper {
-    font: normal 20px "MarkoOne-Regular", "Malgun Gothic";
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

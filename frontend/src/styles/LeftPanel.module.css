@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    justify-content: space-around;
+    align-items: stretch;
+
+    width: 180px;
+    height: calc(100vh - 180px);
+    min-height: 600px;
+
+    border-right: 1px solid gainsboro;
+}
+
+.wrapper img {
+    display: block;
+    margin: 0 auto;
+}
+
+.wrapper span {
+    display: block;
+    text-align: center;
+}

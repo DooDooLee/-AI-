@@ -84,10 +84,14 @@ const PromptContainer = () => {
 
   const handleNextPage = () => {
     if (currentIndex === -1) {
-      if (!title) {
-        alert('책 제목을 입력해주세요.');
+      if (!title || !generatedImage) {
+        // 표지 제작 시 제목과 이미지가 모두 필수
+        alert('표지를 생성하기 위해서는 제목과 이미지가 모두 필요합니다.');
         return;
       }
+      setCurrentIndex(0);
+
+      setGeneratedImage('');
       setCurrentIndex(0);
     } else {
       const currentPage = pages[currentIndex] || {};
@@ -154,7 +158,10 @@ const PromptContainer = () => {
         body: JSON.stringify({
           title: title || 'Your Book Title', // 책 제목 추가
           cover: coverImage || 'Cover Image URL', // 표지 이미지 추가
-          pages: validPages,
+          pages: validPages.map((page, index) => ({
+            ...page,
+            pageNumber: index + 1,
+          })), // 페이지 번호 추가,
         }),
       });
       if (response.ok) {
@@ -282,7 +289,7 @@ const PromptContainer = () => {
             className={styles.rightBtn}
             onClick={handleNextPage}
           >
-            다음 페이지
+            {currentIndex === -1 ? '표지 완성' : '다음 페이지'}
           </button>
           <button
             id="completeBtn"

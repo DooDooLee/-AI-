@@ -25,6 +25,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserBookService userBookService;
+    private final UserRepository userRepository;
 
     //마이페이지 책 목록 조회
     @GetMapping("/myPage/{userId}/list")
@@ -34,13 +35,13 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    //자신의 회원 정보를 리턴 (테스트용)
-//    @GetMapping("/user/me") //@CurrentUser : 프론트에서 주는 토큰을 가지고 객체를 만들어줌
-//    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-//
-//        return userRepository.findById(userPrincipal.getId())
-//                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-//    }
+    //자신의 회원 정보를 리턴
+    @GetMapping("/user/me") //@CurrentUser : 프론트에서 주는 토큰을 가지고 객체를 만들어줌
+    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+
+        return userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    }
 
     //userName 조회
     @GetMapping("/user/{userId}")

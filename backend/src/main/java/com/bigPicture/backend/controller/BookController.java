@@ -29,7 +29,7 @@ public class BookController {
     //책 열람
     @GetMapping("/book/{bookId}")
     public ResponseEntity<?> getBookDetails(@PathVariable Long bookId) {
-        BookResponse response = bookService.getBookDetails(bookId);
+        BookDetailResponse response = bookService.getBookDetails(bookId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

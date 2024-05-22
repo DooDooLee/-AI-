@@ -43,10 +43,10 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public BookResponse getBookDetails(Long bookId) {
+    public BookDetailResponse getBookDetails(Long bookId) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
-        return BookResponse.of(book);
+        return BookDetailResponse.of(book);
     }
 
     public List<BookInfoResponse> getAllBooks() {

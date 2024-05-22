@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/PromptContainer.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const PromptContainer = () => {
   const [referenceDegree, setReferenceDegree] = useState(0);
@@ -11,6 +12,7 @@ const PromptContainer = () => {
   ]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [seed, setSeed] = useState('');
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     setPages([{ pageNumber: 0, image: '', content: '' }]);
@@ -63,7 +65,7 @@ const PromptContainer = () => {
 
   const handleNextPage = () => {
     const currentPage = pages[currentIndex];
-    if (!currentPage.content & !currentPage.image) {
+    if (!currentPage.content && !currentPage.image) {
       alert('글 내용이나 이미지를 입력해주세요.');
       return; // 다음 페이지로 이동하지 않고 함수 종료
     }
@@ -97,6 +99,16 @@ const PromptContainer = () => {
 
   const handleCreateBook = async () => {
     const token = sessionStorage.getItem('authToken');
+
+    // 유효한 페이지만 필터링
+    const validPages = pages.filter((page) => page.image || page.content);
+
+    // 유효한 페이지가 하나도 없는 경우 알림
+    if (validPages.length === 0) {
+      alert('최소 한 페이지는 입력을 마쳐야 합니다.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8080/book/create', {
         method: 'POST',
@@ -107,11 +119,12 @@ const PromptContainer = () => {
         body: JSON.stringify({
           title: 'Your Book Title',
           cover: 'Cover Image URL',
-          pages: pages,
+          pages: validPages,
         }),
       });
       if (response.ok) {
-        console.log('Book created successfully');
+        alert('제작이 완료되었습니다.');
+        navigate('/');
       } else {
         console.error('Error creating book');
       }

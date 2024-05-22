@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.css';
 
 function Header() {
@@ -13,6 +13,35 @@ function Header() {
     const redirectUri = encodeURIComponent(window.location.href);
     window.location.href = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
   };
+
+  const handleLogout = () => {
+    // 세션 스토리지 비우기
+    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('userName');
+    // 사용자 이름 상태 업데이트
+    setUserName(null);
+    // 메인 페이지로 이동
+    navigate('/');
+  };
+
+  useEffect(() => {
+    // 현재 URL에서 토큰을 가져옴
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token) {
+      handleLoginSuccess(token);
+      // URL에서 토큰 제거
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const storedToken = sessionStorage.getItem('authToken');
+      const storedUserName = sessionStorage.getItem('userName');
+      if (!storedUserName && storedToken) {
+        fetchUserInfo(storedToken);
+      } else {
+        setUserName(storedUserName);
+      }
+    }
+  }, []);
 
   const handleLoginSuccess = (token) => {
     sessionStorage.setItem('authToken', token);
@@ -28,28 +57,13 @@ function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
+        sessionStorage.setItem('userName', data.name);
         setUserName(data.name);
       })
       .catch((error) =>
         console.error('사용자 정보를 가져오는 동안 에러 발생:', error)
       );
   };
-
-  useEffect(() => {
-    // 현재 URL에서 토큰을 가져옴
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    if (token) {
-      handleLoginSuccess(token);
-      // URL에서 토큰 제거
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else {
-      const storedToken = sessionStorage.getItem('authToken');
-      if (storedToken) {
-        fetchUserInfo(storedToken);
-      }
-    }
-  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -73,7 +87,12 @@ function Header() {
       <div className={styles.right}>
         <ul>
           {userName ? (
-            <li className={styles.userName}>{userName} 님</li>
+            <>
+              <li className={styles.userName}>{userName} 님</li>
+              <li className={styles.logoutButton} onClick={handleLogout}>
+                로그아웃
+              </li>
+            </>
           ) : (
             <li className={styles.loginButton} onClick={handleLogin}>
               로그인

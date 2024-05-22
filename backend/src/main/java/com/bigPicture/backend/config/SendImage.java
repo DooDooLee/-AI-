@@ -70,14 +70,13 @@ public class SendImage {
         json.addProperty("num_inference_steps", 51);
         json.addProperty("seed", seed);
         json.addProperty("guidance_scale", 7.5);
-        json.addProperty("safety_checker", "no");
+        json.addProperty("safety_checker", "yes");
         json.addProperty("multi_lingual", "no");
         json.addProperty("panorama", "yes");
         json.addProperty("self_attention", "yes");
         json.addProperty("upscale", 3);
         json.addProperty("embeddings_model", "no");
-        json.addProperty("enhance_prompt", "yes");
-        json.addProperty("enhance_style", "fantasy-art");
+        json.addProperty("enhance_prompt", "no");
         json.add("webhook", JsonNull.INSTANCE);
         json.add("track_id", JsonNull.INSTANCE);
 

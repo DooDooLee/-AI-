@@ -5,6 +5,7 @@ import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.response.UserBookInfoResponse;
 import com.bigPicture.backend.payload.response.UserBooksResponse;
 import com.bigPicture.backend.payload.response.UserNameResponse;
+import com.bigPicture.backend.payload.response.UserResponse;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.CurrentUser;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -37,10 +38,10 @@ public class UserController {
 
     //자신의 회원 정보를 리턴
     @GetMapping("/user/me") //@CurrentUser : 프론트에서 주는 토큰을 가지고 객체를 만들어줌
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<?> findUserDetail(@CurrentUser UserPrincipal userPrincipal) {
 
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+        UserResponse response = userService.getUserDetail(userPrincipal);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     //userName 조회

@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "MarkoOne-Regular";
+    src: url(../../public/public_assets/MarkoOne-Regular.ttf);
+}
+
+@font-face {
+    font-family: "NotoSans";
+    src: url(../../public/public_assets/NotoSansKR-VariableFont_wght.ttf);
+}
+
+body {
+    font-family: "MarkoOne-Regular", "NotoSans";
+    font-size: 20px;
+}

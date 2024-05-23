@@ -9,7 +9,7 @@ function BookViewer() {
             <div>
                 <Header />
             </div>
-            <div>
+            <div style={{ borderRight: "1px solid black" }}>
                 <LeftPanel />
             </div>
             <div>

@@ -1,0 +1,80 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    bottom: 30px;
+
+    border: 1px solid #cdc4c4;
+    background-color: #fcf4e2;
+    border-radius: 80px;
+}
+.left {
+    border-right: 2px solid #cdc4c4;
+    width: 600px;
+    height: 600px;
+    padding: 50px;
+}
+.imgArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3e7ca;
+    width: 600px;
+    height: 600px;
+    border-radius: 80px;
+}
+
+.right {
+    border-left: 2px solid #cdc4c4;
+    width: 600px;
+    height: 600px;
+    padding: 50px;
+}
+.right > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3e7ca;
+    width: 600px;
+    height: 600px;
+    border-radius: 80px;
+}
+
+.pageNumber {
+    position: absolute;
+    bottom: 20px;
+    left: 60px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.wrapper button {
+    background-color: #f3e7ca;
+    transition: background-color 0.3s;
+    margin: 10px;
+    font-size: 20px;
+    width: 150px;
+    height: 50px;
+    border: 1px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px gainsboro;
+}
+
+.wrapper button:hover {
+    background-color: #cdc4c4;
+}
+
+.leftButton {
+    position: absolute;
+    bottom: -70px;
+    left: 0px;
+}
+
+.rightButton {
+    position: absolute;
+    bottom: -70px;
+    right: 0px;
+}

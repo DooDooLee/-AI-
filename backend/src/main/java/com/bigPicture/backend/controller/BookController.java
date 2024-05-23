@@ -41,4 +41,24 @@ public class BookController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
+
+    // ex) page=1 을보내면  최신순으로 첫번째 에서 20번째까지 책 목록을 리스트로 반환함 , page=2 는 21번째부터 20개
+    @GetMapping("/book/list/recent")
+    public ResponseEntity<?> findAllUserBooks(@RequestParam int page) {
+        int size = 20; // 페이지 당 책의 수
+        List<BookInfoResponse> bookInfoResponses = bookService.getPaginatedBooks(page, size);
+        return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/book/delete/{bookId}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal) {
+        Long userId = userPrincipal.getId();
+        boolean isDeleted = bookService.deleteBookById(bookId, userId);
+        if (isDeleted) {
+            return ResponseEntity.ok("Book deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to delete this book");
+        }
+    }
 }

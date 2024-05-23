@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,4 +55,28 @@ public class BookService {
         return BooksResponse.of(books); //응답 데이터를 던져야 함으로 DTO 로 변환
     }
 
+
+    // 페이지네이션된 책 리스트 가져오기
+    public List<BookInfoResponse> getPaginatedBooks(int page, int size) {
+        int offset = (page - 1) * size;
+        List<Book> books = bookRepository.findAllByOrderByIdDesc()
+                .stream()
+                .skip(offset)
+                .limit(size)
+                .collect(Collectors.toList());
+        return BooksResponse.of(books);
+    }
+
+    @Transactional
+    public boolean deleteBookById(Long bookId, Long userId) {
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            if (book.getUser().getId().equals(userId)) {
+                bookRepository.delete(book);
+                return true;
+            }
+        }
+        return false;
+    }
 }

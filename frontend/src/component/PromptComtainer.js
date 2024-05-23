@@ -3,7 +3,7 @@ import styles from '../styles/PromptContainer.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const PromptContainer = () => {
-  const [referenceDegree, setReferenceDegree] = useState(0);
+  const [referenceDegree, setReferenceDegree] = useState(1);
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [generatedImage, setGeneratedImage] = useState('');
@@ -13,6 +13,15 @@ const PromptContainer = () => {
   const [title, setTitle] = useState(''); // 책 제목 상태 추가
   const [coverImage, setCoverImage] = useState(''); // 책 표지 이미지 상태 추가
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCurrentIndex(-1);
+    const token = sessionStorage.getItem('authToken');
+    if (!token) {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     setCurrentIndex(-1); // 처음에는 제목 입력을 받기 위해 -1로 설정
@@ -228,7 +237,7 @@ const PromptContainer = () => {
             <br />
             <input
               type="range"
-              min={0}
+              min={1}
               max={20}
               value={referenceDegree}
               onChange={(e) => setReferenceDegree(e.target.value)}

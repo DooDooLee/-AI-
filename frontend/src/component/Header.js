@@ -89,7 +89,7 @@ function Header() {
           {userName ? (
             <>
               <li className={styles.userName}>{userName} 님</li>
-              <li className={styles.logoutButton} onClick={handleLogout}>
+              <li className={styles.loginButton} onClick={handleLogout}>
                 로그아웃
               </li>
             </>

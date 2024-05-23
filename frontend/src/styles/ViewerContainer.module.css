@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    border: 1px solid #cdc4c4;
+    background-color: #fcf4e2;
+    border-radius: 80px;
+}
+.left {
+    border-right: 2px solid #cdc4c4;
+    width: 600px;
+    height: 600px;
+    padding: 20px 50px 20px;
+}
+
+.right {
+    border-left: 2px solid #cdc4c4;
+    width: 600px;
+    height: 600px;
+    padding: 20px 50px 20px;
+}
+
+.wrapper button {
+    width: 150px;
+    margin-top: 9px;
+    font-size: 20px;
+}

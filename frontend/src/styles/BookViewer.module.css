@@ -3,7 +3,7 @@
 
     display: grid;
     grid-template-rows: 121px 800px;
-    grid-template-columns: 181px minmax(1600px, calc(100% - 120px));
+    grid-template-columns: 181px minmax(1600px, calc(100% - 181px));
     justify-items: stretch;
     align-items: center;
 }

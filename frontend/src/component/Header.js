@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import styles from '../styles/Header.module.css';
 
 function Header() {
@@ -15,9 +16,9 @@ function Header() {
   };
 
   const handleLogout = () => {
-    // 세션 스토리지 비우기
-    sessionStorage.removeItem('authToken');
-    sessionStorage.removeItem('userName');
+    // 쿠키 비우기
+    Cookies.remove('authToken');
+    Cookies.remove('userName');
     // 사용자 이름 상태 업데이트
     setUserName(null);
     // 메인 페이지로 이동
@@ -33,8 +34,8 @@ function Header() {
       // URL에서 토큰 제거
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
-      const storedToken = sessionStorage.getItem('authToken');
-      const storedUserName = sessionStorage.getItem('userName');
+      const storedToken = Cookies.get('authToken');
+      const storedUserName = Cookies.get('userName');
       if (!storedUserName && storedToken) {
         fetchUserInfo(storedToken);
       } else {
@@ -44,7 +45,7 @@ function Header() {
   }, []);
 
   const handleLoginSuccess = (token) => {
-    sessionStorage.setItem('authToken', token);
+    Cookies.set('authToken', token, { expires: 7 }); // 쿠키에 7일간 저장
     fetchUserInfo(token);
   };
 
@@ -57,7 +58,7 @@ function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        sessionStorage.setItem('userName', data.name);
+        Cookies.set('userName', data.name, { expires: 7 });
         setUserName(data.name);
       })
       .catch((error) =>

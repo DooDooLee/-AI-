@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/PromptContainer.module.css';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const PromptContainer = () => {
   const [referenceDegree, setReferenceDegree] = useState(1);
@@ -16,7 +17,7 @@ const PromptContainer = () => {
 
   useEffect(() => {
     setCurrentIndex(-1);
-    const token = sessionStorage.getItem('authToken');
+    const token = Cookies.get('authToken'); // 쿠키에서 토큰 불러오기
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');
@@ -30,7 +31,7 @@ const PromptContainer = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem('authToken');
+      const token = Cookies.get('authToken');
       const response = await fetch('http://localhost:8080/image', {
         method: 'POST',
         headers: {
@@ -146,7 +147,7 @@ const PromptContainer = () => {
   };
 
   const handleCreateBook = async () => {
-    const token = sessionStorage.getItem('authToken');
+    const token = Cookies.get('authToken');
 
     // 유효한 페이지만 필터링
     const validPages = pages.filter((page) => page.image || page.content);

@@ -57,7 +57,7 @@ public class BookService {
 
 
     // 페이지네이션된 책 리스트 가져오기
-    public List<BookInfoResponse> getPaginatedBooks(int page, int size) {
+    public List<BookInfoResponse> getRecentPaginatedBooks(int page, int size) {
         int offset = (page - 1) * size;
         List<Book> books = bookRepository.findAllByOrderByIdDesc()
                 .stream()
@@ -67,6 +67,15 @@ public class BookService {
         return BooksResponse.of(books);
     }
 
+    public List<BookInfoResponse> getOldPaginatedBooks(int page, int size) {
+        int offset = (page - 1) * size;
+        List<Book> books = bookRepository.findAllByOrderByIdAsc()
+                .stream()
+                .skip(offset)
+                .limit(size)
+                .collect(Collectors.toList());
+        return BooksResponse.of(books);
+    }
     @Transactional
     public boolean deleteBookById(Long bookId, Long userId) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);

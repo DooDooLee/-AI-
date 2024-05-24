@@ -1,35 +1,40 @@
 .wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    align-self: stretch;
 
-  font-size: 14px;
-  font-weight: 600;
+    font-size: 14px;
+    font-weight: 600;
 
-  height: 120px;
-  width: 1320px;
-  min-width: fit-content;
-  margin: 0 auto;
-  padding: 0 calc((100% - 1320px) / 2);
+    height: 120px;
+    width: 1320px;
+    min-width: fit-content;
+    margin: 0 auto;
+    padding: 0 calc((100% - 1320px) / 2);
 
-  border-bottom: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
 }
 
 .wrapper ul {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .wrapper ul li {
     display: inline-block;
     align-self: center;
     list-style-type: none;
-    font-size: 1.4em;
-    padding: 0px 8px;
+    font-size: 1.5em;
+    color: black;
+    padding: 0px 10px;
     transition: text-shadow 0.5s;
+}
+
+.wrapper li:hover {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 .left {
@@ -50,4 +55,13 @@
     align-items: center;
     justify-content: flex-end;
     cursor: pointer;
+}
+
+
+.listItem {
+    cursor: pointer; /* 클릭 가능한 커서 스타일로 설정 */
+}
+
+.loginButton {
+    cursor: pointer; /* 클릭 가능한 커서 스타일로 설정 */
 }

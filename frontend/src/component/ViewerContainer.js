@@ -2,10 +2,9 @@ import { useState } from "react";
 
 import styles from "../styles/ViewerContainer.module.css";
 
-function BookViewer() {
-    /*
-     */
+function BookViewer({ setShowingCover }) {
     const [currentPage, setCurrentPage] = useState({
+        //현재 페이지 정보
         image: "",
         content: "",
         pageNumber: 0,

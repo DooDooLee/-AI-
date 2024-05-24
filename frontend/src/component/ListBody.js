@@ -7,13 +7,13 @@ import Cookies from 'js-cookie';
 function ListBody() {
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState('recent'); // 초기 정렬 기준을 'recent'로 설정
   const loader = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBooks(page);
-  }, [page]);
+    fetchBooks(page, sortOrder);
+  }, [page, sortOrder]);
 
   useEffect(() => {
     const options = {
@@ -23,7 +23,7 @@ function ListBody() {
     };
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !loading) {
+      if (entry.isIntersecting) {
         setPage((prevPage) => prevPage + 1);
       }
     }, options);
@@ -37,31 +37,41 @@ function ListBody() {
         observer.unobserve(loader.current);
       }
     };
-  }, [loader, loading]);
+  }, [loader]);
 
-  const fetchBooks = async (page) => {
-    setLoading(true);
+  const fetchBooks = async (page, sortOrder) => {
     try {
       const token = Cookies.get('authToken');
-      const response = await axios.get(
-        `http://localhost:8080/book/list/recent?page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let url;
+      if (sortOrder === 'recent') {
+        url = `http://localhost:8080/book/list/recent?page=${page}`;
+      } else if (sortOrder === 'old') {
+        url = `http://localhost:8080/book/list/old?page=${page}`;
+      } else if (sortOrder === 'popular') {
+        url = `http://localhost:8080/book/list/popular?page=${page}`;
+      }
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const formattedBooks = response.data.map((book) => ({
         ...book,
         bookLike: book.bookLike ?? 0, // Default to 0 if bookLike is null or undefined
         createdAt: book.createdAt.split('T')[0], // Extract date part
       }));
-      setBooks((prevBooks) => [...prevBooks, ...formattedBooks]);
-      setLoading(false);
+      setBooks((prevBooks) =>
+        page === 1 ? formattedBooks : [...prevBooks, ...formattedBooks]
+      );
     } catch (error) {
       console.error('Error fetching books:', error);
-      setLoading(false);
     }
+  };
+
+  const handleSortChange = (newSortOrder) => {
+    setSortOrder(newSortOrder);
+    setPage(1); // 페이지를 1로 초기화
+    setBooks([]); // 기존 책 목록 초기화
   };
 
   const handleBookClick = (bookId) => {
@@ -80,15 +90,27 @@ function ListBody() {
       </div>
       <div className={styles.sortButtons}>
         <button
-          className={`${styles.sortButton} ${styles.activeButton}`}
-          disabled
+          className={`${styles.sortButton} ${
+            sortOrder === 'recent' ? styles.activeButton : ''
+          }`}
+          onClick={() => handleSortChange('recent')}
         >
           최신순
         </button>
-        <button className={styles.sortButton} disabled>
+        <button
+          className={`${styles.sortButton} ${
+            sortOrder === 'old' ? styles.activeButton : ''
+          }`}
+          onClick={() => handleSortChange('old')}
+        >
           오래된순
         </button>
-        <button className={styles.sortButton} disabled>
+        <button
+          className={`${styles.sortButton} ${
+            sortOrder === 'popular' ? styles.activeButton : ''
+          }`}
+          onClick={() => handleSortChange('popular')}
+        >
           인기순
         </button>
       </div>
@@ -97,14 +119,13 @@ function ListBody() {
           {books.map((book, index) => (
             <React.Fragment key={book.bookId}>
               {index > 0 && <hr className={styles.separator} />}
-              <div
-                className={styles.bookItem}
-                onClick={() => handleBookClick(book.bookId)}
-              >
+              <div className={styles.bookItem}>
                 <img
                   src={book.cover}
                   alt={book.title}
                   className={styles.bookCover}
+                  onClick={() => handleBookClick(book.bookId)}
+                  style={{ cursor: 'pointer' }} // Add this line to change cursor to pointer
                 />
                 <div className={styles.bookDetails}>
                   <h3>{book.title}</h3>
@@ -119,9 +140,7 @@ function ListBody() {
             </React.Fragment>
           ))}
         </div>
-        <div ref={loader} className={styles.loader}>
-          {loading && <p>Loading...</p>}
-        </div>
+        <div ref={loader} className={styles.loader} />
       </div>
     </div>
   );

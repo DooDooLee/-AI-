@@ -41,12 +41,16 @@ const PromptContainer = () => {
         body: JSON.stringify({ prompt: prompt, seed: seed || undefined }),
       });
       const data = await response.json();
+
+      // 시드 값을 확인하여 문자열로 변환 가능 여부를 체크합니다.
+      const seedString = data.seed ? data.seed.toString() : '';
+
       setTimeout(() => {
         setGeneratedImage(data.imageUrl);
         setLoading(false);
 
         // 시드 값을 입력 폼에 설정
-        setSeed(data.seed.toString());
+        setSeed(seedString);
 
         if (currentIndex === -1) {
           // 첫 번째 입력이면 표지 이미지 설정
@@ -58,7 +62,7 @@ const PromptContainer = () => {
             newPages[currentIndex] = {
               ...newPages[currentIndex],
               image: data.imageUrl,
-              seed: data.seed,
+              seed: seedString,
             };
             console.log('Updated Pages:', newPages); // 페이지 배열 로그 출력
             return newPages;
@@ -67,6 +71,7 @@ const PromptContainer = () => {
       }, 3000);
     } catch (error) {
       console.error('Error:', error);
+      alert('이미지를 다시 생성해주세요.');
       setLoading(false);
     }
   };

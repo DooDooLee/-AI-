@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDetailResponse {
-    private String email;
+    private String name;
     private Long bookId;
     private String title;
     private String cover;
@@ -23,7 +23,7 @@ public class BookDetailResponse {
 
     public static BookDetailResponse of(Book book) {
         return new BookDetailResponse(
-                book.getUser().getEmail(),
+                book.getUser().getName(),
                 book.getId(),
                 book.getTitle(),
                 book.getCover(),

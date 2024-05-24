@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 function LeftPanel() {
   const navigate = useNavigate();
 
-  const image_url = './public_assets';
+  const image_url = process.env.PUBLIC_URL + '/public_assets';
   const temporary_library_url = image_url + '/temporary_library.svg';
   const bookmaker_url = image_url + '/bookmaker.svg';
   const my_library_url = image_url + '/my_library.svg';
   const review_management_url = image_url + '/review_management.svg';
+
   console.log(temporary_library_url);
   return (
     <div id="wrapper" className={styles.wrapper}>

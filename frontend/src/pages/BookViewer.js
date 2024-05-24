@@ -25,6 +25,7 @@ function BookViewer() {
             </div>
         </div>
     );
+
 }
 
 export default BookViewer;

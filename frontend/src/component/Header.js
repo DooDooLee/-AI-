@@ -4,9 +4,9 @@ import Cookies from 'js-cookie';
 import styles from '../styles/Header.module.css';
 
 function Header() {
-  const logo_uri = './public_assets/logo.svg';
-  const search_uri = './public_assets/search.svg';
-  const menu_uri = './public_assets/menu.svg';
+  const logo_uri = process.env.PUBLIC_URL + '/public_assets/logo.svg';
+  const search_uri = process.env.PUBLIC_URL + '/public_assets/search.svg';
+  const menu_uri = process.env.PUBLIC_URL + '/public_assets/menu.svg';
   const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
 

@@ -42,6 +42,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
+}
+
+.left li:hover {
+    color: #dda0dd;
 }
 
 .right {
@@ -49,7 +54,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    cursor: pointer;
 }
+
 
 .listItem {
     cursor: pointer; /* 클릭 가능한 커서 스타일로 설정 */

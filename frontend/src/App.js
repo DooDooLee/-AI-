@@ -17,6 +17,7 @@ function App() {
       <Route path="/" element={<MainPage />} />
       <Route path="/BookMaker" element={<BookMaker />} />
       <Route path="/BookViewer" element={<BookViewer />} />
+       <Route path="/2" element={<ListPage />} />
     </Routes>
   );
 }

@@ -4,11 +4,18 @@ import Cookies from 'js-cookie';
 import styles from '../styles/Header.module.css';
 
 function Header() {
+  const navigate = useNavigate();
+
   const logo_uri = './public_assets/logo.svg';
   const search_uri = './public_assets/search.svg';
   const menu_uri = './public_assets/menu.svg';
   const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
+
+
+  const handleLibraryClick = () => {
+    navigate('/2');
+};
 
   const handleLogin = () => {
     const redirectUri = encodeURIComponent(window.location.href);
@@ -16,12 +23,12 @@ function Header() {
   };
 
   const handleLogout = () => {
-    // 쿠키 비우기
+
     Cookies.remove('authToken');
     Cookies.remove('userName');
-    // 사용자 이름 상태 업데이트
+ 
     setUserName(null);
-    // 메인 페이지로 이동
+ 
     navigate('/');
   };
 
@@ -29,7 +36,7 @@ function Header() {
     // 현재 URL에서 토큰을 가져옴
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    if (token) {
+    if (token) {  
       handleLoginSuccess(token);
       // URL에서 토큰 제거
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -74,13 +81,14 @@ function Header() {
         </Link>
         <div>
           <ul>
+
             <li
               className={styles.listItem}
               onClick={() => navigate('/BookMaker')}
             >
               책 만들기
             </li>
-            <li className={styles.listItem}>P-Book 도서관</li>
+            <li className={styles.listItem} onClick={handleLibraryClick}>P-Book 도서관</li>
             <li className={styles.listItem}>커뮤니티</li>
           </ul>
         </div>

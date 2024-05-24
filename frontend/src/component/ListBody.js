@@ -1,63 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/ListPage.module.css';
-
-const booksData = [
-  {
-    id: 1,
-    title: 'Book One',
-    description: 'Description for Book One',
-    cover: 'https://via.placeholder.com/100',
-    date: '2024-01-01',
-    popularity: 5,
-  },
-  {
-    id: 2,
-    title: 'Book Two',
-    description: 'Description for Book Two',
-    cover: 'https://via.placeholder.com/100',
-    date: '2024-05-15',
-    popularity: 8,
-  },
-  {
-    id: 3,
-    title: 'Book Three',
-    description: 'Description for Book Three',
-    cover: 'https://via.placeholder.com/100',
-    date: '2024-08-20',
-    popularity: 8,
-  },
-  // 책 데이터 추가
-];
+import Cookies from 'js-cookie';
 
 function ListBody() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortType, setSortType] = useState('latest');
+  const [books, setBooks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const loader = useRef(null);
+  const navigate = useNavigate();
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  useEffect(() => {
+    fetchBooks(page);
+  }, [page]);
 
-  const handleSort = (type) => {
-    setSortType(type);
-  };
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 1.0,
+    };
 
-  const filteredBooks = booksData
-    .filter(
-      (book) =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortType === 'latest') {
-        return new Date(b.date) - new Date(a.date);
-      } else if (sortType === 'oldest') {
-        return new Date(a.date) - new Date(b.date);
-      } else if (sortType === 'popular') {
-        return b.popularity - a.popularity;
-      } else {
-        return 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !loading) {
+        setPage((prevPage) => prevPage + 1);
       }
-    });
+    }, options);
+
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+
+    return () => {
+      if (loader.current) {
+        observer.unobserve(loader.current);
+      }
+    };
+  }, [loader, loading]);
+
+  const fetchBooks = async (page) => {
+    setLoading(true);
+    try {
+      const token = Cookies.get('authToken');
+      const response = await axios.get(
+        `http://localhost:8080/book/list/recent?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const formattedBooks = response.data.map((book) => ({
+        ...book,
+        bookLike: book.bookLike ?? 0, // Default to 0 if bookLike is null or undefined
+        createdAt: book.createdAt.split('T')[0], // Extract date part
+      }));
+      setBooks((prevBooks) => [...prevBooks, ...formattedBooks]);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      setLoading(false);
+    }
+  };
+
+  const handleBookClick = (bookId) => {
+    navigate(`/BookViewer/${bookId}`);
+  };
 
   return (
     <div className={styles.listBody}>
@@ -65,57 +74,54 @@ function ListBody() {
         <input
           type="text"
           placeholder="도서명, 저자명으로 검색 가능"
-          value={searchTerm}
-          onChange={handleSearch}
           className={styles.searchInput}
+          disabled
         />
       </div>
       <div className={styles.sortButtons}>
         <button
-          className={`${styles.sortButton} ${
-            sortType === 'latest' ? styles.activeButton : ''
-          }`}
-          onClick={() => handleSort('latest')}
+          className={`${styles.sortButton} ${styles.activeButton}`}
+          disabled
         >
           최신순
         </button>
-        <button
-          className={`${styles.sortButton} ${
-            sortType === 'oldest' ? styles.activeButton : ''
-          }`}
-          onClick={() => handleSort('oldest')}
-        >
+        <button className={styles.sortButton} disabled>
           오래된순
         </button>
-        <button
-          className={`${styles.sortButton} ${
-            sortType === 'popular' ? styles.activeButton : ''
-          }`}
-          onClick={() => handleSort('popular')}
-        >
+        <button className={styles.sortButton} disabled>
           인기순
         </button>
       </div>
-      <div className={styles.bookList}>
-        {filteredBooks.map((book, index) => (
-          <React.Fragment key={book.id}>
-            {index > 0 && <hr className={styles.separator} />}
-            <div className={styles.bookItem}>
-              <img
-                src={book.cover}
-                alt={book.title}
-                className={styles.bookCover}
-              />
-              <div className={styles.bookDetails}>
-                <h3>{book.title}</h3>
-                <p>{book.description}</p>
+      <div className={styles.bookListContainer}>
+        <div className={styles.bookList}>
+          {books.map((book, index) => (
+            <React.Fragment key={book.bookId}>
+              {index > 0 && <hr className={styles.separator} />}
+              <div
+                className={styles.bookItem}
+                onClick={() => handleBookClick(book.bookId)}
+              >
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  className={styles.bookCover}
+                />
+                <div className={styles.bookDetails}>
+                  <h3>{book.title}</h3>
+                  <p>저자: {book.name}</p>
+                  <p>좋아요: {book.bookLike}개</p>
+                  <p>출판일: {book.createdAt}</p>
+                </div>
               </div>
-            </div>
-            {index === filteredBooks.length - 1 && (
-              <hr className={styles.separator} />
-            )}
-          </React.Fragment>
-        ))}
+              {index === books.length - 1 && (
+                <hr className={styles.separator} />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+        <div ref={loader} className={styles.loader}>
+          {loading && <p>Loading...</p>}
+        </div>
       </div>
     </div>
   );

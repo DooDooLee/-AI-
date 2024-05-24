@@ -24,6 +24,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/BookMaker" element={<BookMaker />} />
           <Route path="/BookViewer" element={<BookViewer />} />
+          <Route path="/BookViewer/:id" element={<BookViewer />} />
           <Route path="/ListPage" element={<ListPage />} />
         </Routes>
       </CSSTransition>

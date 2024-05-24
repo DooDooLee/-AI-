@@ -1,117 +1,117 @@
 @font-face {
-    font-family: "MarkoOne-Regular";
-    src: url(../../public/public_assets/MarkoOne-Regular.ttf);
+  font-family: 'MarkoOne-Regular';
+  src: url(../../public/public_assets/MarkoOne-Regular.ttf);
 }
 
 .wrapper {
-    font: normal 20px "MarkoOne-Regular", "Malgun Gothic";
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font: normal 20px 'MarkoOne-Regular', 'Malgun Gothic';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .wrapper h3 {
-    color: #702828;
-    align-self: flex-start;
+  color: #702828;
+  align-self: flex-start;
 }
 
 .listBody {
-    position: absolute;
-    width: 1067px;
-    height: auto;
-    left: calc(50% - 1067px/2 - 16.5px);
-    top: 200px;
-    border-radius: 20px;
-    background-color: #FFFFFF;
-    padding: 20px;
-    box-sizing: border-box;
+  position: absolute;
+  width: 1067px;
+  height: auto;
+  left: calc(50% - 1067px / 2 - 16.5px);
+  top: 200px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .searchBar {
-    box-sizing: border-box;
-    width: 1043px;
-    height: 55px;
-    background: #FFFFFF;
-    border: 1px solid #000000;
-    margin-bottom: 20px;
+  box-sizing: border-box;
+  width: 1043px;
+  height: 55px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  margin-bottom: 20px;
 }
 
 .searchInput {
-    width: 100%;
-    height: 100%;
-    border: none;
-    padding: 10px;
-    font-size: 20px;
-    box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  box-sizing: border-box;
 }
 
 .sortButtons {
-    width: 399px;
-    height: 55px;
-    margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
+  width: 399px;
+  height: 55px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
 }
 
 .sortButton {
-    width: 95px;
-    height: 39px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background: #FFFFFF;
-    color: #000000;
-    font-size: 20px;
+  width: 95px;
+  height: 39px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #ffffff;
+  color: #000000;
+  font-size: 20px;
 }
 
 .sortButton.activeButton {
-    background: #000000;
-    color: #FFFFFF;
-    font-size: 20px;
+  background: #000000;
+  color: #ffffff;
+  font-size: 20px;
 }
 
 .bookList {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bookItem {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bookCover {
-    width: 231px;
-    height: 289px;
-    margin-right: 20px;
-    background: #FCF4E2;
+  width: 231px;
+  height: 289px;
+  margin-right: 20px;
+  background: #fcf4e2;
 }
 
 .bookDetails {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    flex-grow: 1;
-    font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-grow: 1;
+  font-size: 20px;
 }
 
 .bookDetails h3 {
-    margin: 0 0 10px;
+  margin: 0 0 10px;
 }
 
 .bookDetails p {
-    margin: 0;
+  margin: 0;
 }
 
 .separator {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #ddd; /* 경계선의 두께를 1px로 설정 */
-    margin: 0;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ddd; /* 경계선의 두께를 1px로 설정 */
+  margin: 0;
 }

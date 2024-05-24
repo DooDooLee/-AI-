@@ -249,7 +249,7 @@ const PromptContainer = () => {
               type="text"
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
-              placeholder="시드 값을 입력해 주세요"
+              placeholder="입력하지 않으면 랜덤생성"
             />
             <br />
             <button type="button" onClick={handleSubmit} disabled={loading}>

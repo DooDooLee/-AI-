@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage.js';
 import BookMaker from './pages/BookMaker.js';
 import BookViewer from './pages/BookViewer.js';
+import ListPage from './pages/ListPage.js';
 
 function App() {
   useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
       <Route path="/" element={<MainPage />} />
       <Route path="/BookMaker" element={<BookMaker />} />
       <Route path="/BookViewer" element={<BookViewer />} />
-       <Route path="/2" element={<ListPage />} />
+      <Route path="/ListPage" element={<ListPage />} />
     </Routes>
   );
 }

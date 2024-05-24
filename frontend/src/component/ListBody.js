@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 function ListBody() {
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState('recent'); // 초기 정렬 기준을 'recent'로 설정
+  const [sortOrder, setSortOrder] = useState('recent');
   const loader = useRef(null);
   const navigate = useNavigate();
 
@@ -22,11 +22,7 @@ function ListBody() {
       threshold: 1.0,
     };
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }, options);
+    const observer = new IntersectionObserver(handleObserver, options);
 
     if (loader.current) {
       observer.observe(loader.current);
@@ -38,6 +34,13 @@ function ListBody() {
       }
     };
   }, [loader]);
+
+  const handleObserver = (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   const fetchBooks = async (page, sortOrder) => {
     try {
@@ -57,12 +60,10 @@ function ListBody() {
       });
       const formattedBooks = response.data.map((book) => ({
         ...book,
-        bookLike: book.bookLike ?? 0, // Default to 0 if bookLike is null or undefined
-        createdAt: book.createdAt.split('T')[0], // Extract date part
+        bookLike: book.bookLike ?? 0,
+        createdAt: book.createdAt.split('T')[0],
       }));
-      setBooks((prevBooks) =>
-        page === 1 ? formattedBooks : [...prevBooks, ...formattedBooks]
-      );
+      setBooks((prevBooks) => [...prevBooks, ...formattedBooks]);
     } catch (error) {
       console.error('Error fetching books:', error);
     }
@@ -70,12 +71,23 @@ function ListBody() {
 
   const handleSortChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
-    setPage(1); // 페이지를 1로 초기화
-    setBooks([]); // 기존 책 목록 초기화
+    setPage(1);
+    setBooks([]);
   };
 
   const handleBookClick = (bookId) => {
     navigate(`/BookViewer/${bookId}`);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -125,7 +137,7 @@ function ListBody() {
                   alt={book.title}
                   className={styles.bookCover}
                   onClick={() => handleBookClick(book.bookId)}
-                  style={{ cursor: 'pointer' }} // Add this line to change cursor to pointer
+                  style={{ cursor: 'pointer' }}
                 />
                 <div className={styles.bookDetails}>
                   <h3>{book.title}</h3>
@@ -141,6 +153,14 @@ function ListBody() {
           ))}
         </div>
         <div ref={loader} className={styles.loader} />
+      </div>
+      <div className={styles.scrollButtons}>
+        <button onClick={scrollToTop} className={styles.scrollButton}>
+          ↑
+        </button>
+        <button onClick={scrollToBottom} className={styles.scrollButton}>
+          ↓
+        </button>
       </div>
     </div>
   );

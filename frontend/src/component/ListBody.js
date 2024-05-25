@@ -148,7 +148,11 @@ function ListBody() {
 
                 <div className={styles.bookDetails}>
                   <h3>{book.title}</h3>
-                  <p>저자: {book.name}</p>
+                  <p style={{ marginBottom: '5px' }}>
+                    저자:{' '}
+                    <span style={{ fontWeight: 'bold' }}>{book.userName}</span>{' '}
+                    ({book.userEmail})
+                  </p>
                   <p>좋아요: {book.bookLike}개</p>
                   <p>출판일: {book.createdAt}</p>
                 </div>

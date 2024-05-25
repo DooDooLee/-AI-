@@ -1,3 +1,4 @@
+// BookViewer.js
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Header from '../component/Header';
@@ -7,12 +8,17 @@ import styles from '../styles/BookViewer.module.css';
 import BookCoverContainer from '../component/BookCoverContainer';
 
 function BookViewer() {
-  const { id } = useParams();
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
   const coverUrl = queryParams.get('coverUrl');
   const title = queryParams.get('title');
+  const bookId = queryParams.get('bookId');
+
+  // 디버그용 로그 추가
+  console.log('Book ID:', bookId);
+  console.log('Cover URL:', coverUrl);
+  console.log('Title:', title);
 
   const [showingCover, setShowingCover] = useState(true);
 
@@ -32,7 +38,7 @@ function BookViewer() {
             title={title}
           />
         ) : (
-          <ViewerContainer setShowingCover={setShowingCover} />
+          <ViewerContainer setShowingCover={setShowingCover} bookId={bookId} />
         )}
       </div>
     </div>

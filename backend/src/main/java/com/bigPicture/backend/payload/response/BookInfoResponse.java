@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 public class BookInfoResponse {
 
     //목록 보기용임으로 페이지는 응답X
-    private String name;
+    private Long userId;
+    private String userName;
+    private String userEmail;
     private Long bookId;
     private String title;
     private String cover;
@@ -23,7 +25,9 @@ public class BookInfoResponse {
 
     public static BookInfoResponse of(Book book) {
         return new BookInfoResponse(
+                book.getUser().getId(),
                 book.getUser().getName(),
+                book.getUser().getEmail(),
                 book.getId(),
                 book.getTitle(),
                 book.getCover(),

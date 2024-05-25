@@ -5,6 +5,7 @@ import com.bigPicture.backend.payload.PageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +14,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookDetailResponse {
-    private String name;
+
+    private Long userId;
+    private String userName;
+    private String userEmail;
     private Long bookId;
     private String title;
     private String cover;
@@ -23,7 +27,9 @@ public class BookDetailResponse {
 
     public static BookDetailResponse of(Book book) {
         return new BookDetailResponse(
+                book.getUser().getId(),
                 book.getUser().getName(),
+                book.getUser().getEmail(),
                 book.getId(),
                 book.getTitle(),
                 book.getCover(),

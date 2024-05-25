@@ -2,7 +2,6 @@ package com.bigPicture.backend.service;
 
 import com.bigPicture.backend.domain.User;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
-import com.bigPicture.backend.payload.response.UserNameResponse;
 import com.bigPicture.backend.payload.response.UserResponse;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -23,10 +22,5 @@ public class UserService {
         return UserResponse.of(user);
     }
 
-    //유저 이름 조회
-    public UserNameResponse getUserName(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return UserNameResponse.of(user);
-    }
+
 }

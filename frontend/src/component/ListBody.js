@@ -75,8 +75,12 @@ function ListBody() {
     setBooks([]);
   };
 
-  const handleBookClick = (bookId) => {
-    navigate(`/BookViewer/${bookId}`);
+  const handleBookClick = (bookId, coverUrl, title) => {
+    const encodedCoverUrl = encodeURIComponent(coverUrl);
+    const encodedTitle = encodeURIComponent(title);
+    navigate(
+      `/BookViewer/${bookId}?coverUrl=${encodedCoverUrl}&title=${encodedTitle}`
+    );
   };
 
   const scrollToTop = () => {
@@ -136,9 +140,12 @@ function ListBody() {
                   src={book.cover}
                   alt={book.title}
                   className={styles.bookCover}
-                  onClick={() => handleBookClick(book.bookId)}
+                  onClick={() =>
+                    handleBookClick(book.bookId, book.cover, book.title)
+                  }
                   style={{ cursor: 'pointer' }}
                 />
+
                 <div className={styles.bookDetails}>
                   <h3>{book.title}</h3>
                   <p>저자: {book.name}</p>

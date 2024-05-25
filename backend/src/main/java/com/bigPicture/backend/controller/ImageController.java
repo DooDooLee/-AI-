@@ -18,16 +18,11 @@ public class ImageController {
 
     private final SendImage sendImage;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/image")
     public ImageResponse getImage(@RequestBody ImageRequest request) throws IOException {
         String responseString = sendImage.sendImageRequest(request.getPrompt(),request.getSeed());
         return new ImageResponse(responseString);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/image/random")
-    public ImageResponse getImageRandom(@RequestBody ImageRequest request) throws IOException {
-        String responseString = sendImage.sendImageRequest(request.getPrompt(),null);
-        return new ImageResponse(responseString);
-    }
 }

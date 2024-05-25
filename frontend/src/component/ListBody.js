@@ -76,10 +76,11 @@ function ListBody() {
   };
 
   const handleBookClick = (bookId, coverUrl, title) => {
+    const encodedbookId = encodeURIComponent(bookId);
     const encodedCoverUrl = encodeURIComponent(coverUrl);
     const encodedTitle = encodeURIComponent(title);
     navigate(
-      `/BookViewer/${bookId}?coverUrl=${encodedCoverUrl}&title=${encodedTitle}`
+      `/BookViewer/?bookId=${encodedbookId}&coverUrl=${encodedCoverUrl}&title=${encodedTitle}`
     );
   };
 

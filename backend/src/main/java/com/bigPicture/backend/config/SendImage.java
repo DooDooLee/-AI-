@@ -64,7 +64,7 @@ public class SendImage {
         json.addProperty("key", apiKeyConfig.getStableDiffusionApiKey());
         json.addProperty("prompt", prompt);
         json.addProperty("negative_prompt", "extra fingers, mutated hands, pixelated, blurry, poorly Rendered face, poorly drawn face, poor facial details, poorly drawn hands, poorly rendered hands, bad anatomy, fused fingers, extra digits, fewer digits, extra (arms / legs / limbs / hands)");
-        json.addProperty("width", 720);
+        json.addProperty("width", 1024);
         json.addProperty("height", 1024);
         json.addProperty("samples", 1);
         json.addProperty("num_inference_steps", 51);

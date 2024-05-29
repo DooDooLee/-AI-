@@ -8,11 +8,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 public class UserResponse {
-    private String name;
+    private Long userId;
+    private String userName;
+    private String userEmail;
 
     public static UserResponse of(User user) {
         return new UserResponse(
-                user.getName()
+                user.getId(),
+                user.getName(),
+                user.getEmail()
         );
     }
 //    {

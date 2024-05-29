@@ -134,7 +134,6 @@ const PromptContainer = () => {
       });
     }
   };
-
   const handleContentChange = (e) => {
     const newContent = e.target.value;
     if (currentIndex === -1) {

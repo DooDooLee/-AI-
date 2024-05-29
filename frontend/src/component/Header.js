@@ -57,8 +57,9 @@ function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        Cookies.set('userName', data.name, { expires: 7 });
-        setUserName(data.name);
+        Cookies.set('userName', data.userName, { expires: 7 });
+        Cookies.set('authToken', token, { expires: 7 });
+        setUserName(data.userName);
       })
       .catch((error) =>
         console.error('사용자 정보를 가져오는 동안 에러 발생:', error)

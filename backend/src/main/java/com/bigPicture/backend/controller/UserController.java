@@ -1,10 +1,7 @@
 package com.bigPicture.backend.controller;
 
-import com.bigPicture.backend.domain.User;
-import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.response.UserBookInfoResponse;
 import com.bigPicture.backend.payload.response.UserBooksResponse;
-import com.bigPicture.backend.payload.response.UserNameResponse;
 import com.bigPicture.backend.payload.response.UserResponse;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.CurrentUser;
@@ -26,7 +23,6 @@ public class UserController {
 
     private final UserService userService;
     private final UserBookService userBookService;
-    private final UserRepository userRepository;
 
     //마이페이지 책 목록 조회
     @GetMapping("/myPage/{userId}/list")
@@ -44,11 +40,5 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    //userName 조회
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> findUserName(@PathVariable Long userId) {
-        UserNameResponse response = userService.getUserName(userId);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 
 }

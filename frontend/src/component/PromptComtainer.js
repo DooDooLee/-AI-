@@ -15,14 +15,14 @@ const PromptContainer = () => {
   const [coverImage, setCoverImage] = useState(''); // 책 표지 이미지 상태 추가
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /* useEffect(() => {
     setCurrentIndex(-1);
     const token = Cookies.get('authToken'); // 쿠키에서 토큰 불러오기
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');
     }
-  }, [navigate]);
+  }, [navigate]); */
 
   useEffect(() => {
     setCurrentIndex(-1); // 처음에는 제목 입력을 받기 위해 -1로 설정

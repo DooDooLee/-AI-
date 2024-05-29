@@ -1,0 +1,23 @@
+.container {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.customHeading {
+    font-size: 1.3em; /* h2보다 작고 h3보다 큰 크기로 조정.. */
+    margin-top: 20px;
+}
+
+.readMore {
+    cursor: pointer;
+    color: #ADD8E6;
+    text-decoration: underline;
+    margin-top: 10px;
+    display: inline-block;
+}

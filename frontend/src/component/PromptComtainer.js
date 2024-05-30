@@ -244,7 +244,7 @@ const PromptContainer = () => {
           <div
             id="option"
             className={styles.option}
-            style={{ padding: '0px', lineHeight: '1.5' }}
+            style={{ padding: '0px', lineHeight: '1.0' }}
           >
             <span style={{ fontSize: '15px' }}>프롬프트 참조 정도</span>
             {referenceDegree}
@@ -256,7 +256,9 @@ const PromptContainer = () => {
               onChange={(e) => setReferenceDegree(e.target.value)}
               style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
+            <br />
             <span>시드 값</span>
+
             <input
               type="text"
               value={seed}
@@ -264,6 +266,7 @@ const PromptContainer = () => {
               placeholder="입력하지 않으면 랜덤생성"
               style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
+
             <div style={{ marginTop: '5px', marginBottom: '5px' }}>
               <input
                 type="radio"

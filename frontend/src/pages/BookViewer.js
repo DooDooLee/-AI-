@@ -27,7 +27,7 @@ function BookViewer() {
       <div>
         <Header />
       </div>
-      <div style={{ borderRight: '1px solid black' }}>
+      <div>
         <LeftPanel />
       </div>
       <div>

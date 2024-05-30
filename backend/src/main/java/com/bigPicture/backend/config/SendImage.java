@@ -18,11 +18,10 @@ public class SendImage {
     private static final Gson gson = new Gson();
 
 
-
-    public String sendImageRequest(String prompt, Long seed) throws IOException {
+    public String sendImageRequest(String prompt, Long seed, Integer sizeNumber) throws IOException {
         String translatedPrompt = translatePrompt(prompt);
 
-        return sendToStableDiffusion(translatedPrompt, seed);
+        return sendToStableDiffusion(translatedPrompt, seed, sizeNumber);
     }
 
     private String translatePrompt(String prompt) throws IOException {
@@ -58,14 +57,32 @@ public class SendImage {
         }
     }
 
-    private String sendToStableDiffusion(String prompt, Long seed) throws IOException {
+    private String sendToStableDiffusion(String prompt, Long seed, Integer sizeNumber) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         JsonObject json = new JsonObject();
         json.addProperty("key", apiKeyConfig.getStableDiffusionApiKey());
         json.addProperty("prompt", prompt);
         json.addProperty("negative_prompt", "extra fingers, mutated hands, pixelated, blurry, poorly Rendered face, poorly drawn face, poor facial details, poorly drawn hands, poorly rendered hands, bad anatomy, fused fingers, extra digits, fewer digits, extra (arms / legs / limbs / hands)");
-        json.addProperty("width", 1024);
-        json.addProperty("height", 1024);
+
+        switch (sizeNumber) {
+            case 1: // 1:1
+                json.addProperty("width", 1024);
+                json.addProperty("height", 1024);
+                break;
+            case 2: // 16:9
+                json.addProperty("width", 1024);
+                json.addProperty("height", 576);
+                break;
+            case 3: // 4:3
+                json.addProperty("width", 1024);
+                json.addProperty("height", 768);
+                break;
+            default:
+                json.addProperty("width", 1024);
+                json.addProperty("height", 1024);
+                break;
+        }
+
         json.addProperty("samples", 1);
         json.addProperty("num_inference_steps", 51);
         json.addProperty("seed", seed);
@@ -80,7 +97,7 @@ public class SendImage {
         json.add("webhook", JsonNull.INSTANCE);
         json.add("track_id", JsonNull.INSTANCE);
 
-        // 로그 추가: 요청 JSON 출력
+        // Log the request JSON
         System.out.println("Request JSON: " + json.toString());
 
         RequestBody body = RequestBody.create(json.toString(), mediaType);
@@ -94,7 +111,7 @@ public class SendImage {
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
-            // 로그 추가: 응답 JSON 출력
+            // Log the response JSON
             String responseBody = response.body().string();
             System.out.println("Response JSON: " + responseBody);
             return responseBody;

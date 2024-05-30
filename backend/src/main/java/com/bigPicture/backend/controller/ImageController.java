@@ -21,7 +21,7 @@ public class ImageController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/image")
     public ImageResponse getImage(@RequestBody ImageRequest request) throws IOException {
-        String responseString = sendImage.sendImageRequest(request.getPrompt(),request.getSeed());
+        String responseString = sendImage.sendImageRequest(request.getPrompt(),request.getSeed(), request.getSizeNumber());
         return new ImageResponse(responseString);
     }
 

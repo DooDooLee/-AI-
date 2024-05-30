@@ -14,6 +14,7 @@ const PromptContainer = () => {
   const [title, setTitle] = useState(''); // 책 제목 상태 추가
   const [coverImage, setCoverImage] = useState(''); // 책 표지 이미지 상태 추가
   const navigate = useNavigate();
+  const [sizeNumber, setSizeNumber] = useState(1);
 
   useEffect(() => {
     setCurrentIndex(-1);
@@ -38,7 +39,11 @@ const PromptContainer = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ prompt: prompt, seed: seed || undefined }),
+        body: JSON.stringify({
+          prompt: prompt,
+          seed: seed || undefined,
+          sizeNumber: sizeNumber,
+        }),
       });
       const data = await response.json();
 
@@ -198,7 +203,7 @@ const PromptContainer = () => {
             src={generatedImage}
             alt="생성된 이미지"
             style={{
-              maxWidth: '750px',
+              maxWidth: '550px',
               maxHeight: '550px',
               width: 'auto',
               height: 'auto',
@@ -236,27 +241,64 @@ const PromptContainer = () => {
               }
             />
           </div>
-          <div id="option" className={styles.option}>
-            <span>프롬프트 참조 정도</span>
+          <div
+            id="option"
+            className={styles.option}
+            style={{ padding: '0px', lineHeight: '1.5' }}
+          >
+            <span style={{ fontSize: '15px' }}>프롬프트 참조 정도</span>
             {referenceDegree}
-            <br />
             <input
               type="range"
               min={1}
               max={20}
               value={referenceDegree}
               onChange={(e) => setReferenceDegree(e.target.value)}
+              style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
-            <br />
             <span>시드 값</span>
             <input
               type="text"
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
               placeholder="입력하지 않으면 랜덤생성"
+              style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
-            <br />
-            <button type="button" onClick={handleSubmit} disabled={loading}>
+            <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+              <input
+                type="radio"
+                id="size1"
+                name="sizeNumber"
+                value={1}
+                checked={sizeNumber === 1}
+                onChange={() => setSizeNumber(1)}
+              />
+              <label htmlFor="size1">1:1</label>
+              <input
+                type="radio"
+                id="size2"
+                name="sizeNumber"
+                value={2}
+                checked={sizeNumber === 2}
+                onChange={() => setSizeNumber(2)}
+              />
+              <label htmlFor="size2">16:9</label>
+              <input
+                type="radio"
+                id="size3"
+                name="sizeNumber"
+                value={3}
+                checked={sizeNumber === 3}
+                onChange={() => setSizeNumber(3)}
+              />
+              <label htmlFor="size3">4:3</label>
+            </div>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={loading}
+              style={{ marginTop: '5px', marginBottom: '5px' }}
+            >
               이미지 생성
             </button>
             {generatedImage && (
@@ -264,6 +306,7 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleShowImage}
                 disabled={loading}
+                style={{ marginTop: '5px', marginBottom: '5px' }}
               >
                 이미지 다시 표시
               </button>
@@ -273,6 +316,7 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleDeleteImage}
                 disabled={loading}
+                style={{ marginTop: '5px', marginBottom: '5px' }}
               >
                 이미지 삭제
               </button>

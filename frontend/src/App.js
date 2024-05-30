@@ -9,6 +9,7 @@ import BookIntroduction from './pages/BookIntroduction.js';
 import ProductionSteps from './pages/ProductionSteps.js';
 
 import './App.css'; // 애니메이션에 필요한 CSS 파일
+import MyLibrary from './pages/MyLibrary.js';
 
 function App() {
   const location = useLocation();
@@ -32,8 +33,15 @@ function App() {
           <Route path="/BookMaker" element={<BookMaker />} />
           <Route path="/BookViewer" element={<BookViewer />} />
           <Route path="/ListPage" element={<ListPage />} />
-          <Route path="/more-details/instruction" element={<BookIntroduction />} />
-          <Route path="/more-details/steps-description" element={<ProductionSteps />} />
+          <Route
+            path="/more-details/instruction"
+            element={<BookIntroduction />}
+          />
+          <Route
+            path="/more-details/steps-description"
+            element={<ProductionSteps />}
+          />
+          <Route path="/MyLibrary" element={<MyLibrary />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

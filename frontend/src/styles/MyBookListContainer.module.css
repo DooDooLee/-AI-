@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 50px;
+  width: 675px;
+  height: 790px;
+  background-color: #fcf4e2;
+  border-radius: 20px;
+  border: 3px solid #cdc4c4;
+  box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+}
+
+.innerWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 650px;
+  height: 160px;
+  background-color: #f3e7ca;
+  border-radius: 30px;
+}
+
+.wrapper button {
+  position: relative;
+  border: 0;
+  font-size: 18px;
+  color: #d9d9d9;
+  background-color: #fcf4e2;
+}

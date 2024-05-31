@@ -8,12 +8,17 @@ function ListBody() {
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('recent');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [enterPressed, setEnterPressed] = useState(false);
   const loader = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBooks(page, sortOrder);
-  }, [page, sortOrder]);
+    if (!searchTerm || enterPressed) {
+      fetchBooks(page, sortOrder);
+    }
+  }, [page, sortOrder, searchTerm, enterPressed]);
 
   useEffect(() => {
     const options = {
@@ -46,12 +51,16 @@ function ListBody() {
     try {
       const token = Cookies.get('authToken');
       let url;
-      if (sortOrder === 'recent') {
-        url = `http://localhost:8080/book/list/recent?page=${page}`;
-      } else if (sortOrder === 'old') {
-        url = `http://localhost:8080/book/list/old?page=${page}`;
-      } else if (sortOrder === 'popular') {
-        url = `http://localhost:8080/book/list/popular?page=${page}`;
+      if (searchTerm && enterPressed) {
+        url = `http://localhost:8080/book/search?bookName=${searchTerm}&page=${page}`;
+      } else {
+        if (sortOrder === 'recent') {
+          url = `http://localhost:8080/book/list/recent?page=${page}`;
+        } else if (sortOrder === 'old') {
+          url = `http://localhost:8080/book/list/old?page=${page}`;
+        } else if (sortOrder === 'popular') {
+          url = `http://localhost:8080/book/list/popular?page=${page}`;
+        }
       }
       const response = await axios.get(url, {
         headers: {
@@ -63,7 +72,16 @@ function ListBody() {
         bookLike: book.bookLike ?? 0,
         createdAt: book.createdAt.split('T')[0],
       }));
-      setBooks((prevBooks) => [...prevBooks, ...formattedBooks]);
+      if (searchTerm && enterPressed) {
+        setSearchResults((prevResults) =>
+          page === 1 ? formattedBooks : [...prevResults, ...formattedBooks]
+        );
+        setEnterPressed(false); // 검색 후 상태 초기화
+      } else {
+        setBooks((prevBooks) =>
+          page === 1 ? formattedBooks : [...prevBooks, ...formattedBooks]
+        );
+      }
     } catch (error) {
       console.error('Error fetching books:', error);
     }
@@ -72,7 +90,9 @@ function ListBody() {
   const handleSortChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
     setPage(1);
+    setSearchResults([]);
     setBooks([]);
+    setSearchTerm(''); // 정렬 변경 시 검색어 비우기
   };
 
   const handleBookClick = (bookId, coverUrl, title) => {
@@ -102,7 +122,17 @@ function ListBody() {
           type="text"
           placeholder="도서명, 저자명으로 검색 가능"
           className={styles.searchInput}
-          disabled
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setPage(1);
+              setSearchResults([]);
+              setBooks([]);
+              setEnterPressed(true); // 검색 후 상태 변경
+              setSortOrder(''); // 엔터 누르면 정렬 상태 초기화
+            }
+          }}
         />
       </div>
       <div className={styles.sortButtons}>
@@ -133,36 +163,41 @@ function ListBody() {
       </div>
       <div className={styles.bookListContainer}>
         <div className={styles.bookList}>
-          {books.map((book, index) => (
-            <React.Fragment key={book.bookId}>
-              {index > 0 && <hr className={styles.separator} />}
-              <div className={styles.bookItem}>
-                <img
-                  src={book.cover}
-                  alt={book.title}
-                  className={styles.bookCover}
-                  onClick={() =>
-                    handleBookClick(book.bookId, book.cover, book.title)
-                  }
-                  style={{ cursor: 'pointer' }}
-                />
-
-                <div className={styles.bookDetails}>
-                  <h3>{book.title}</h3>
-                  <p style={{ marginBottom: '5px' }}>
-                    저자:{' '}
-                    <span style={{ fontWeight: 'bold' }}>{book.userName}</span>{' '}
-                    ({book.userEmail})
-                  </p>
-                  <p>좋아요: {book.bookLike}개</p>
-                  <p>출판일: {book.createdAt}</p>
+          {(searchResults.length > 0 ? searchResults : books).map(
+            (book, index) => (
+              <React.Fragment key={book.bookId}>
+                {index > 0 && <hr className={styles.separator} />}
+                <div className={styles.bookItem}>
+                  <img
+                    src={book.cover}
+                    alt={book.title}
+                    className={styles.bookCover}
+                    onClick={() =>
+                      handleBookClick(book.bookId, book.cover, book.title)
+                    }
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <div className={styles.bookDetails}>
+                    <h3>{book.title}</h3>
+                    <p style={{ marginBottom: '5px' }}>
+                      저자:{' '}
+                      <span style={{ fontWeight: 'bold' }}>
+                        {book.userName}
+                      </span>{' '}
+                      ({book.userEmail})
+                    </p>
+                    <p>좋아요: {book.bookLike}개</p>
+                    <p>출판일: {book.createdAt}</p>
+                  </div>
                 </div>
-              </div>
-              {index === books.length - 1 && (
-                <hr className={styles.separator} />
-              )}
-            </React.Fragment>
-          ))}
+                {index ===
+                  (searchTerm && searchResults.length > 0
+                    ? searchResults.length
+                    : books.length) -
+                    1 && <hr className={styles.separator} />}
+              </React.Fragment>
+            )
+          )}
         </div>
         <div ref={loader} className={styles.loader} />
       </div>

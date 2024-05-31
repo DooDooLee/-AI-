@@ -17,4 +17,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllByOrderByIdDesc();
 
     List<Book> findAllByOrderByIdAsc();
+
+    @Query("SELECT b FROM Book b WHERE lower(b.title) = lower(:name)")
+    List<Book> findExactMatchBooksByName(@Param("name") String name);
+
+    @Query("SELECT b FROM Book b WHERE lower(b.title) like lower(concat('%', :name, '%'))")
+    List<Book> findBooksByNameContainingIgnoreCaseOrderByIdAsc(@Param("name") String name);
 }

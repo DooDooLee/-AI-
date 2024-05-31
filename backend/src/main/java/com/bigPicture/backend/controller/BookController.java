@@ -58,6 +58,15 @@ public class BookController {
         return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 
+
+    @GetMapping("/book/search")
+    public ResponseEntity<?> searchBooks(@RequestParam String bookName, @RequestParam int page) {
+
+        int size = 20; // 페이지 당 책의 수
+        List<BookInfoResponse> bookInfoResponses = bookService.searchAndPaginateBooks(bookName, page, size);
+        return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
+    }
+
     @DeleteMapping("/book/delete/{bookId}")
     public ResponseEntity<String> deleteBook(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal) {
         Long userId = userPrincipal.getId();

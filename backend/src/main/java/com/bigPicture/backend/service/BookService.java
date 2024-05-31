@@ -88,4 +88,15 @@ public class BookService {
         }
         return false;
     }
+
+    public List<BookInfoResponse> searchAndPaginateBooks(String name, int page, int size) {
+        int offset = (page - 1) * size;
+        List<Book> books = bookRepository.findBooksByNameContainingIgnoreCaseOrderByIdAsc(name);
+        List<BookInfoResponse> bookInfoResponses = books.stream()
+                .skip(offset)
+                .limit(size)
+                .map(BookInfoResponse::of)
+                .collect(Collectors.toList());
+        return bookInfoResponses;
+    }
 }

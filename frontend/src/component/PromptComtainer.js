@@ -16,14 +16,14 @@ const PromptContainer = () => {
   const navigate = useNavigate();
   const [sizeNumber, setSizeNumber] = useState(1);
 
-  /* useEffect(() => {
+  useEffect(() => {
     setCurrentIndex(-1);
     const token = Cookies.get('authToken'); // 쿠키에서 토큰 불러오기
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');
     }
-  }, [navigate]); */
+  }, [navigate]);
 
   useEffect(() => {
     setCurrentIndex(-1); // 처음에는 제목 입력을 받기 위해 -1로 설정
@@ -244,7 +244,7 @@ const PromptContainer = () => {
           <div
             id="option"
             className={styles.option}
-            style={{ padding: '0px', lineHeight: '1.0' }}
+            style={{ padding: '0px', lineHeight: '1.5' }}
           >
             <span style={{ fontSize: '15px' }}>프롬프트 참조 정도</span>
             {referenceDegree}
@@ -256,9 +256,7 @@ const PromptContainer = () => {
               onChange={(e) => setReferenceDegree(e.target.value)}
               style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
-            <br />
             <span>시드 값</span>
-
             <input
               type="text"
               value={seed}
@@ -266,7 +264,6 @@ const PromptContainer = () => {
               placeholder="입력하지 않으면 랜덤생성"
               style={{ height: '20px', marginTop: '5px', marginBottom: '5px' }}
             />
-
             <div style={{ marginTop: '5px', marginBottom: '5px' }}>
               <input
                 type="radio"

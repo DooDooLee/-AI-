@@ -1,5 +1,5 @@
 # Big Picture (이미지 생성 AI를 활용한 E-Book 제작 플랫폼)
-2024 국립부경대학교 캡스톤디자인 빅픽처팀
+2024 국립부경대학교 빅픽처팀
 
 <div align=center><h2>📚 Stacks</h2></div>
 

@@ -16,7 +16,7 @@
   <br>
   
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io-badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <br>
 </div>
 
@@ -32,19 +32,19 @@
     <td align="center"><a href="https://github.com/regrevvv"><img src="https://avatars.githubusercontent.com/u/95934846?v=4" width="100px;" alt=""/>
     <td align="center"><a href="https://github.com/wl-dnjs"><img src="https://avatars.githubusercontent.com/u/164969273?v=4" width="100px;" alt=""/>
   </tr>
-    <tr>
+  <tr>
     <td align="center"><a href="https://github.com/SHSong99" title="Code">송성현</a></td>
     <td align="center"><a href="https://github.com/DooDooLee" title="Code">이승엽</a></td>
     <td align="center"><a href="https://github.com/regrevvv" title="Code">송태근</a></td>
     <td align="center"><a href="https://github.com/wl-dnjs" title="Code">남지원</a></td>
   </tr>
-    
-
-
+</table>
 </div>
 
 <br>
 
 <div align=center><h2>📑 Wiki</h2></div>
-<img src="https://github.com/DooDooLee/Big-Picture/assets/126196812/ccee2977-afc4-4dc3-b6d3-5ff3935539c8">
 
+<div align=center>
+<img src="https://github.com/DooDooLee/Big-Picture/assets/126196812/ccee2977-afc4-4dc3-b6d3-5ff3935539c8">
+</div>

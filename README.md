@@ -38,7 +38,8 @@
     <td align="center"><a href="https://github.com/regrevvv" title="Code">송태근</a></td>
     <td align="center"><a href="https://github.com/wl-dnjs" title="Code">남지원</a></td>
   </tr>
-</table>
+</table>![Uploading 빅피쳐 프로그램 설명 자료 - 202130443 이승엽 (5).png…]()
+
 </div>
 
 <br>

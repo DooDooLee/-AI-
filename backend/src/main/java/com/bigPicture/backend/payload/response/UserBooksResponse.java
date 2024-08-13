@@ -15,10 +15,4 @@ public class UserBooksResponse {
 
     private List<UserBookInfoResponse> userBookResponse;
 
-    public static List<UserBookInfoResponse> of(List<Book> books) {
-        return books.stream()
-                .map(UserBookInfoResponse::of)
-                .collect(Collectors.toList());
-    }
-
 }

@@ -92,7 +92,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .requestMatchers( //로그인 검증 모두 해제는 ("/**")"/",
+                .requestMatchers(
                         "/",
                         "/error",
                         "/favicon.ico",
@@ -102,7 +102,8 @@ public class SecurityConfig {
                         "/**.jpg",
                         "/**.html",
                         "/**.css",
-                        "/**.js")
+                        "/**.js",
+                        "/swagger-ui.html")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET,
                         "/book/**")

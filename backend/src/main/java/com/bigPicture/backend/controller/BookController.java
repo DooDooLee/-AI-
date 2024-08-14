@@ -38,16 +38,16 @@ public class BookController {
     public ResponseEntity<?> findRecentUserBooks(@RequestParam int page) {
         int size = 20; // 페이지 당 책의 수
         List<BookInfoResponse> bookInfoResponses = bookService.getRecentPaginatedBooks(page, size);
-        BooksResponse response = new BooksResponse(bookInfoResponses);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+//        BooksResponse response = new BooksResponse(bookInfoResponses);
+        return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 
     @GetMapping("/book/list/old")
     public ResponseEntity<?> findOldUserBooks(@RequestParam int page) {
         int size = 20; // 페이지 당 책의 수
         List<BookInfoResponse> bookInfoResponses = bookService.getOldPaginatedBooks(page, size);
-        BooksResponse response = new BooksResponse(bookInfoResponses);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+//        BooksResponse response = new BooksResponse(bookInfoResponses);
+        return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 
 

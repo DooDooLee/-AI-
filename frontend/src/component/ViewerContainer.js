@@ -50,18 +50,21 @@ function ViewerContainer({ bookId, setShowingCover }) {
         <div className={styles.imgArea}>
           <img
             src={currentPage.image}
+            alt={`Page ${currentPage.pageNumber}`}
             style={{ maxWidth: '100%', maxHeight: '100%' }}
           />
         </div>
       </div>
       <div className={styles.right}>
         <div className={styles.textContent}>
-          {currentPage.content.split('\n').map((line, index) => (
-            <React.Fragment key={index}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))}
+          {currentPage.content
+            ? currentPage.content.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))
+            : <p></p>}
         </div>
       </div>
       <span className={styles.pageNumber}>{currentPage.pageNumber}</span>

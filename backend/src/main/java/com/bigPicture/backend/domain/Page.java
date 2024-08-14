@@ -1,10 +1,7 @@
 package com.bigPicture.backend.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
@@ -31,6 +28,7 @@ public class Page {
         this.book = book;
     }
 
+    @Builder
     public Page(String image, String contents, Long pageNumber) {
         this.image = image;
         this.contents = contents;

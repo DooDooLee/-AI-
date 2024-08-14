@@ -2,6 +2,7 @@ package com.bigPicture.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -41,6 +42,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     List<Review> reviews = new ArrayList<>();
 
+    @Builder
     public Book(User user, String title, String cover, Long bookLike, List<Page> pages) {
         this.user = user;
         this.bookLike = bookLike;

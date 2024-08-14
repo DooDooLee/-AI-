@@ -39,6 +39,4 @@ public class UserController {
         UserResponse response = userService.getUserDetail(userPrincipal);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
 }

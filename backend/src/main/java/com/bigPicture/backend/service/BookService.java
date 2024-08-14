@@ -4,6 +4,7 @@ import com.bigPicture.backend.domain.Book;
 import com.bigPicture.backend.domain.Page;
 import com.bigPicture.backend.domain.User;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
+import com.bigPicture.backend.payload.PageDto;
 import com.bigPicture.backend.payload.request.BookCreateRequest;
 import com.bigPicture.backend.payload.response.*;
 import com.bigPicture.backend.repository.BookRepository;
@@ -30,16 +31,11 @@ public class BookService {
         //요청토큰에 해당하는 user 를 꺼내옴
         User user = userRepository.findById(userPrincipal.getId()).get();
 
-        //페이지는 value 가 배열이라 List<> 이고 이 안에 JSON (DTO) 이 있으므로 이에 맞게 각 스트림을 변환
-        List<Page> pages = request.getPages().stream()
-                .map(pageDto -> new Page(pageDto.getImage(), pageDto.getContent(), pageDto.getPageNumber()))
-                .collect(Collectors.toList());
-
-        Book book = new Book(user, request.getTitle(), request.getCover(), request.getBookLike(),
-                pages);
+        // BookCreateRequest 의 toEntity 메서드를 이용하여 엔티티를 생성
+        Book book = request.toEntity(user);
 
         // 양방향 연관관계 데이터 일관성 유지
-        pages.forEach(page -> page.updateBook(book));
+        book.getPages().forEach(page -> page.updateBook(book));
 
         bookRepository.save(book);
     }
@@ -50,32 +46,27 @@ public class BookService {
         return BookDetailResponse.of(book);
     }
 
-    public List<BookInfoResponse> getAllBooks() {
-        List<Book> books = bookRepository.findAll();
-        return BooksResponse.of(books); //응답 데이터를 던져야 함으로 DTO 로 변환
-    }
-
-
     // 페이지네이션된 책 리스트 가져오기
     public List<BookInfoResponse> getRecentPaginatedBooks(int page, int size) {
         int offset = (page - 1) * size;
-        List<Book> books = bookRepository.findAllByOrderByIdDesc()
-                .stream()
+        List<Book> books = bookRepository.findAllByOrderByIdDesc();
+        return books.stream()
                 .skip(offset)
                 .limit(size)
+                .map(BookInfoResponse::of)
                 .collect(Collectors.toList());
-        return BooksResponse.of(books);
     }
 
     public List<BookInfoResponse> getOldPaginatedBooks(int page, int size) {
         int offset = (page - 1) * size;
-        List<Book> books = bookRepository.findAllByOrderByIdAsc()
-                .stream()
+        List<Book> books = bookRepository.findAllByOrderByIdAsc();
+        return books.stream()
                 .skip(offset)
                 .limit(size)
+                .map(BookInfoResponse::of)
                 .collect(Collectors.toList());
-        return BooksResponse.of(books);
     }
+
     @Transactional
     public boolean deleteBookById(Long bookId, Long userId) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);

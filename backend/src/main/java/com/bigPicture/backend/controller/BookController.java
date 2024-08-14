@@ -33,21 +33,12 @@ public class BookController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    //메인페이지 책 목록 조회
-    @GetMapping("/book/list")
-    public ResponseEntity<?> findAllUserBooks() {
-        List<BookInfoResponse> books = bookService.getAllBooks();
-        BooksResponse response = new BooksResponse(books);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-
-
     // ex) page=1 을보내면  최신순으로 첫번째 에서 20번째까지 책 목록을 리스트로 반환함 , page=2 는 21번째부터 20개
     @GetMapping("/book/list/recent")
     public ResponseEntity<?> findRecentUserBooks(@RequestParam int page) {
         int size = 20; // 페이지 당 책의 수
         List<BookInfoResponse> bookInfoResponses = bookService.getRecentPaginatedBooks(page, size);
+//        BooksResponse response = new BooksResponse(bookInfoResponses);
         return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 
@@ -55,6 +46,7 @@ public class BookController {
     public ResponseEntity<?> findOldUserBooks(@RequestParam int page) {
         int size = 20; // 페이지 당 책의 수
         List<BookInfoResponse> bookInfoResponses = bookService.getOldPaginatedBooks(page, size);
+//        BooksResponse response = new BooksResponse(bookInfoResponses);
         return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 

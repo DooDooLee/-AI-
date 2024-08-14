@@ -12,21 +12,21 @@ import lombok.NoArgsConstructor;
 public class PageDto {
 
     private String image;
-    private String contents;
+    private String content;
     private Long pageNumber;
 
     @Builder
     public PageDto(String image, String contents, Long pageNumber) {
         this.image = image;
-        this.contents = contents;
+        this.content = contents;
         this.pageNumber = pageNumber;
     }
 
-    public static Page toEntity(Page page) {
+    public Page toEntity() {
         return Page.builder()
-                .image(page.getImage())
-                .contents(page.getContents())
-                .pageNumber(page.getPageNumber())
+                .image(image)
+                .contents(content)
+                .pageNumber(pageNumber)
                 .build();
     }
 

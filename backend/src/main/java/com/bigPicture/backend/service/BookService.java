@@ -31,16 +31,11 @@ public class BookService {
         //요청토큰에 해당하는 user 를 꺼내옴
         User user = userRepository.findById(userPrincipal.getId()).get();
 
-        //페이지는 value 가 배열이라 List<> 이고 이 안에 JSON (DTO) 이 있으므로 이에 맞게 각 스트림을 변환
-        List<Page> pages = request.getPages().stream()
-                .map(pageDto -> new Page(pageDto.getImage(), pageDto.getContents(), pageDto.getPageNumber()))
-                .collect(Collectors.toList());
-
-        Book book = new Book(user, request.getTitle(), request.getCover(), request.getBookLike(),
-                pages);
+        // BookCreateRequest 의 toEntity 메서드를 이용하여 엔티티를 생성
+        Book book = request.toEntity(user);
 
         // 양방향 연관관계 데이터 일관성 유지
-        pages.forEach(page -> page.updateBook(book));
+        book.getPages().forEach(page -> page.updateBook(book));
 
         bookRepository.save(book);
     }

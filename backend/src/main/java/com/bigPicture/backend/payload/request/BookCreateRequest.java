@@ -29,9 +29,20 @@ public class BookCreateRequest {
         this.pages = pages;
     }
 
-//    //Book 엔티티 생성자 역할
-//    public static Book toEntity() {
-//        return Book.builder()
-//                .title(title)
-//    }
+    // Book 엔티티 생성자 역할
+    public Book toEntity(User user) {
+        List<Page> pageEntities = pages.stream()
+                .map(PageDto::toEntity)
+                .collect(Collectors.toList());
+
+        // 클래스 내에 필드들이 있으니까 .title(request.getTitle()) 할 필요 없음
+        return Book.builder()
+                .user(user)
+                .title(title)
+                .cover(cover)
+                .bookLike(bookLike)
+                .pages(pageEntities)
+                .build();
+    }
+
 }

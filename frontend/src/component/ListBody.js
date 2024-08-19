@@ -11,6 +11,8 @@ function ListBody() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [enterPressed, setEnterPressed] = useState(false);
+  const [likedBooks, setLikedBooks] = useState(new Set()); // 좋아요 상태
+  const [bookmarkedBooks, setBookmarkedBooks] = useState(new Set()); // 즐겨찾기 상태
   const loader = useRef(null);
   const navigate = useNavigate();
 
@@ -104,6 +106,32 @@ function ListBody() {
     );
   };
 
+  const handleLike = (bookId) => {
+    setLikedBooks((prevLikedBooks) => {
+      const updatedLikedBooks = new Set(prevLikedBooks);
+      if (updatedLikedBooks.has(bookId)) {
+        updatedLikedBooks.delete(bookId);
+      } else {
+        updatedLikedBooks.add(bookId);
+      }
+      return updatedLikedBooks;
+    });
+    // 좋아요 API 호출
+  };
+
+  const handleBookmark = (bookId) => {
+    setBookmarkedBooks((prevBookmarkedBooks) => {
+      const updatedBookmarkedBooks = new Set(prevBookmarkedBooks);
+      if (updatedBookmarkedBooks.has(bookId)) {
+        updatedBookmarkedBooks.delete(bookId);
+      } else {
+        updatedBookmarkedBooks.add(bookId);
+      }
+      return updatedBookmarkedBooks;
+    });
+    // 즐겨찾기 API 호출
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -128,7 +156,7 @@ function ListBody() {
             if (e.key === 'Enter') {
               setPage(1);
               setSearchResults([]);
-              setBooks([]);
+              setBooks([]); 
               setEnterPressed(true); // 검색 후 상태 변경
               setSortOrder(''); // 엔터 누르면 정렬 상태 초기화
             }
@@ -188,13 +216,30 @@ function ListBody() {
                     </p>
                     <p>좋아요: {book.bookLike}개</p>
                     <p>출판일: {book.createdAt}</p>
+                    <div className={styles.actionButtons}>
+                      <button
+                        onClick={() => handleLike(book.bookId)} // 좋아요 버튼
+                        className={`${styles.likeButton} ${
+                          likedBooks.has(book.bookId) ? styles.active : ''
+                        }`}
+                      >
+                        좋아요 👍
+                      </button>
+                      <button
+                        onClick={() => handleBookmark(book.bookId)} // 즐겨찾기 버튼
+                        className={`${styles.bookmarkButton} ${
+                          bookmarkedBooks.has(book.bookId) ? styles.active : ''
+                        }`}
+                      >
+                        즐겨찾기 ⭐
+                      </button>
+                    </div>
                   </div>
                 </div>
                 {index ===
                   (searchTerm && searchResults.length > 0
                     ? searchResults.length
-                    : books.length) -
-                    1 && <hr className={styles.separator} />}
+                    : books.length) - 1 && <hr className={styles.separator} />}
               </React.Fragment>
             )
           )}

@@ -50,4 +50,19 @@ public class Book {
         this.title = title;
         this.pages = pages;
     }
+
+    /* ------------- 좋아요 메서드 -------------- */
+    public void increaseLiked() {
+        if (this.bookLike == null) {
+            this.bookLike = 0L;
+        }
+        this.bookLike += 1;
+    }
+
+    public void decreaseLiked() {
+        if (this.bookLike == null) {
+            this.bookLike = 0L;
+        }
+        this.bookLike -= 1;
+    }
 }

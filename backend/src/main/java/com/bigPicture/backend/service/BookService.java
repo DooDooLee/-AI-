@@ -3,12 +3,14 @@ package com.bigPicture.backend.service;
 import com.bigPicture.backend.domain.Book;
 import com.bigPicture.backend.domain.Page;
 import com.bigPicture.backend.domain.User;
+import com.bigPicture.backend.domain.Wish;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.PageDto;
 import com.bigPicture.backend.payload.request.BookCreateRequest;
 import com.bigPicture.backend.payload.response.*;
 import com.bigPicture.backend.repository.BookRepository;
 import com.bigPicture.backend.repository.UserRepository;
+import com.bigPicture.backend.repository.WishRepository;
 import com.bigPicture.backend.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
+    private final WishRepository wishRepository;
 
     @Transactional
     public void save(UserPrincipal userPrincipal, BookCreateRequest request) {
@@ -89,5 +92,30 @@ public class BookService {
                 .map(BookInfoResponse::of)
                 .collect(Collectors.toList());
         return bookInfoResponses;
+    }
+
+    @Transactional
+    public void likeBook(Long bookId, UserPrincipal currentUser) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        User user = userRepository.findById(currentUser.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Wish wish = wishRepository.findByBookAndUser(book, user)
+                .orElse(Wish.builder()
+                            .book(book)
+                            .user(user)
+                            .build());
+
+        // wish 엔티티의 liked 가 1인지 0인지 여부에 따라서 book 엔티티의 like 를 올리고 내림
+        if (wish.getLiked() == 0) {
+            wish.updateLiked(1);
+            book.increaseLiked();
+        } else {
+            wish.updateLiked(0);
+            book.decreaseLiked();
+        }
+
+        wishRepository.save(wish);
+        bookRepository.save(book);
     }
 }

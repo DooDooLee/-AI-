@@ -69,4 +69,11 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to delete this book");
         }
     }
+
+    // 좋아요 기능
+    @PostMapping("/book/{bookId}/like")
+    public ResponseEntity<?> likeBook(@PathVariable Long bookId, @CurrentUser UserPrincipal currentUser) {
+        bookService.likeBook(bookId, currentUser);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

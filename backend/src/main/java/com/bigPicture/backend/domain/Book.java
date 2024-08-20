@@ -42,6 +42,9 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Favorite> favorites = new ArrayList<>();
+
     @Builder
     public Book(User user, String title, String cover, Long bookLike, List<Page> pages) {
         this.user = user;

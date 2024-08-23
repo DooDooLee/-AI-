@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/favorites")
+@RequestMapping("/favorites")
 @RequiredArgsConstructor
 public class FavoriteController {
 
@@ -19,11 +19,16 @@ public class FavoriteController {
 
     // 즐겨찾기 추가
     @PostMapping("/add/{bookId}")
-    public ResponseEntity<?> addFavorite(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long bookId) {
-        favoriteService.addFavorite(userPrincipal, bookId);
-        return ResponseEntity.status(201).build();
-    }
+    public ResponseEntity<String> addFavorite(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long bookId) {
+        String result = favoriteService.addFavorite(userPrincipal, bookId);
 
+
+        if ("Already bookmarked".equals(result)) {
+            return ResponseEntity.status(409).body(result);
+        } else {
+            return ResponseEntity.status(201).body(result);
+        }
+    }
     // 즐겨찾기 삭제
     @DeleteMapping("/remove/{bookId}")
     public ResponseEntity<?> removeFavorite(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long bookId) {

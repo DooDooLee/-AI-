@@ -72,8 +72,8 @@ public class BookController {
 
     // 좋아요 기능
     @PostMapping("/book/{bookId}/like")
-    public ResponseEntity<?> likeBook(@PathVariable Long bookId, @CurrentUser UserPrincipal currentUser) {
-        bookService.likeBook(bookId, currentUser);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> likeBook(@PathVariable Long bookId, @CurrentUser UserPrincipal currentUser) {
+        String message = bookService.likeBook(bookId, currentUser);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

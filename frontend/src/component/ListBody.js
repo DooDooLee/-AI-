@@ -15,6 +15,7 @@ function ListBody() {
   const [bookmarkedBooks, setBookmarkedBooks] = useState(new Set()); // 즐겨찾기 상태
   const loader = useRef(null);
   const navigate = useNavigate();
+  const scrollPosition = useRef(0); // 스크롤 위치 저장용
 
   useEffect(() => {
     if (!searchTerm || enterPressed) {
@@ -89,6 +90,18 @@ function ListBody() {
     }
   };
 
+  const refreshData = async () => {
+    scrollPosition.current = window.scrollY; // 현재 스크롤 위치 저장
+    setPage(1);
+    setBooks([]);
+    setSearchResults([]);
+    await fetchBooks(1, sortOrder);
+    // 데이터 로드 후 스크롤 복원
+    window.setTimeout(() => {
+      window.scrollTo(0, scrollPosition.current);
+    }, 100); // 데이터가 완전히 로드된 후 스크롤 위치를 복원하기 위해 약간의 지연 추가
+  };
+
   const handleSortChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
     setPage(1);
@@ -106,30 +119,77 @@ function ListBody() {
     );
   };
 
-  const handleLike = (bookId) => {
-    setLikedBooks((prevLikedBooks) => {
-      const updatedLikedBooks = new Set(prevLikedBooks);
-      if (updatedLikedBooks.has(bookId)) {
-        updatedLikedBooks.delete(bookId);
-      } else {
-        updatedLikedBooks.add(bookId);
-      }
-      return updatedLikedBooks;
-    });
-    // 좋아요 API 호출
+  const handleLike = async (bookId) => {
+    const token = Cookies.get('authToken');
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/book/${bookId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      const message = response.data;
+      alert(message);
+
+      setLikedBooks((prevLikedBooks) => {
+        const updatedLikedBooks = new Set(prevLikedBooks);
+        if (message === "책 좋아요를 눌렀습니다.") {
+          updatedLikedBooks.add(bookId);
+        } else if (message === "책 좋아요를 취소했습니다.") {
+          updatedLikedBooks.delete(bookId);
+        }
+        return updatedLikedBooks;
+      });
+
+      // 좋아요 상태 변경 후 책 리스트 새로고침
+      refreshData();
+
+    } catch (error) {
+      console.error("좋아요 처리 중 오류가 발생했습니다.", error);
+      alert("좋아요 처리 중 오류가 발생했습니다.");
+    }
   };
 
-  const handleBookmark = (bookId) => {
-    setBookmarkedBooks((prevBookmarkedBooks) => {
-      const updatedBookmarkedBooks = new Set(prevBookmarkedBooks);
-      if (updatedBookmarkedBooks.has(bookId)) {
-        updatedBookmarkedBooks.delete(bookId);
-      } else {
-        updatedBookmarkedBooks.add(bookId);
+  const handleBookmark = async (bookId) => {
+    const token = Cookies.get('authToken');
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/favorites/add/${bookId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          validateStatus: (status) => status === 201 || status === 409,
+        }
+      );
+
+      const message = response.status === 409
+        ? "이미 즐겨찾기 추가된 책입니다."
+        : "이제 즐겨찾기가 추가되었습니다.";
+
+      alert(message);
+
+      if (response.status === 201) {
+        setBookmarkedBooks((prevBookmarkedBooks) => {
+          const updatedBookmarkedBooks = new Set(prevBookmarkedBooks);
+          updatedBookmarkedBooks.add(bookId);
+          return updatedBookmarkedBooks;
+        });
       }
-      return updatedBookmarkedBooks;
-    });
-    // 즐겨찾기 API 호출
+
+      // 즐겨찾기 상태 변경 후 책 리스트 새로고침
+      fetchBooks(page, sortOrder);
+
+    } catch (error) {
+      console.error("즐겨찾기 추가 중 오류가 발생했습니다.", error);
+      alert("즐겨찾기 추가 중 오류가 발생했습니다.");
+    }
   };
 
   const scrollToTop = () => {
@@ -219,17 +279,13 @@ function ListBody() {
                     <div className={styles.actionButtons}>
                       <button
                         onClick={() => handleLike(book.bookId)} // 좋아요 버튼
-                        className={`${styles.likeButton} ${
-                          likedBooks.has(book.bookId) ? styles.active : ''
-                        }`}
+                        className={styles.likeButton}
                       >
                         좋아요 👍
                       </button>
                       <button
                         onClick={() => handleBookmark(book.bookId)} // 즐겨찾기 버튼
-                        className={`${styles.bookmarkButton} ${
-                          bookmarkedBooks.has(book.bookId) ? styles.active : ''
-                        }`}
+                        className={styles.bookmarkButton}
                       >
                         즐겨찾기 ⭐
                       </button>

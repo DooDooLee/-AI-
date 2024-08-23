@@ -95,7 +95,7 @@ public class BookService {
     }
 
     @Transactional
-    public void likeBook(Long bookId, UserPrincipal currentUser) {
+    public String  likeBook(Long bookId, UserPrincipal currentUser) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         User user = userRepository.findById(currentUser.getId())
@@ -105,17 +105,22 @@ public class BookService {
                             .book(book)
                             .user(user)
                             .build());
+        String message;
 
         // wish 엔티티의 liked 가 1인지 0인지 여부에 따라서 book 엔티티의 like 를 올리고 내림
         if (wish.getLiked() == 0) {
             wish.updateLiked(1);
             book.increaseLiked();
+            message = "책 좋아요를 눌렀습니다.";
         } else {
             wish.updateLiked(0);
             book.decreaseLiked();
+            message = "책 좋아요를 취소했습니다.";
         }
 
         wishRepository.save(wish);
         bookRepository.save(book);
+
+        return message;
     }
 }

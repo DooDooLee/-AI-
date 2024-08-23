@@ -24,17 +24,23 @@ public class FavoriteService {
     private final BookRepository bookRepository;
 
     // 즐겨찾기 추가
-    public void addFavorite(UserPrincipal userPrincipal, Long bookId) {
+    public String addFavorite(UserPrincipal userPrincipal, Long bookId) {
         User user = getUser(userPrincipal);
         Book book = getBook(bookId);
 
-        if (!favoriteRepository.findByUserAndBook(user, book).isPresent()) {
-            Favorite favorite = Favorite.builder()
-                    .user(user)
-                    .book(book)
-                    .build();
-            favoriteRepository.save(favorite);
+        // 이미 즐겨찾기된 항목이 있는지 확인
+        if (favoriteRepository.findByUserAndBook(user, book).isPresent()) {
+            return "Already bookmarked";
         }
+
+        // 즐겨찾기 항목 생성 및 저장
+        Favorite favorite = Favorite.builder()
+                .user(user)
+                .book(book)
+                .build();
+        favoriteRepository.save(favorite);
+
+        return "Bookmarked successfully";
     }
 
     // 즐겨찾기 삭제

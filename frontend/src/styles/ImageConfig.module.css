@@ -1,0 +1,60 @@
+.container {
+  position: absolute;
+  width: 400px;
+  border: 2px solid gainsboro;
+  border-radius: 30px;
+  background-color: #fcf4e2;
+  z-index: 5;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+
+  box-sizing: border-box;
+}
+
+.container > input {
+  height: 1.5em;
+  background-color: gainsboro;
+  border-radius: 10px;
+  border: none;
+
+  text-align: center;
+}
+
+.ratioBox {
+  width: 200px;
+  padding: 10px 5px;
+  border-radius: 30px;
+  background-color: #f3e7ca;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.keywordBox {
+  width: 300px;
+  padding: 10px 5px;
+  border-radius: 30px;
+  background-color: #f3e7ca;
+}
+
+.container > button {
+  width: 60px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f3e7ca;
+  margin: 20px 20px;
+
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+}
+.container > button:hover {
+  background-color: #dacfb5;
+}
+
+.container > button:active {
+  background-color: #c2b8a1;
+}

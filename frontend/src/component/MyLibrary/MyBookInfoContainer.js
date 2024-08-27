@@ -8,7 +8,10 @@ function MyBookInfoContainer() {
         <span>책 정보</span>
         <div>책 정보 예시</div>
       </div>
-      <button>책 읽기</button>
+      <div>
+        <button>책 읽기</button>
+        <button>책 삭제</button>
+      </div>
     </div>
   );
 }

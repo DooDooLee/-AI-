@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,11 +26,12 @@ public class UserController {
     private final UserBookService userBookService;
 
     //마이페이지 책 목록 조회
-    @GetMapping("/myPage/{userId}/list")
-    public ResponseEntity<?> findAllUserBooks(@PathVariable Long userId) {
-        List<UserBookInfoResponse> userBooks = userBookService.getAllUserBooks(userId);
-        UserBooksResponse response = new UserBooksResponse(userBooks);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @GetMapping("/myPage/list")
+    public ResponseEntity<?> findAllUserBooks(@CurrentUser UserPrincipal userPrincipal, @RequestParam int page) {
+        int size = 20; // 페이지 당 책의 수
+        List<UserBookInfoResponse> userBooks = userBookService.getAllUserBooks(userPrincipal, page, size);
+//        UserBooksResponse response = new UserBooksResponse(userBooks);
+        return new ResponseEntity<>(userBooks, HttpStatus.OK);
     }
 
     //자신의 회원 정보를 리턴

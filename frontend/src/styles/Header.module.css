@@ -9,12 +9,20 @@
   font-weight: 600;
 
   height: 120px;
-  width: 1320px;
   min-width: fit-content;
   margin: 0 auto;
-  padding: 0 calc((100% - 1320px) / 2);
 
   border-bottom: 1px solid gainsboro;
+}
+
+.headerPadding {
+  width: 1320px;
+  padding: 0 calc((100% - 1320px) / 2);
+}
+
+.normalPadding {
+  justify-content: space-between;
+  padding: 0px 50px;
 }
 
 .wrapper ul {

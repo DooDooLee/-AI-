@@ -9,7 +9,9 @@ function ViewerContainer({ bookId, setShowingCover }) {
     const fetchBookData = async () => {
       try {
         console.log(`Fetching data for bookId: ${bookId}`); // 디버그용 로그 추가
-        const response = await fetch(`http://localhost:8080/book/${bookId}`);
+        const response = await fetch(
+          `http://15.164.245.179:8080/book/${bookId}`
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch book data');
         }
@@ -57,14 +59,16 @@ function ViewerContainer({ bookId, setShowingCover }) {
       </div>
       <div className={styles.right}>
         <div className={styles.textContent}>
-          {currentPage.content
-            ? currentPage.content.split('\n').map((line, index) => (
-                <React.Fragment key={index}>
-                  {line}
-                  <br />
-                </React.Fragment>
-              ))
-            : <p></p>}
+          {currentPage.content ? (
+            currentPage.content.split('\n').map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
       <span className={styles.pageNumber}>{currentPage.pageNumber}</span>

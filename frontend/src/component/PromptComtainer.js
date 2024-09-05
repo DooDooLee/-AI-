@@ -33,7 +33,7 @@ const PromptContainer = () => {
     setLoading(true);
     try {
       const token = Cookies.get('authToken');
-      const response = await fetch('http://localhost:8080/image', {
+      const response = await fetch('http://15.164.245.179:8080/image', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ const PromptContainer = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/book/create', {
+      const response = await fetch('http://15.164.245.179:8080/book/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

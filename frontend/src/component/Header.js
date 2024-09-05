@@ -12,7 +12,7 @@ function Header() {
 
   const handleLogin = () => {
     const redirectUri = encodeURIComponent(window.location.href);
-    window.location.href = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
+    window.location.href = `http://15.164.245.179:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
   };
 
   const handleLogout = () => {
@@ -49,7 +49,7 @@ function Header() {
   };
 
   const fetchUserInfo = (token) => {
-    fetch('http://localhost:8080/user/me', {
+    fetch('http://15.164.245.179:8080/user/me', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

@@ -55,14 +55,14 @@ function ListBody() {
       const token = Cookies.get('authToken');
       let url;
       if (searchTerm && enterPressed) {
-        url = `http://localhost:8080/book/search?bookName=${searchTerm}&page=${page}`;
+        url = `http://15.164.245.179:8080/book/search?bookName=${searchTerm}&page=${page}`;
       } else {
         if (sortOrder === 'recent') {
-          url = `http://localhost:8080/book/list/recent?page=${page}`;
+          url = `http://15.164.245.179:8080/book/list/recent?page=${page}`;
         } else if (sortOrder === 'old') {
-          url = `http://localhost:8080/book/list/old?page=${page}`;
+          url = `http://15.164.245.179:8080/book/list/old?page=${page}`;
         } else if (sortOrder === 'popular') {
-          url = `http://localhost:8080/book/list/popular?page=${page}`;
+          url = `http://15.164.245.179:8080/book/list/popular?page=${page}`;
         }
       }
       const response = await axios.get(url, {
@@ -124,12 +124,12 @@ function ListBody() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/book/${bookId}/like`,
+        `http://15.164.245.179:8080/book/${bookId}/like`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -138,9 +138,9 @@ function ListBody() {
 
       setLikedBooks((prevLikedBooks) => {
         const updatedLikedBooks = new Set(prevLikedBooks);
-        if (message === "책 좋아요를 눌렀습니다.") {
+        if (message === '책 좋아요를 눌렀습니다.') {
           updatedLikedBooks.add(bookId);
-        } else if (message === "책 좋아요를 취소했습니다.") {
+        } else if (message === '책 좋아요를 취소했습니다.') {
           updatedLikedBooks.delete(bookId);
         }
         return updatedLikedBooks;
@@ -148,10 +148,9 @@ function ListBody() {
 
       // 좋아요 상태 변경 후 책 리스트 새로고침
       refreshData();
-
     } catch (error) {
-      console.error("좋아요 처리 중 오류가 발생했습니다.", error);
-      alert("좋아요 처리 중 오류가 발생했습니다.");
+      console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+      alert('좋아요 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -159,7 +158,7 @@ function ListBody() {
     const token = Cookies.get('authToken');
     try {
       const response = await axios.post(
-        `http://localhost:8080/favorites/add/${bookId}`,
+        `http://15.164.245.179:8080/favorites/add/${bookId}`,
         {},
         {
           headers: {
@@ -169,9 +168,10 @@ function ListBody() {
         }
       );
 
-      const message = response.status === 409
-        ? "이미 즐겨찾기 추가된 책입니다."
-        : "이제 즐겨찾기가 추가되었습니다.";
+      const message =
+        response.status === 409
+          ? '이미 즐겨찾기 추가된 책입니다.'
+          : '이제 즐겨찾기가 추가되었습니다.';
 
       alert(message);
 
@@ -185,10 +185,9 @@ function ListBody() {
 
       // 즐겨찾기 상태 변경 후 책 리스트 새로고침
       fetchBooks(page, sortOrder);
-
     } catch (error) {
-      console.error("즐겨찾기 추가 중 오류가 발생했습니다.", error);
-      alert("즐겨찾기 추가 중 오류가 발생했습니다.");
+      console.error('즐겨찾기 추가 중 오류가 발생했습니다.', error);
+      alert('즐겨찾기 추가 중 오류가 발생했습니다.');
     }
   };
 
@@ -216,7 +215,7 @@ function ListBody() {
             if (e.key === 'Enter') {
               setPage(1);
               setSearchResults([]);
-              setBooks([]); 
+              setBooks([]);
               setEnterPressed(true); // 검색 후 상태 변경
               setSortOrder(''); // 엔터 누르면 정렬 상태 초기화
             }
@@ -295,7 +294,8 @@ function ListBody() {
                 {index ===
                   (searchTerm && searchResults.length > 0
                     ? searchResults.length
-                    : books.length) - 1 && <hr className={styles.separator} />}
+                    : books.length) -
+                    1 && <hr className={styles.separator} />}
               </React.Fragment>
             )
           )}

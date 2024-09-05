@@ -259,12 +259,7 @@ const PromptContainer = () => {
             <button type="button" onClick={onConfigBtnClick}>
               이미지 설정
             </button>
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={loading}
-              style={{ marginTop: '5px', marginBottom: '5px' }}
-            >
+            <button type="button" onClick={handleSubmit} disabled={loading}>
               이미지 생성
             </button>
             {generatedImage && (
@@ -272,7 +267,7 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleShowImage}
                 disabled={loading}
-                style={{ marginTop: '5px', marginBottom: '5px' }}
+                style={{ fontSize: '18px' }}
               >
                 이미지 다시 표시
               </button>
@@ -282,7 +277,6 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleDeleteImage}
                 disabled={loading}
-                style={{ marginTop: '5px', marginBottom: '5px' }}
               >
                 이미지 삭제
               </button>
@@ -312,6 +306,7 @@ const PromptContainer = () => {
             id="nextPageBtn"
             className={styles.rightBtn}
             onClick={handleNextPage}
+            style={currentIndex === -1 ? {} : { fontSize: '18px' }}
           >
             {currentIndex === -1 ? '표지 완성' : '다음 페이지'}
           </button>

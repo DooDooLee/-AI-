@@ -1,8 +1,11 @@
 .wrapper {
   display: flex;
   flex-flow: row nowrap;
-  width: 1408px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  height: calc(100vh-120px);
 }
 
 .left {
@@ -18,6 +21,8 @@
   border-radius: 80px 0 0 80px;
   border: 2px solid #cdc4c4;
   box-shadow: 5px 5px 5px 5px gainsboro;
+  position: relative;
+  z-index: -1;
 }
 
 .right {
@@ -123,7 +128,7 @@
 
 .buttonArea {
   position: absolute;
-  bottom: -70px;
+  bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,4 +149,22 @@
 
 .option input[type='text'] {
   font-size: 15px; /* 폰트 크기를 20px로 설정 */
+}
+
+.pageNumber {
+  position: absolute;
+  left: 30px;
+  bottom: 10px;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 35px;
+  z-index: 1;
+}
+.generatedImage {
+  max-width: 550px;
+  max-height: 550px;
+  width: auto;
+  height: auto;
+  border-radius: 20px;
 }

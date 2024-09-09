@@ -1,12 +1,11 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
+  flex: 0 180px;
   justify-content: space-around;
   align-items: stretch;
 
-  width: 180px;
-  height: 800px;
+  height: calc(100vh-120px);
   min-height: 600px;
 
   border-right: 1px solid gainsboro;

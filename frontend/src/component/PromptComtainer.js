@@ -205,27 +205,10 @@ const PromptContainer = () => {
           <img
             src={generatedImage}
             alt="생성된 이미지"
-            style={{
-              maxWidth: '550px',
-              maxHeight: '550px',
-              width: 'auto',
-              height: 'auto',
-              borderRadius: '20px',
-            }}
+            className={styles.generatedImage}
           />
         )}
-        <span
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            right: '1340px',
-            color: 'black',
-            padding: '5px 10px',
-            borderRadius: '5px',
-            fontSize: '35px',
-            zIndex: 1,
-          }}
-        >
+        <span className={styles.pageNumber}>
           {currentIndex + 2} {/* 페이지 번호를 1에서 시작하도록 조정 */}
         </span>
       </div>

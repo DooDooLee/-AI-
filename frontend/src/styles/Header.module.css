@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
   align-self: stretch;
 
   font-size: 14px;
@@ -11,18 +10,20 @@
   height: 120px;
   min-width: fit-content;
   margin: 0 auto;
+  box-sizing: border-box;
 
   border-bottom: 1px solid gainsboro;
 }
 
 .headerPadding {
-  width: 1320px;
-  padding: 0 calc((100% - 1320px) / 2);
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 calc((50% - 660px));
 }
 
 .normalPadding {
   justify-content: space-between;
-  padding: 0px 50px;
+  padding: 0px 30px;
 }
 
 .wrapper ul {

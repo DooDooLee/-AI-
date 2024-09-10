@@ -10,7 +10,9 @@
   border: 1px solid #cdc4c4;
   background-color: #fcf4e2;
   border-radius: 80px;
+  margin: auto auto;
 }
+
 .left {
   border-right: 2px solid #cdc4c4;
   width: 600px;
@@ -103,4 +105,3 @@
 .textContent {
   flex-direction: column-reverse;
 }
-

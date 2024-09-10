@@ -10,12 +10,12 @@ function MyLibrary() {
       <div className={styles.first}>
         <Header />
       </div>
-      <div className={styles.second}>
+      <div className={styles.innerWrapper}>
         <LeftPanel />
-      </div>
-      <div className={styles.third}>
-        <MyBookListContainer />
-        <MyBookInfoContainer />
+        <div className={styles.containerWrapper}>
+          <MyBookListContainer />
+          <MyBookInfoContainer />
+        </div>
       </div>
     </div>
   );

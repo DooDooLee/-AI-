@@ -27,10 +27,8 @@ function BookViewer() {
       <div>
         <Header />
       </div>
-      <div>
+      <div className={styles.innerWrapper}>
         <LeftPanel />
-      </div>
-      <div>
         {showingCover ? (
           <BookCoverContainer
             setShowingCover={setShowingCover}

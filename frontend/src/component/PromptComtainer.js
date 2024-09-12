@@ -215,7 +215,7 @@ const PromptContainer = () => {
       <form id="right" className={styles.right}>
         <div id="upperForm" className={styles.upperForm}>
           <div id="prompt" className={styles.prompt}>
-            <input
+            <textarea
               type="text"
               name="prompt"
               value={prompt}
@@ -267,6 +267,7 @@ const PromptContainer = () => {
           </div>
         </div>
         <textarea
+          className={styles.bookText}
           placeholder={
             currentIndex === -1
               ? '책 제목을 입력해 주세요'

@@ -51,17 +51,19 @@
 .prompt {
   display: inline-block;
 }
-.prompt input {
+.prompt textarea {
   width: 440px;
   height: 210px;
   padding: 5px;
   background-color: #f3e7ca;
   border: 0px;
   border-radius: 40px 40px 0 40px;
+  font-family: 'NotoSans', 'MarkoOne-Regular';
   font-size: 20px;
   text-align: center;
+  resize: none;
 }
-.prompt input::placeholder {
+.prompt textarea::placeholder {
   font-size: 18px;
   text-align: center;
 }
@@ -88,7 +90,7 @@
   text-align: center;
 }
 
-.right textarea {
+.bookText {
   width: 686px;
   height: 290px;
   padding: 5px;
@@ -103,7 +105,7 @@
   resize: none;
 }
 
-.right textarea::placeholder {
+.bookText::placeholder {
   font-size: 18px;
   font-weight: 500;
 }

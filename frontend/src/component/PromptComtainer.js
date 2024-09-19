@@ -193,6 +193,15 @@ const PromptContainer = () => {
       console.error('Error:', error);
     }
   };
+
+  const promptRef = useRef(null);
+  const onTextareaFocus = () => {
+    promptRef.current.parentNode.style.border = '3px solid black';
+  };
+  const onTextareaBlur = () => {
+    promptRef.current.parentNode.style.border = 'none';
+  };
+
   const configRef = useRef(null);
   const onConfigBtnClick = () => {
     configRef.current.style.display = 'flex';
@@ -214,17 +223,32 @@ const PromptContainer = () => {
       </div>
       <form id="right" className={styles.right}>
         <div id="upperForm" className={styles.upperForm}>
-          <div id="prompt" className={styles.prompt}>
+          <div
+            id="prompt"
+            className={styles.prompt}
+            onClick={() => {
+              promptRef.current.focus();
+            }}
+          >
             <textarea
               type="text"
               name="prompt"
+              rows={1}
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              onChange={(e) => {
+                setPrompt(e.target.value);
+                promptRef.current.style.height = 'auto';
+                promptRef.current.style.height =
+                  promptRef.current.scrollHeight + 'px';
+              }}
+              onFocus={onTextareaFocus}
+              onBlur={onTextareaBlur}
               placeholder={
                 currentIndex === -1
                   ? '표지 생성을 위한 프롬프트를 입력해 주세요'
                   : '이미지 생성을 위한 프롬프트를 입력해 주세요'
               }
+              ref={promptRef}
             />
           </div>
           <div

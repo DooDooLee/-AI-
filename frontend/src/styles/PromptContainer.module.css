@@ -49,18 +49,25 @@
   justify-content: space-around;
 }
 .prompt {
-  display: inline-block;
-}
-.prompt textarea {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 440px;
   height: 210px;
   padding: 5px;
   background-color: #f3e7ca;
-  border: 0px;
+  border: none;
   border-radius: 40px 40px 0 40px;
+}
+.prompt textarea {
   font-family: 'NotoSans', 'MarkoOne-Regular';
   font-size: 20px;
+  width: inherit;
+  max-height: 200px;
+  background-color: transparent;
   text-align: center;
+  outline: none;
+  border: none;
   resize: none;
 }
 .prompt textarea::placeholder {

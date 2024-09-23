@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import styles from '../styles/Header.module.css';
 
@@ -66,8 +66,15 @@ function Header() {
       );
   };
 
+  const pathname = useLocation().pathname; //홈 페이지일 때 스타일 적용을 다르게 하기 위함
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${
+        pathname === '/' || pathname === '/ListPage'
+          ? styles.headerPadding
+          : styles.normalPadding
+      }`}
+    >
       <div className={styles.left}>
         <Link to="/" id="logo">
           <img src={logo_uri} alt="logo" />

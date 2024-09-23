@@ -2,19 +2,27 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  align-self: stretch;
 
   font-size: 14px;
   font-weight: 600;
 
-  height: 120px;
-  width: 1320px;
+  height: 100px;
   min-width: fit-content;
   margin: 0 auto;
-  padding: 0 calc((100% - 1320px) / 2);
+  box-sizing: border-box;
 
   border-bottom: 1px solid gainsboro;
+}
+
+.headerPadding {
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 calc((50% - 660px));
+}
+
+.normalPadding {
+  justify-content: space-between;
+  padding: 0px 30px;
 }
 
 .wrapper ul {

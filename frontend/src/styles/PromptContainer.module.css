@@ -1,8 +1,13 @@
 .wrapper {
   display: flex;
   flex-flow: row nowrap;
-  width: 1408px;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  height: calc(100vh - 120px);
+  min-height: 750px;
+  padding: 0 1em;
 }
 
 .left {
@@ -18,6 +23,8 @@
   border-radius: 80px 0 0 80px;
   border: 2px solid #cdc4c4;
   box-shadow: 5px 5px 5px 5px gainsboro;
+  position: relative;
+  z-index: -1;
 }
 
 .right {
@@ -44,18 +51,29 @@
   justify-content: space-around;
 }
 .prompt {
-  display: inline-block;
-}
-.prompt input {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 440px;
   height: 210px;
   padding: 5px;
   background-color: #f3e7ca;
-  border: 0px;
+  border: none;
   border-radius: 40px 40px 0 40px;
-  font-size: 20px;
+  cursor: text;
 }
-.prompt input::placeholder {
+.prompt textarea {
+  font-family: 'NotoSans', 'MarkoOne-Regular';
+  font-size: 20px;
+  width: inherit;
+  max-height: 200px;
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+  border: none;
+  resize: none;
+}
+.prompt textarea::placeholder {
   font-size: 18px;
   text-align: center;
 }
@@ -65,6 +83,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 .bookTitle {
@@ -81,7 +100,7 @@
   text-align: center;
 }
 
-.right textarea {
+.bookText {
   width: 686px;
   height: 290px;
   padding: 5px;
@@ -96,7 +115,7 @@
   resize: none;
 }
 
-.right textarea::placeholder {
+.bookText::placeholder {
   font-size: 18px;
   font-weight: 500;
 }
@@ -121,7 +140,7 @@
 
 .buttonArea {
   position: absolute;
-  bottom: -70px;
+  bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,4 +161,22 @@
 
 .option input[type='text'] {
   font-size: 15px; /* 폰트 크기를 20px로 설정 */
+}
+
+.pageNumber {
+  position: absolute;
+  left: 30px;
+  bottom: 10px;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 35px;
+  z-index: 1;
+}
+.generatedImage {
+  max-width: 550px;
+  max-height: 550px;
+  width: auto;
+  height: auto;
+  border-radius: 20px;
 }

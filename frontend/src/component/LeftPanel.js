@@ -10,7 +10,6 @@ function LeftPanel() {
   const my_library_url = image_url + '/my_library.svg';
   const review_management_url = image_url + '/review_management.svg';
 
-  console.log(temporary_library_url);
   return (
     <div id="wrapper" className={styles.wrapper}>
       <div>

@@ -193,6 +193,15 @@ const PromptContainer = () => {
       console.error('Error:', error);
     }
   };
+
+  const promptRef = useRef(null);
+  const onTextareaFocus = () => {
+    promptRef.current.parentNode.style.border = '3px solid black';
+  };
+  const onTextareaBlur = () => {
+    promptRef.current.parentNode.style.border = 'none';
+  };
+
   const configRef = useRef(null);
   const onConfigBtnClick = () => {
     configRef.current.style.display = 'flex';
@@ -205,43 +214,41 @@ const PromptContainer = () => {
           <img
             src={generatedImage}
             alt="생성된 이미지"
-            style={{
-              maxWidth: '550px',
-              maxHeight: '550px',
-              width: 'auto',
-              height: 'auto',
-              borderRadius: '20px',
-            }}
+            className={styles.generatedImage}
           />
         )}
-        <span
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            right: '1340px',
-            color: 'black',
-            padding: '5px 10px',
-            borderRadius: '5px',
-            fontSize: '35px',
-            zIndex: 1,
-          }}
-        >
+        <span className={styles.pageNumber}>
           {currentIndex + 2} {/* 페이지 번호를 1에서 시작하도록 조정 */}
         </span>
       </div>
       <form id="right" className={styles.right}>
         <div id="upperForm" className={styles.upperForm}>
-          <div id="prompt" className={styles.prompt}>
-            <input
+          <div
+            id="prompt"
+            className={styles.prompt}
+            onClick={() => {
+              promptRef.current.focus();
+            }}
+          >
+            <textarea
               type="text"
               name="prompt"
+              rows={1}
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              onChange={(e) => {
+                setPrompt(e.target.value);
+                promptRef.current.style.height = 'auto';
+                promptRef.current.style.height =
+                  promptRef.current.scrollHeight + 'px';
+              }}
+              onFocus={onTextareaFocus}
+              onBlur={onTextareaBlur}
               placeholder={
                 currentIndex === -1
                   ? '표지 생성을 위한 프롬프트를 입력해 주세요'
                   : '이미지 생성을 위한 프롬프트를 입력해 주세요'
               }
+              ref={promptRef}
             />
           </div>
           <div
@@ -259,12 +266,7 @@ const PromptContainer = () => {
             <button type="button" onClick={onConfigBtnClick}>
               이미지 설정
             </button>
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={loading}
-              style={{ marginTop: '5px', marginBottom: '5px' }}
-            >
+            <button type="button" onClick={handleSubmit} disabled={loading}>
               이미지 생성
             </button>
             {generatedImage && (
@@ -272,7 +274,7 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleShowImage}
                 disabled={loading}
-                style={{ marginTop: '5px', marginBottom: '5px' }}
+                style={{ fontSize: '18px' }}
               >
                 이미지 다시 표시
               </button>
@@ -282,7 +284,6 @@ const PromptContainer = () => {
                 type="button"
                 onClick={handleDeleteImage}
                 disabled={loading}
-                style={{ marginTop: '5px', marginBottom: '5px' }}
               >
                 이미지 삭제
               </button>
@@ -290,6 +291,7 @@ const PromptContainer = () => {
           </div>
         </div>
         <textarea
+          className={styles.bookText}
           placeholder={
             currentIndex === -1
               ? '책 제목을 입력해 주세요'
@@ -312,6 +314,7 @@ const PromptContainer = () => {
             id="nextPageBtn"
             className={styles.rightBtn}
             onClick={handleNextPage}
+            style={currentIndex === -1 ? {} : { fontSize: '18px' }}
           >
             {currentIndex === -1 ? '표지 완성' : '다음 페이지'}
           </button>

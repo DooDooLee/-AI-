@@ -10,10 +10,8 @@ function BookMaker() {
       <div>
         <Header />
       </div>
-      <div style={{ marginTop: '575px' }}>
+      <div className={styles.innerWrapper}>
         <LeftPanel />
-      </div>
-      <div style={{ marginTop: '520px' }}>
         <PromptContainer />
       </div>
     </div>

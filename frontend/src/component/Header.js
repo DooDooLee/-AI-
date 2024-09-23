@@ -70,7 +70,9 @@ function Header() {
   return (
     <div
       className={`${styles.wrapper} ${
-        pathname === '/' ? styles.headerPadding : styles.normalPadding
+        pathname === '/' || pathname === '/ListPage'
+          ? styles.headerPadding
+          : styles.normalPadding
       }`}
     >
       <div className={styles.left}>

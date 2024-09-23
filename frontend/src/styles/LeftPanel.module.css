@@ -5,8 +5,9 @@
   justify-content: space-around;
   align-items: stretch;
 
-  height: calc(100vh - 120px);
-  min-height: 600px;
+  height: calc(100vh - 100px);
+  min-width: 120px;
+  min-height: 750px;
 
   border-right: 1px solid gainsboro;
 }

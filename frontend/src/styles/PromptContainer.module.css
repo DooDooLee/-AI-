@@ -6,6 +6,8 @@
   align-items: center;
   position: relative;
   height: calc(100vh - 120px);
+  min-height: 750px;
+  padding: 0 1em;
 }
 
 .left {
@@ -58,6 +60,7 @@
   background-color: #f3e7ca;
   border: none;
   border-radius: 40px 40px 0 40px;
+  cursor: text;
 }
 .prompt textarea {
   font-family: 'NotoSans', 'MarkoOne-Regular';

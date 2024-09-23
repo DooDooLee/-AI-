@@ -1,25 +1,24 @@
 .wrapper {
-    margin: 2em 0;
-    width: 1024px;
+  width: 1024px;
 }
 
 .scrollbar {
-    display: flex;
-    flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row nowrap;
 
-    margin: 5em 3em 2em;
-    overflow-y: scroll;
-    white-space: nowrap;
+  margin: 5em 3em 2em;
+  overflow-y: scroll;
+  white-space: nowrap;
 }
 
 .scrollbar::-webkit-scrollbar {
-    height: 6px;
+  height: 6px;
 }
 .scrollbar::-webkit-scrollbar-thumb {
-    background-color: gray;
-    border-radius: 4px;
+  background-color: gray;
+  border-radius: 4px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: dimgray;
+  background-color: dimgray;
 }

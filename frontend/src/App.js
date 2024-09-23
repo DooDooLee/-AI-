@@ -15,8 +15,6 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    document.body.style.zoom = '80%'; // 페이지가 로드될 때 브라우저의 화면을 80%로 축소
-
     // 페이지가 랜더링될 때 스크롤을 맨 위로 이동
     window.scrollTo(0, 0);
 

@@ -13,7 +13,8 @@ function LeftPanel() {
   return (
     <div id="wrapper" className={styles.wrapper}>
       <Link
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           alert('준비중입니다.');
         }}
       >
@@ -36,7 +37,12 @@ function LeftPanel() {
         <img src={my_library_url} alt="나의서재" />
         <span>나의서재</span>
       </Link>
-      <Link>
+      <Link
+        onClick={(e) => {
+          e.preventDefault();
+          alert('준비중입니다.');
+        }}
+      >
         <img src={review_management_url} alt="서평관리" />
         <span>서평관리</span>
       </Link>

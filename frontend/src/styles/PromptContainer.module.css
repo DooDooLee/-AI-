@@ -32,6 +32,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   width: 700px;
   height: 600px;
@@ -118,6 +119,13 @@
 .bookText::placeholder {
   font-size: 18px;
   font-weight: 500;
+}
+
+.autoPromptCheckbox {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  padding: 5px;
 }
 
 .wrapper button {

@@ -21,3 +21,12 @@
   display: block;
   text-align: center;
 }
+
+Link {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

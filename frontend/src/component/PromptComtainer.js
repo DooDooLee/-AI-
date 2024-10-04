@@ -15,6 +15,7 @@ const PromptContainer = () => {
   const [coverImage, setCoverImage] = useState(''); // 책 표지 이미지 상태 추가
   const navigate = useNavigate();
   const [sizeNumber, setSizeNumber] = useState(1);
+  const [autoPrompt, setAutoprompt] = useState(false);
 
   useEffect(() => {
     setCurrentIndex(-1);
@@ -302,6 +303,17 @@ const PromptContainer = () => {
           }
           onChange={handleContentChange}
         />
+        <span className={styles.autoPromptCheckbox}>
+          <input
+            type="checkbox"
+            id="autoPromptCheckbox"
+            value={autoPrompt}
+            onChange={() => {
+              setAutoprompt(autoPrompt);
+            }}
+          />
+          <label htmlFor="autoPromptCheckbox">프롬프트 자동 생성</label>
+        </span>
       </form>
       <div id="buttonArea" className={styles.buttonArea}>
         <div>

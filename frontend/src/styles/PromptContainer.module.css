@@ -126,6 +126,8 @@
   left: 0px;
   bottom: 0px;
   padding: 5px;
+  font-size: 18px;
+  color: dimgray;
 }
 
 .wrapper button {

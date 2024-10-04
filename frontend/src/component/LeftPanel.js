@@ -12,11 +12,15 @@ function LeftPanel() {
 
   return (
     <div id="wrapper" className={styles.wrapper}>
-      <div>
+      <Link
+        onClick={() => {
+          alert('준비중입니다.');
+        }}
+      >
         <img src={temporary_library_url} alt="임시서재" />
         <span>임시서재</span>
-      </div>
-      <div>
+      </Link>
+      <Link to="/BookMaker">
         <img
           src={bookmaker_url}
           alt="새P-Book 만들기"
@@ -27,15 +31,15 @@ function LeftPanel() {
           <br />
           만들기
         </span>
-      </div>
-      <div>
+      </Link>
+      <Link to="/myLibrary">
         <img src={my_library_url} alt="나의서재" />
         <span>나의서재</span>
-      </div>
-      <div>
+      </Link>
+      <Link>
         <img src={review_management_url} alt="서평관리" />
         <span>서평관리</span>
-      </div>
+      </Link>
     </div>
   );
 }

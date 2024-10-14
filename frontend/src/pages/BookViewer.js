@@ -6,6 +6,7 @@ import LeftPanel from '../component/LeftPanel';
 import ViewerContainer from '../component/ViewerContainer';
 import styles from '../styles/BookViewer.module.css';
 import BookCoverContainer from '../component/BookCoverContainer';
+import BookReviewContainer from '../component/BookReviewContainer';
 
 function BookViewer() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function BookViewer() {
         ) : (
           <ViewerContainer setShowingCover={setShowingCover} bookId={bookId} />
         )}
+        <BookReviewContainer />
       </div>
     </div>
   );

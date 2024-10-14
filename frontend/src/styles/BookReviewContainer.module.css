@@ -1,0 +1,37 @@
+.wrapper {
+  position: absolute;
+  right: 0px;
+  width: 400px;
+  height: calc(100vh - 100px);
+  min-height: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  translate: 400px;
+  transition: translate 0.5s;
+
+  z-index: 1;
+  background-color: lightcoral;
+}
+
+.reviewWrapper {
+  flex: 1;
+}
+
+.reviewWritingArea {
+  margin: 5px;
+}
+
+.expandButton {
+  position: absolute;
+  background-color: aquamarine;
+  width: 1em;
+  height: 2em;
+  top: 50%;
+  left: -1em;
+  font-size: 1em;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+}

@@ -22,15 +22,11 @@ public class Review {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 
     @CreatedDate
-    private LocalDateTime createdAd;
+    private LocalDateTime createdAt;
 
     private String contents;
 

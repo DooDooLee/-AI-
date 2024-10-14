@@ -25,4 +25,13 @@ public class ImageController {
         return new ImageResponse(responseString);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/image/auto")
+    public ImageResponse getAutoImage(@RequestBody ImageRequest request) throws IOException {
+        String responseString = sendImage.sendAutoImageRequest(request.getPrompt(),request.getSeed(), request.getSizeNumber());
+        return new ImageResponse(responseString);
+    }
+
+
+
 }

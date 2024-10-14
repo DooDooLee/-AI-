@@ -24,6 +24,45 @@ public class SendImage {
         return sendToStableDiffusion(translatedPrompt, seed, sizeNumber);
     }
 
+    public String sendAutoImageRequest(String prompt, Long seed, Integer sizeNumber) throws IOException {
+        String translatedAutoPrompt = translateAutoPrompt(prompt);
+
+        return sendToStableDiffusion(translatedAutoPrompt, seed, sizeNumber);
+    }
+
+    private String translateAutoPrompt(String prompt) throws IOException {
+        MediaType mediaType = MediaType.parse("application/json");
+        JsonObject json = new JsonObject();
+        json.addProperty("model", "gpt-3.5-turbo");
+        JsonArray messages = new JsonArray();
+        JsonObject systemMessage = new JsonObject();
+        systemMessage.addProperty("role", "system");
+        systemMessage.addProperty("content", "Based on the content I provide, write only an image generation prompt for Stable Diffusion AI within 4 lines.");
+        messages.add(systemMessage);
+        JsonObject userMessage = new JsonObject();
+        userMessage.addProperty("role", "user");
+        userMessage.addProperty("content", prompt);
+        messages.add(userMessage);
+        json.add("messages", messages);
+
+        RequestBody body = RequestBody.create(json.toString(), mediaType);
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/chat/completions")
+                .post(body)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + apiKeyConfig.getChatGptApiKey())
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+            JsonObject responseBody = gson.fromJson(response.body().string(), JsonObject.class);
+            String translatedText = responseBody.getAsJsonArray("choices").get(0).getAsJsonObject().get("message").getAsJsonObject().get("content").getAsString();
+            return translatedText.trim();
+        }
+    }
+
     private String translatePrompt(String prompt) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         JsonObject json = new JsonObject();

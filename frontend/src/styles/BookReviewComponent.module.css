@@ -1,0 +1,10 @@
+.wrapper {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: #f3e7ca;
+}
+.time {
+  font: 1rem sans-serif;
+  color: dimgray;
+}

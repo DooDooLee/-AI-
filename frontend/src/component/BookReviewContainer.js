@@ -1,5 +1,6 @@
 import styles from '../styles/BookReviewContainer.module.css';
 import { useRef, useState } from 'react';
+import BookReviewComponent from './BookReviewComponent';
 
 function BookReviewContainer() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,12 +15,18 @@ function BookReviewContainer() {
     }
   };
 
+  let tempTime = new Date();
+
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
-      <div className={styles.reviewWrapper}></div>
+      <div className={styles.reviewWrapper}>
+        <BookReviewComponent
+          {...{ userName: '임시유저', time: tempTime, text: '서평내용' }}
+        />
+      </div>
       <textarea className={styles.reviewWritingArea}></textarea>
       <button className={styles.expandButton} onClick={onExpandBtnClick}>
-        {isExpanded ? '>' : '<'}
+        {isExpanded ? '>덛가' : '<서평'}
       </button>
     </div>
   );

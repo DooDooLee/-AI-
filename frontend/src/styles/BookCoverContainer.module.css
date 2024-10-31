@@ -7,6 +7,7 @@
   background-color: #fcf4e2;
   box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
   position: relative;
+  bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

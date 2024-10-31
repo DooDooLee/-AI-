@@ -1,5 +1,4 @@
 .wrapper {
-  writing-mode: vertical;
   position: absolute;
   box-sizing: border-box;
   right: 0px;
@@ -23,6 +22,9 @@
 
 .reviewWrapper {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 }
 
 .reviewWritingArea {
@@ -30,15 +32,23 @@
 }
 
 .expandButton {
+  line-height: 1.5em;
   position: absolute;
   background-color: #f3e7ca;
   width: 2em;
   top: 50%;
   left: -2em;
-  font-size: 1em;
+  font-size: 0.8em;
+  font-weight: 500;
   border: none;
   outline: none;
   border-radius: 10px 0 0 10px;
   cursor: pointer;
   border: 1px solid #cdc4c4;
+
+  transition: color 0.2s;
+}
+
+.expandButton:hover {
+  color: #dda0dd;
 }

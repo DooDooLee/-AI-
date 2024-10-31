@@ -26,7 +26,7 @@ function BookReviewContainer() {
       </div>
       <textarea className={styles.reviewWritingArea}></textarea>
       <button className={styles.expandButton} onClick={onExpandBtnClick}>
-        {isExpanded ? '>덛가' : '<서평'}
+        {isExpanded ? '>닫기' : '<서평'}
       </button>
     </div>
   );

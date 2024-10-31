@@ -1,4 +1,8 @@
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
   margin: 10px;
   padding: 10px;
   border-radius: 30px;
@@ -7,4 +11,22 @@
 .time {
   font: 1rem sans-serif;
   color: dimgray;
+}
+.text {
+  word-break: break-all;
+  padding: 0.5em;
+  padding-bottom: 1.5em;
+  font-family: '맑은 고딕', sans-serif;
+}
+.deleteBtn {
+  align-self: self-end;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  color: dimgray;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.deleteBtn:hover {
+  background-color: #e2dbcb;
 }

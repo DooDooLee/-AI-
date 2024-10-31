@@ -15,7 +15,6 @@
 .text {
   word-break: break-all;
   padding: 0.5em;
-  padding-bottom: 1.5em;
   font-family: '맑은 고딕', sans-serif;
 }
 .deleteBtn {

@@ -29,6 +29,8 @@
 
 .reviewWritingArea {
   margin: 5px;
+  resize: none;
+  height: 6em;
 }
 
 .expandButton {

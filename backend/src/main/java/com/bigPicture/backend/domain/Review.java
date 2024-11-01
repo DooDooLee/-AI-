@@ -30,6 +30,7 @@ public class Review {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @Column(length = 3000)
     private String contents;
 
 }

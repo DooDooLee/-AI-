@@ -2,6 +2,7 @@ package com.bigPicture.backend.payload.response;
 
 import com.bigPicture.backend.domain.Book;
 import com.bigPicture.backend.payload.PageDto;
+import com.bigPicture.backend.payload.ReviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class BookDetailResponse {
 
     private Long userId;
@@ -24,19 +27,8 @@ public class BookDetailResponse {
     private Long bookLike;
     private String createdAt;
     private List<PageDto> pages;
+    private List<ReviewDto> reviews;
 
-    @Builder
-    public BookDetailResponse(Long userId, String userName, String userEmail, Long bookId, String title, String cover, Long bookLike, String createdAt, List<PageDto> pages) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.bookId = bookId;
-        this.title = title;
-        this.cover = cover;
-        this.bookLike = bookLike;
-        this.createdAt = createdAt;
-        this.pages = pages;
-    }
 
     public static BookDetailResponse of(Book book) {
         return BookDetailResponse.builder()
@@ -50,6 +42,9 @@ public class BookDetailResponse {
                 .createdAt(book.getCreatedAt().toString())
                 .pages(book.getPages().stream()
                         .map(PageDto::of)
+                        .collect(Collectors.toList()))
+                .reviews(book.getReviews().stream()
+                        .map(ReviewDto::of)
                         .collect(Collectors.toList()))
                 .build();
     }

@@ -19,7 +19,7 @@ public class Page {
 
     private String image;
 
-    @Column(length = 2000)
+    @Column(length = 3000)
     private String contents;
 
     private Long pageNumber;

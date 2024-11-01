@@ -1,15 +1,13 @@
 package com.bigPicture.backend.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
 @Getter
 @AllArgsConstructor
@@ -30,8 +28,9 @@ public class Review {
     private Book book;
 
     @CreatedDate
-    private LocalDateTime createdAd;
+    private LocalDateTime createdAt;
 
+    @Column(length = 3000)
     private String contents;
 
 }

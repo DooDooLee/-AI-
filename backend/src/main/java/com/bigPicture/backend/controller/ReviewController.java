@@ -1,6 +1,7 @@
 package com.bigPicture.backend.controller;
 
 import com.bigPicture.backend.payload.request.BookCreateRequest;
+import com.bigPicture.backend.payload.request.ReviewCreateRequest;
 import com.bigPicture.backend.security.CurrentUser;
 import com.bigPicture.backend.security.UserPrincipal;
 import com.bigPicture.backend.service.ReviewService;
@@ -19,9 +20,10 @@ public class ReviewController {
     private final ReviewService reviewService;
     //책 등록
     @PostMapping("/book/{bookId}/review")
-    public ResponseEntity<?> createBook(@RequestBody BookCreateRequest request,
+    public ResponseEntity<?> createBook(@CurrentUser UserPrincipal userPrincipal,
+                                        @RequestBody ReviewCreateRequest request,
                                         @PathVariable Long bookId) {
-        reviewService.save(bookId, request);
+        reviewService.save(userPrincipal,request, bookId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

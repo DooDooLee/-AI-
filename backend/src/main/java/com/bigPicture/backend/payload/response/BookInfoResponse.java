@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BookInfoResponse {
 
     //목록 보기용임으로 페이지는 응답X
@@ -22,18 +24,6 @@ public class BookInfoResponse {
     private String cover;
     private Long bookLike;
     private String createdAt;
-
-    @Builder
-    public BookInfoResponse(Long userId, String userName, String userEmail, Long bookId, String title, String cover, Long bookLike, String createdAt) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.bookId = bookId;
-        this.title = title;
-        this.cover = cover;
-        this.bookLike = bookLike;
-        this.createdAt = createdAt;
-    }
 
     public static BookInfoResponse of(Book book) {
         return BookInfoResponse.builder()

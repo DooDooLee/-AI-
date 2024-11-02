@@ -7,6 +7,7 @@ import com.bigPicture.backend.domain.Wish;
 import com.bigPicture.backend.exception.ResourceNotFoundException;
 import com.bigPicture.backend.payload.PageDto;
 import com.bigPicture.backend.payload.request.BookCreateRequest;
+import com.bigPicture.backend.payload.request.BookUpdateRequest;
 import com.bigPicture.backend.payload.response.*;
 import com.bigPicture.backend.repository.BookRepository;
 import com.bigPicture.backend.repository.UserRepository;
@@ -69,6 +70,17 @@ public class BookService {
                 .map(BookInfoResponse::of)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void update(Long bookId, UserPrincipal userPrincipal, BookUpdateRequest request) {
+        User user = userRepository.findById(userPrincipal.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid user Id"));
+
+        //현재 로그인된 유저가 작성한 특정(PathParameter)책 객체를 가져옴
+        Book book = bookRepository.findByBookIdAndUser(bookId, user.getId());
+
+        book.update(request);
+    }
+
 
     @Transactional
     public boolean deleteBookById(Long bookId, Long userId) {

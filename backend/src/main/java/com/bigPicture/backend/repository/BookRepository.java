@@ -16,6 +16,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAllByOrderByIdAsc();
 
+    @Query("SELECT b FROM Book b WHERE b.id = :bookId AND b.user.id = :userId")
+    Book findByBookIdAndUser(@Param("bookId") Long bookId, @Param("userId") Long userId);
+
     @Query("SELECT b FROM Book b WHERE lower(b.title) = lower(:name)")
     List<Book> findExactMatchBooksByName(@Param("name") String name);
 

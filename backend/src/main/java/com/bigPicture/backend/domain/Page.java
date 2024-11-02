@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Page {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +29,5 @@ public class Page {
         this.book = book;
     }
 
-    @Builder
-    public Page(String image, String contents, Long pageNumber) {
-        this.image = image;
-        this.contents = contents;
-        this.pageNumber = pageNumber;
-    }
+
 }

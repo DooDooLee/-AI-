@@ -1,6 +1,7 @@
 package com.bigPicture.backend.controller;
 
 import com.bigPicture.backend.payload.request.BookCreateRequest;
+import com.bigPicture.backend.payload.request.BookUpdateRequest;
 import com.bigPicture.backend.payload.response.*;
 import com.bigPicture.backend.security.CurrentUser;
 import com.bigPicture.backend.security.UserPrincipal;
@@ -57,6 +58,12 @@ public class BookController {
         int size = 20; // 페이지 당 책의 수
         List<BookInfoResponse> bookInfoResponses = bookService.searchAndPaginateBooks(bookName, page, size);
         return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
+    }
+
+    @PutMapping("/book/update/{bookId}")
+    public ResponseEntity<?> updateBook(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal, @RequestBody BookUpdateRequest request) {
+        bookService.update(bookId, userPrincipal, request);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/book/delete/{bookId}")

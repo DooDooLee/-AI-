@@ -1,5 +1,7 @@
 package com.bigPicture.backend.domain;
 
+import com.bigPicture.backend.payload.PageDto;
+import com.bigPicture.backend.payload.request.BookUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -39,7 +42,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Page> pages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -67,5 +70,29 @@ public class Book {
             this.bookLike = 0L;
         }
         this.bookLike -= 1;
+    }
+
+    public void update(BookUpdateRequest request) {
+        this.bookLike = request.getBookLike();
+        this.cover = request.getCover();
+        this.title = request.getTitle();
+
+        // 기존 페이지 리스트를 비우고 새로 추가된 페이지 리스트를 다시 설정
+        this.pages.clear();
+
+        if (request.getPages() != null) {
+            List<Page> newPages = request.getPages().stream()
+                    .map(pageDto -> Page.builder()
+                            .book(this)  // 현재 Book 객체를 설정 (양방향 연관관계 유지)
+                            .image(pageDto.getImage())
+                            .contents(pageDto.getContent())
+                            .pageNumber(pageDto.getPageNumber())
+                            .build())
+                    .collect(Collectors.toList());
+
+            // 새로운 페이지들에 대해 연관관계 설정 후 추가
+            newPages.forEach(page -> page.updateBook(this));
+            this.pages.addAll(newPages);
+        }
     }
 }

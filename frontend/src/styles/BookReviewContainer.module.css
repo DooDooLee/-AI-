@@ -28,9 +28,40 @@
 }
 
 .reviewWritingArea {
+  background-color: white;
   margin: 5px;
-  resize: none;
+  border-radius: 30px;
   height: 6em;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.reviewWritingArea textarea {
+  height: inherit;
+  box-sizing: border-box;
+
+  border: none;
+  resize: none;
+  flex: 1;
+}
+
+.reviewWritingArea textarea::placeholder {
+  color: burlywood;
+}
+
+.reviewWritingArea button {
+  width: 5em;
+  height: 5em;
+  border-radius: 1em;
+  border: none;
+  background-color: #fcf4e2;
+  font-weight: 600;
+}
+
+.reviewWritingArea button:hover {
+  background-color: #f3e7ca;
 }
 
 .expandButton {
@@ -53,4 +84,11 @@
 
 .expandButton:hover {
   color: #dda0dd;
+}
+
+hr {
+  background-color: gray;
+  width: 95%;
+  border: 0;
+  height: 1px;
 }

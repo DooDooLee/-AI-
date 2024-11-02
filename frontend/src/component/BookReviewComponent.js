@@ -9,9 +9,7 @@ function BookReviewComponent({ userName, time, text }) {
         <strong>{userName}</strong>{' '}
         <span className={styles.time}>{writtenTime}</span>
       </div>
-      <div className={styles.text}>
-        textdddddddddddddddddddddddd가나다라ddddddddddddddddddddddddddddddddddddddddddddd
-      </div>
+      <div className={styles.text}>{text}</div>
       <button className={styles.deleteBtn}>삭제</button>
     </div>
   );

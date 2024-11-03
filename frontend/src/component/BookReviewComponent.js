@@ -1,15 +1,17 @@
 import styles from '../styles/BookReviewComponent.module.css';
 
-function BookReviewComponent({ userName, time, text }) {
+function BookReviewComponent({ userName, createdAt, contents }) {
+  const KST = new Date(createdAt + '+00:00'); //시간대 문제 해결
   const writtenTime =
-    time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate();
+    KST.getFullYear() + '/' + (KST.getMonth() + 1) + '/' + KST.getDate();
+
   return (
     <div className={styles.wrapper}>
       <div>
         <strong>{userName}</strong>{' '}
-        <span className={styles.time}>{writtenTime}</span>
+        <span className={styles.time}>님 {writtenTime}</span>
       </div>
-      <div className={styles.text}>{text}</div>
+      <div className={styles.text}>{contents}</div>
       <button className={styles.deleteBtn}>삭제</button>
     </div>
   );

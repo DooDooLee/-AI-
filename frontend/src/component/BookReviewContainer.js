@@ -5,7 +5,7 @@ import BookReviewComponent from './BookReviewComponent';
 
 function BookReviewContainer({ bookId }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');
   const wrapperRef = useRef(null);
 
@@ -74,7 +74,7 @@ function BookReviewContainer({ bookId }) {
 
       //서평작성란 지우고 1초 뒤 갱신
       setReviewText('');
-      setTimeout(fetchReviews, 3000);
+      setTimeout(fetchReviews, 1000);
     } catch (error) {
       console.error('ERROR!: ' + error);
       alert('서평을 다시 등록해 주세요.');
@@ -83,15 +83,6 @@ function BookReviewContainer({ bookId }) {
 
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
-      <div className={styles.reviewWrapper}>
-        {reviews.map((item, idx) => (
-          <BookReviewComponent
-            key={idx}
-            {...{ userName: '임시유저명', time: tempTime, text: item.contents }}
-          />
-        ))}
-      </div>
-      <hr />
       <form className={styles.reviewWritingArea} onSubmit={handleReviewSubmit}>
         <textarea
           placeholder="악의적 서평은 삭제될 수 있습니다."
@@ -101,6 +92,12 @@ function BookReviewContainer({ bookId }) {
         />
         <button>등록</button>
       </form>
+      <hr />
+      <div className={styles.reviewWrapper}>
+        {reviews.map((item, idx) => (
+          <BookReviewComponent key={idx} {...item} />
+        ))}
+      </div>
       <button className={styles.expandButton} onClick={onExpandBtnClick}>
         {isExpanded ? '>닫기' : '<서평'}
       </button>

@@ -39,7 +39,7 @@ function BookViewer() {
         ) : (
           <ViewerContainer setShowingCover={setShowingCover} bookId={bookId} />
         )}
-        <BookReviewContainer />
+        <BookReviewContainer bookId={bookId} />
       </div>
     </div>
   );

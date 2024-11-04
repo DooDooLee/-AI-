@@ -1,0 +1,107 @@
+.wrapper {
+  position: absolute;
+  box-sizing: border-box;
+  right: 0px;
+  width: 400px;
+  height: calc(100vh - 100px);
+  min-height: 750px;
+  border-left: 2px solid #cdc4c4;
+  border-top: 2px solid #cdc4c4;
+  border-right: 2px solid #cdc4c4;
+  background-color: #fcf4e2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  translate: 400px;
+  transition: translate 0.5s;
+
+  z-index: 1;
+}
+
+.reviewWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+.reviewWrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.reviewWrapper::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 4px;
+}
+
+.reviewWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: dimgray;
+}
+
+.reviewWritingArea {
+  background-color: white;
+  margin: 5px;
+  border-radius: 30px;
+  height: 6em;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.reviewWritingArea textarea {
+  height: inherit;
+  box-sizing: border-box;
+
+  border: none;
+  resize: none;
+  flex: 1;
+}
+
+.reviewWritingArea textarea::placeholder {
+  color: burlywood;
+}
+
+.reviewWritingArea button {
+  width: 5em;
+  height: 5em;
+  border-radius: 1em;
+  border: none;
+  background-color: #fcf4e2;
+  font-weight: 600;
+}
+
+.reviewWritingArea button:hover {
+  background-color: #f3e7ca;
+}
+
+.expandButton {
+  line-height: 1.5em;
+  position: absolute;
+  background-color: #f3e7ca;
+  width: 2em;
+  top: 50%;
+  left: -2em;
+  font-size: 0.8em;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  border: 1px solid #cdc4c4;
+
+  transition: color 0.2s;
+}
+
+.expandButton:hover {
+  color: #dda0dd;
+}
+
+hr {
+  background-color: gray;
+  width: 95%;
+  border: 0;
+  height: 1px;
+}

@@ -4,7 +4,8 @@
   justify-content: space-around;
   align-items: center;
   margin: 0 50px;
-  width: 675px;
+  margin-left: 150px; /* 추가: 오른쪽으로 이동 */
+  width: 700px;
   height: 790px;
   background-color: #fcf4e2;
   border-radius: 20px;
@@ -17,7 +18,6 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-
   width: 650px;
   height: 160px;
   background-color: #f3e7ca;
@@ -35,6 +35,7 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
 .bookTypeMenu button {
   border: none;
   background-color: transparent;
@@ -50,4 +51,9 @@
   border: 0;
   font-size: 18px;
   color: #d9d9d9;
+}
+
+/* MyBookInfoContainer 위치를 오른쪽으로 이동시키는 스타일 추가 */
+.MyBookInfoContainer {
+  margin-left: 20px; /* 오른쪽으로 이동 */
 }

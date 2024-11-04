@@ -3,8 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  margin-top: 10px; /* 전체적으로 위치를 내리기 위해 추가 */
 }
 
 .wrapper span {
-  display: block;
+  font-size: 18px; /* 글자 크기를 줄입니다 */
+}
+
+.wrapper img {
+  border-radius: 10px; /* 모서리를 둥글게 만듭니다 */
 }

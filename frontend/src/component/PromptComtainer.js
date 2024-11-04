@@ -34,35 +34,42 @@ const PromptContainer = () => {
     setLoading(true);
     try {
       const token = Cookies.get('authToken');
-      const response = await fetch('http://15.164.245.179:8080/image', {
+      const apiUrl = autoPrompt
+        ? 'http://15.164.245.179:8080/image/auto'
+        : 'http://15.164.245.179:8080/image';
+
+      // autoPrompt와 currentIndex 조건에 따라 promptValue 설정
+      const currentPage = pages[currentIndex] || {};
+      const promptValue = autoPrompt
+        ? currentIndex === -1
+          ? title
+          : pages[currentIndex]?.content || '' // autoPrompt가 true일 때 currentPage의 content 사용
+        : prompt; // 그 외에는 사용자가 입력한 prompt 사용
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          prompt: prompt,
+          prompt: promptValue,
           seed: seed || undefined,
           sizeNumber: sizeNumber,
         }),
       });
       const data = await response.json();
 
-      // 시드 값을 확인하여 문자열로 변환 가능 여부를 체크합니다.
       const seedString = data.seed ? data.seed.toString() : '';
 
       setTimeout(() => {
         setGeneratedImage(data.imageUrl);
         setLoading(false);
-
-        // 시드 값을 입력 폼에 설정
         setSeed(seedString);
 
         if (currentIndex === -1) {
-          // 첫 번째 입력이면 표지 이미지 설정
           setCoverImage(data.imageUrl);
         } else {
-          // 현재 인덱스의 페이지 정보 업데이트
           setPages((prevPages) => {
             const newPages = [...prevPages];
             newPages[currentIndex] = {
@@ -70,7 +77,6 @@ const PromptContainer = () => {
               image: data.imageUrl,
               seed: seedString,
             };
-            console.log('Updated Pages:', newPages); // 페이지 배열 로그 출력
             return newPages;
           });
         }
@@ -118,7 +124,7 @@ const PromptContainer = () => {
       const currentPage = pages[currentIndex] || {};
       if (!currentPage.content && !currentPage.image) {
         alert('글 내용이나 이미지를 입력해주세요.');
-        return; // 다음 페이지로 이동하지 않고 함수 종료
+        return;
       }
 
       // 현재 페이지가 마지막 페이지인지 확인하고, 마지막 페이지가 아니라면 다음 페이지로 이동
@@ -307,9 +313,9 @@ const PromptContainer = () => {
           <input
             type="checkbox"
             id="autoPromptCheckbox"
-            value={autoPrompt}
+            checked={autoPrompt}
             onChange={() => {
-              setAutoprompt(autoPrompt);
+              setAutoprompt(!autoPrompt);
             }}
           />
           <label htmlFor="autoPromptCheckbox">프롬프트 자동 생성</label>

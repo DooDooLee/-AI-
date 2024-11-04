@@ -10,6 +10,7 @@ import lombok.Getter;
 @Builder
 public class ReviewDto {
     private String userName;
+    private String userEmail;
     private String contents;
     private String createdAt;
 
@@ -17,6 +18,7 @@ public class ReviewDto {
         return ReviewDto.builder()
                 .contents(review.getContents())
                 .userName(review.getUser().getName())
+                .userEmail(review.getUser().getEmail())
                 .createdAt(review.getCreatedAt().toString())
                 .build();
     }

@@ -1,5 +1,5 @@
 import styles from '../styles/BookReviewContainer.module.css';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import BookReviewComponent from './BookReviewComponent';
 
@@ -9,21 +9,21 @@ function BookReviewContainer({ bookId }) {
   const [reviewText, setReviewText] = useState('');
   const wrapperRef = useRef(null);
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     const response = await fetch(`http://15.164.245.179:8080/book/${bookId}`);
     if (!response.ok) {
       throw new Error('Failed to fetch book data');
     }
     const data = await response.json();
-    setReviews(data.reviews);
-  };
+    setReviews(data.reviews.reverse());
+  }, [bookId]);
 
   useEffect(() => {
     fetchReviews();
-  }, []);
+  }, [fetchReviews]);
 
+  //서평 확장/축소 함수
   const onExpandBtnClick = () => {
-    //서평 확장/축소
     if (isExpanded) {
       setIsExpanded(false);
       wrapperRef.current.style.translate = '400px';
@@ -33,8 +33,6 @@ function BookReviewContainer({ bookId }) {
     }
   };
 
-  let tempTime = new Date(); //temp data
-
   const onReviewTextChange = (e) => {
     setReviewText(e.target.value);
   };
@@ -42,7 +40,7 @@ function BookReviewContainer({ bookId }) {
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     setReviewText(reviewText.trim());
-    if (reviewText.length == 0) {
+    if (reviewText.length === 0) {
       alert('서평을 입력해 주세요');
       return;
     }
@@ -83,6 +81,12 @@ function BookReviewContainer({ bookId }) {
 
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
+      <div className={styles.reviewWrapper}>
+        {reviews.map((item, idx) => (
+          <BookReviewComponent key={idx} {...item} />
+        ))}
+      </div>
+      <hr />
       <form className={styles.reviewWritingArea} onSubmit={handleReviewSubmit}>
         <textarea
           placeholder="악의적 서평은 삭제될 수 있습니다."
@@ -92,12 +96,6 @@ function BookReviewContainer({ bookId }) {
         />
         <button>등록</button>
       </form>
-      <hr />
-      <div className={styles.reviewWrapper}>
-        {reviews.map((item, idx) => (
-          <BookReviewComponent key={idx} {...item} />
-        ))}
-      </div>
       <button className={styles.expandButton} onClick={onExpandBtnClick}>
         {isExpanded ? '>닫기' : '<서평'}
       </button>

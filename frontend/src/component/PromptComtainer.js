@@ -30,6 +30,7 @@ const PromptContainer = () => {
     setCurrentIndex(-1); // 처음에는 제목 입력을 받기 위해 -1로 설정
   }, []);
 
+  //이미지 생성 버튼 클릭 시 콜백 함수
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -116,10 +117,10 @@ const PromptContainer = () => {
         alert('표지를 생성하기 위해서는 제목과 이미지가 모두 필요합니다.');
         return;
       }
-      setCurrentIndex(0);
 
       setGeneratedImage('');
       setCurrentIndex(0);
+      setPrompt('');
     } else {
       const currentPage = pages[currentIndex] || {};
       if (!currentPage.content && !currentPage.image) {
@@ -142,6 +143,7 @@ const PromptContainer = () => {
         }
         console.log('Updated Pages:', newPages); // 페이지 배열 로그 출력
         setGeneratedImage(''); // 다음 페이지로 이동 시 이미지 초기화
+        setPrompt(''); //다음 페이지 이동 시 프롬프트 초기화
         return newPages;
       });
     }

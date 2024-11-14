@@ -24,6 +24,11 @@ function Header() {
     navigate('/');
   };
 
+  const handleLoginSuccess = (token) => {
+    Cookies.set('authToken', token, { expires: 7 }); // 쿠키에 7일간 저장
+    fetchUserInfo(token);
+  };
+
   useEffect(() => {
     // 현재 URL에서 토큰을 가져옴
     const urlParams = new URLSearchParams(window.location.search);
@@ -41,12 +46,7 @@ function Header() {
         setUserName(storedUserName);
       }
     }
-  }, []);
-
-  const handleLoginSuccess = (token) => {
-    Cookies.set('authToken', token, { expires: 7 }); // 쿠키에 7일간 저장
-    fetchUserInfo(token);
-  };
+  }, [handleLoginSuccess]);
 
   const fetchUserInfo = (token) => {
     fetch('http://15.164.245.179:8080/user/me', {

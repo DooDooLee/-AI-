@@ -59,7 +59,7 @@ function MyBookListContainer() {
     };
 
     fetchBooks();
-  }, []);
+  }, [navigate]);
 
   const handleNextPage = () => {
     if ((currentPage + 1) * booksPerPage < books.length) {

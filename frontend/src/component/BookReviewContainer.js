@@ -7,6 +7,7 @@ function BookReviewContainer({ bookId }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');
+  const [authorEmail, setAuthorEmail] = useState('');
   const wrapperRef = useRef(null);
 
   const fetchReviews = useCallback(async () => {
@@ -15,6 +16,7 @@ function BookReviewContainer({ bookId }) {
       throw new Error('Failed to fetch book data');
     }
     const data = await response.json();
+    setAuthorEmail(data.userEmail);
     setReviews(data.reviews.reverse());
   }, [bookId]);
 
@@ -51,6 +53,10 @@ function BookReviewContainer({ bookId }) {
 
     try {
       const token = Cookies.get('authToken');
+      if (!token) {
+        alert('서평을 등록하려면 로그인을 해 주세요.');
+        return;
+      }
       const response = await fetch(
         `http://15.164.245.179:8080/book/${bookId}/review`,
         {
@@ -83,7 +89,7 @@ function BookReviewContainer({ bookId }) {
     <div ref={wrapperRef} className={styles.wrapper}>
       <div className={styles.reviewWrapper}>
         {reviews.map((item, idx) => (
-          <BookReviewComponent key={idx} {...item} />
+          <BookReviewComponent key={idx} {...item} authorEmail={authorEmail} />
         ))}
       </div>
       <hr />

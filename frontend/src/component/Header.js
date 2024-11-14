@@ -93,7 +93,12 @@ function Header() {
             >
               P-Book 도서관
             </li>
-            <li className={styles.listItem}>커뮤니티</li>
+            <li
+              className={styles.listItem}
+              onClick={() => navigate('/myLibrary')}
+            >
+              나의서재
+            </li>
           </ul>
         </div>
       </div>

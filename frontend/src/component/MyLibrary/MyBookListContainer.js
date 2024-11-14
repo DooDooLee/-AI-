@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MyBookListComponent from './MyBookListComponent';
 import MyBookInfoContainer from './MyBookInfoContainer';
 import styles from '../../styles/MyBookListContainer.module.css';
@@ -12,6 +13,7 @@ function MyBookListContainer() {
   const booksPerPage = 8;
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
+  const navigate = useNavigate();
 
   const onBookTypeClick = (e) => {
     const selectedMenuNum = parseInt(e.target.value);
@@ -29,6 +31,12 @@ function MyBookListContainer() {
   useEffect(() => {
     const fetchBooks = async () => {
       const token = Cookies.get('authToken');
+      if (!token) {
+        //로그인하지 않아 token이 undefined일 경우 이전 페이지로 이동.
+        navigate(-1);
+        alert('로그인이 필요한 페이지입니다!');
+        return;
+      }
       try {
         const response = await fetch(
           'http://15.164.245.179:8080/favorites/list',

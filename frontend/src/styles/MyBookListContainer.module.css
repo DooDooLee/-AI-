@@ -11,12 +11,14 @@
   /*책 목록 전체를 감싸는 div*/
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
   box-sizing: border-box;
-  margin: 0 50px;
+  margin: 0 10px;
+  padding: 50px;
   width: 700px;
-  height: 640px;
+  height: 440px;
   background-color: #fcf4e2;
   border-radius: 20px;
   border: 3px solid #cdc4c4;
@@ -25,10 +27,10 @@
 
 .innerWrapper {
   /*책을 가로로 4개씩 감싸는 div*/
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  display: grid;
   align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
   width: 650px;
   height: 160px;
   background-color: #f3e7ca;
@@ -50,6 +52,7 @@
   border: none;
   background-color: transparent;
   font-size: 21px;
+  cursor: pointer;
 
   padding: 5px 20px;
   border-radius: 20px;
@@ -60,11 +63,19 @@
   margin: 15px;
   position: relative;
   border: 0;
-  font-size: 18px;
-  color: #d9d9d9;
+  font-size: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: transparent;
 }
 
-/* MyBookInfoContainer 위치를 오른쪽으로 이동시키는 스타일 추가 */
-.MyBookInfoContainer {
-  margin-left: 20px; /* 오른쪽으로 이동 */
+.prevNextBtn button:hover {
+  background-color: gainsboro;
+}
+.prevNextBtn button:active {
+  background-color: darkgray;
+}
+.prevNextBtn button:disabled {
+  cursor: auto;
+  background-color: transparent;
 }

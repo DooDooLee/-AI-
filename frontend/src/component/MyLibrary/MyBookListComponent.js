@@ -1,14 +1,14 @@
 import styles from '../../styles/MyBookListComponent.module.css';
 
-function MyBookListComponent({ title, cover }) {
+function MyBookListComponent({ book, onBookClick }) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={() => onBookClick(book)}>
       <img
-        src={cover}
+        src={book.cover}
         alt="책 표지"
         style={{ width: '90px', height: '120px' }}
       />{' '}
-      <span>{title}</span>
+      <span>{book.title}</span>
     </div>
   );
 }

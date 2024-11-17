@@ -16,6 +16,7 @@
 
 .containerWrapper {
   flex: 1;
+  min-width: max-content;
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -13,13 +13,14 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  box-sizing: border-box;
   margin: 0 50px;
   width: 700px;
-  height: 700px;
+  height: 640px;
   background-color: #fcf4e2;
   border-radius: 20px;
   border: 3px solid #cdc4c4;
-  box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 6px 4px rgba(0, 0, 0, 0.25);
 }
 
 .innerWrapper {
@@ -56,6 +57,7 @@
 }
 
 .prevNextBtn button {
+  margin: 15px;
   position: relative;
   border: 0;
   font-size: 18px;

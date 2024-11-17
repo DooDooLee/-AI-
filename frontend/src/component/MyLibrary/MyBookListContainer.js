@@ -129,23 +129,7 @@ function MyBookListContainer() {
                 ))}
               </div>
             ))}
-            <div className={styles.prevNextBtn}>
-              <button
-                onClick={handlePrevPage}
-                style={{ left: '-250px' }}
-                disabled={currentPage === 0}
-              >
-                ◀ 이전
-              </button>
-              <button
-                onClick={handleNextPage}
-                style={{ right: '-250px' }}
-                disabled={(currentPage + 1) * booksPerPage >= books.length}
-              >
-                다음 ▶
-              </button>
-            </div>
-            {selectedBook && (
+            {/* 추후 삭제(
               <MyBookInfoContainer
                 authorName={selectedBook.userName}
                 authorEmail={selectedBook.userEmail}
@@ -153,9 +137,25 @@ function MyBookListContainer() {
                 likes={selectedBook.bookLike}
                 createdAt={selectedBook.createdAt}
               />
-            )}
+            )*/}
           </>
         )}
+      </div>
+      <div className={styles.prevNextBtn}>
+        <button
+          onClick={handlePrevPage}
+          style={{ left: '-250px' }}
+          disabled={currentPage === 0}
+        >
+          ◀ 이전
+        </button>
+        <button
+          onClick={handleNextPage}
+          style={{ right: '-250px' }}
+          disabled={(currentPage + 1) * booksPerPage >= books.length}
+        >
+          다음 ▶
+        </button>
       </div>
     </div>
   );

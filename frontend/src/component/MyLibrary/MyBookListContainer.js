@@ -24,8 +24,10 @@ function MyBookListContainer() {
     const menus = bookTypeMenuRef.current.childNodes;
     menus.forEach((menu) => {
       menu.style.backgroundColor = 'transparent';
+      menu.style.color = 'black';
     });
-    e.target.style.backgroundColor = '#f3e7ca';
+    e.target.style.backgroundColor = 'black';
+    e.target.style.color = 'white';
   };
 
   useEffect(() => {
@@ -88,71 +90,73 @@ function MyBookListContainer() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      {loading ? (
-        <div className={styles.loading}>로딩 중...</div>
-      ) : (
-        <>
-          <div className={styles.bookTypeMenu} ref={bookTypeMenuRef}>
-            <button
-              onClick={onBookTypeClick}
-              value="0"
-              style={{ backgroundColor: '#f3e7ca' }}
-            >
-              즐겨찾기한 책
-            </button>
-            <button onClick={onBookTypeClick} value="1">
-              내가 쓴 책
-            </button>
-          </div>
-          {groupedBooks.map((group, index) => (
-            <div
-              key={index}
-              className={styles.innerWrapper}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '10px',
-                marginBottom: '20px',
-              }}
-            >
-              {group.map((book) => (
-                <MyBookListComponent
-                  key={`mybook-${book.bookId}`}
-                  title={book.title}
-                  cover={book.cover}
-                  onClick={() => handleBookClick(book)}
-                />
-              ))}
+    <div className={styles.outerWrapper}>
+      <div className={styles.bookTypeMenu} ref={bookTypeMenuRef}>
+        <button
+          onClick={onBookTypeClick}
+          value="0"
+          style={{ backgroundColor: 'black', color: 'white' }}
+        >
+          즐겨찾기한 책
+        </button>
+        <button onClick={onBookTypeClick} value="1">
+          내가 쓴 책
+        </button>
+      </div>
+      <div className={styles.wrapper}>
+        {loading ? (
+          <div className={styles.loading}>로딩 중...</div>
+        ) : (
+          <>
+            {groupedBooks.map((group, index) => (
+              <div
+                key={index}
+                className={styles.innerWrapper}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '10px',
+                  marginBottom: '20px',
+                }}
+              >
+                {group.map((book) => (
+                  <MyBookListComponent
+                    key={`mybook-${book.bookId}`}
+                    title={book.title}
+                    cover={book.cover}
+                    onClick={() => handleBookClick(book)}
+                  />
+                ))}
+              </div>
+            ))}
+            <div className={styles.prevNextBtn}>
+              <button
+                onClick={handlePrevPage}
+                style={{ left: '-250px' }}
+                disabled={currentPage === 0}
+              >
+                ◀ 이전
+              </button>
+              <button
+                onClick={handleNextPage}
+                style={{ right: '-250px' }}
+                disabled={(currentPage + 1) * booksPerPage >= books.length}
+              >
+                다음 ▶
+              </button>
             </div>
-          ))}
-          <div className={styles.prevNextBtn}>
-            <button
-              onClick={handlePrevPage}
-              style={{ left: '-250px' }}
-              disabled={currentPage === 0}
-            >
-              ◀ 이전
-            </button>
-            <button
-              onClick={handleNextPage}
-              style={{ right: '-250px' }}
-              disabled={(currentPage + 1) * booksPerPage >= books.length}
-            >
-              다음 ▶
-            </button>
-          </div>
-          {selectedBook && (
-            <MyBookInfoContainer
-              authorName={selectedBook.userName}
-              authorEmail={selectedBook.userEmail}
-              title={selectedBook.title}
-              likes={selectedBook.bookLike}
-              createdAt={selectedBook.createdAt}
-            />
-          )}
-        </>
-      )}
+            {selectedBook && (
+              <MyBookInfoContainer
+                authorName={selectedBook.userName}
+                authorEmail={selectedBook.userEmail}
+                title={selectedBook.title}
+                likes={selectedBook.bookLike}
+                createdAt={selectedBook.createdAt}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

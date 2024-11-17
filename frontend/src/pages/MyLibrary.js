@@ -7,7 +7,7 @@ import styles from '../styles/MyLibrary.module.css';
 function MyLibrary() {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.first}>
+      <div>
         <Header />
       </div>
       <div className={styles.innerWrapper}>

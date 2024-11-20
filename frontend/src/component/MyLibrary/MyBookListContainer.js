@@ -26,7 +26,6 @@ function MyBookListContainer({ onBookClick, currentBookMenu, onMenuChange }) {
   //책 타입(즐겨찾기, 내가 쓴 책) 클릭 시 콜백 함수
   const onBookTypeClick = (e) => {
     const selectedMenu = parseInt(e.target.value);
-    console.log('clicked menu num: ' + selectedMenu);
     if (selectedMenu !== currentBookMenu) {
       onMenuChange(selectedMenu);
     } else return; //이미 선택돼 있는 메뉴 클릭 시 리턴

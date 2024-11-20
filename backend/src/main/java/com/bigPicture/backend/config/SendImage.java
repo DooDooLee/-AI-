@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @RequiredArgsConstructor
@@ -14,7 +15,13 @@ public class SendImage {
 
     private final ApiKeyConfig apiKeyConfig;
 
-    private static final OkHttpClient client = new OkHttpClient();
+    // OkHttpClient에 타임아웃 설정 추가
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS) // 연결 타임아웃 (30초)
+            .readTimeout(60, TimeUnit.SECONDS)    // 읽기 타임아웃 (60초)
+            .writeTimeout(60, TimeUnit.SECONDS)   // 쓰기 타임아웃 (60초)
+            .build();
+
     private static final Gson gson = new Gson();
 
 

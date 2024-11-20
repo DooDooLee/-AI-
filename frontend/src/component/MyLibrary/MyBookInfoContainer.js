@@ -7,6 +7,12 @@ const API_URL = 'http://15.164.245.179:8080';
 function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
   const token = Cookies.get('authToken');
   const navigate = useNavigate();
+
+  //UTC -> KST 변환해 출력
+  const KST = new Date(selectedBook.createdAt + '+00:00');
+  const writtenTime =
+    KST.getFullYear() + '-' + (KST.getMonth() + 1) + '-' + KST.getDate();
+
   //책 읽기 함수
   const handleBookRead = (bookId, coverUrl, title) => {
     if (selectedBook.title == '') {
@@ -79,7 +85,7 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
           )}
         </div>
         <span>저자: {selectedBook.userName}</span>
-        <span>출판일: {selectedBook.createdAt.slice(0, 10)}</span>
+        <span>출판일: {writtenTime}</span>
       </div>
       <div>
         <button

@@ -11,15 +11,21 @@ const dummyBook = {
   bookLike: null,
   cover: '',
   createdAt: '',
-  title: '책 제목',
+  title: '',
   userEmail: '',
   userId: -1,
-  userName: '저자',
+  userName: '',
 };
 
 function MyLibrary() {
+  const [currentBookMenu, setCurrentBookMenu] = useState(0);
   //유저가 클릭한 책
   const [selectedBook, setSelectedBook] = useState(dummyBook);
+
+  //MyBookListContainer 에서 클릭한 메뉴 정보를 바꾸는 콜백
+  const onMenuChange = (num) => {
+    setCurrentBookMenu(num);
+  };
 
   //MyBookListContainer 에서 책을 클릭하면 선택된 책 state를 변경하는 콜백
   const onBookClick = (book) => {
@@ -34,8 +40,15 @@ function MyLibrary() {
       <div className={styles.innerWrapper}>
         <LeftPanel />
         <div className={styles.containerWrapper}>
-          <MyBookListContainer onBookClick={onBookClick} />
-          <MyBookInfoContainer selectedBook={selectedBook} />
+          <MyBookListContainer
+            onBookClick={onBookClick}
+            currentBookMenu={currentBookMenu}
+            onMenuChange={onMenuChange}
+          />
+          <MyBookInfoContainer
+            selectedBook={selectedBook}
+            currentBookMenu={currentBookMenu}
+          />
         </div>
       </div>
     </div>

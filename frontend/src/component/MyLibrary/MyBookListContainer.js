@@ -4,9 +4,19 @@ import MyBookListComponent from './MyBookListComponent';
 import styles from '../../styles/MyBookListContainer.module.css';
 import Cookies from 'js-cookie';
 
-function MyBookListContainer({ onBookClick }) {
+const dummyBook = {
+  bookId: -1,
+  bookLike: null,
+  cover: '',
+  createdAt: '',
+  title: '',
+  userEmail: '',
+  userId: -1,
+  userName: '',
+};
+
+function MyBookListContainer({ onBookClick, currentBookMenu, onMenuChange }) {
   const bookTypeMenuRef = useRef(null);
-  const currentMenuNum = useRef(0);
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const booksPerPage = 8;
@@ -15,13 +25,22 @@ function MyBookListContainer({ onBookClick }) {
 
   //책 타입(즐겨찾기, 내가 쓴 책) 클릭 시 콜백 함수
   const onBookTypeClick = (e) => {
-    const selectedMenuNum = parseInt(e.target.value);
-    if (selectedMenuNum !== currentMenuNum.current) {
-      currentMenuNum.current = selectedMenuNum;
-    } else return;
+    const selectedMenu = parseInt(e.target.value);
+    console.log('clicked menu num: ' + selectedMenu);
+    if (selectedMenu !== currentBookMenu) {
+      onMenuChange(selectedMenu);
+    } else return; //이미 선택돼 있는 메뉴 클릭 시 리턴
 
-    if (currentMenuNum.current === 0) fetchFavoriteBooks();
-    else fetchMyBooks();
+    //선택된 메뉴의 책 목록 페치
+    if (selectedMenu === 0) {
+      fetchFavoriteBooks();
+      onBookClick(dummyBook);
+    } else {
+      fetchMyBooks();
+      onBookClick(dummyBook);
+    }
+
+    //선택된 메뉴 CSS 변경 코드
     const menus = bookTypeMenuRef.current.childNodes;
     menus.forEach((menu) => {
       menu.style.backgroundColor = 'transparent';
@@ -31,6 +50,7 @@ function MyBookListContainer({ onBookClick }) {
     e.target.style.color = 'white';
   };
 
+  //즐겨찾기한 책 목록 페치 함수
   const fetchFavoriteBooks = useCallback(async () => {
     const token = Cookies.get('authToken');
     if (!token) {
@@ -60,6 +80,7 @@ function MyBookListContainer({ onBookClick }) {
     }
   }, []);
 
+  //내가 쓴 책 페치 함수
   const fetchMyBooks = useCallback(async () => {
     const token = Cookies.get('authToken');
     if (!token) {
@@ -147,15 +168,6 @@ function MyBookListContainer({ onBookClick }) {
                 ))}
               </div>
             ))}
-            {/* 추후 삭제(
-              <MyBookInfoContainer
-                authorName={selectedBook.userName}
-                authorEmail={selectedBook.userEmail}
-                title={selectedBook.title}
-                likes={selectedBook.bookLike}
-                createdAt={selectedBook.createdAt}
-              />
-            )*/}
           </>
         )}
       </div>

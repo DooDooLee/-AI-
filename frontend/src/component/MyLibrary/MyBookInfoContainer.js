@@ -1,31 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/MyBookInfoContainer.module.css';
-import { useEffect, useRef } from 'react';
-import Cookies from 'js-cookie';
 
-function MyBookInfoContainer({ selectedBook }) {
-  useEffect(async () => {
-    const token = Cookies.get('authToken');
-    if (!token) {
-      //로그인하지 않아 token이 undefined일 경우 이전 페이지로 이동.
-      navigate(-1);
-      alert('로그인이 필요한 페이지입니다!');
-      return;
-    }
-    try {
-      const response = await fetch('http://15.164.245.179:8080/user/me', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      const userData = await response.json();
-      console.log(userData);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  }, []);
+function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
   const navigate = useNavigate();
   const handleBookClick = (bookId, coverUrl, title) => {
     const encodedbookId = encodeURIComponent(bookId);
@@ -61,7 +37,14 @@ function MyBookInfoContainer({ selectedBook }) {
         >
           책 읽기
         </button>
-        <button>책 삭제</button>
+        {currentBookMenu ? (
+          <>
+            <button>책 수정</button>
+            <button>책 삭제</button>
+          </>
+        ) : (
+          <button>즐겨찾기 해제</button>
+        )}
       </div>
     </div>
   );

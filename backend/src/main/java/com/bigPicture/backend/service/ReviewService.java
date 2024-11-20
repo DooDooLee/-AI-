@@ -10,9 +10,12 @@ import com.bigPicture.backend.repository.BookRepository;
 import com.bigPicture.backend.repository.ReviewRepository;
 import com.bigPicture.backend.repository.UserRepository;
 import com.bigPicture.backend.security.UserPrincipal;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +39,22 @@ public class ReviewService {
         Review review = request.toEntity(user, book);
 
         reviewRepository.save(review);
+    }
+
+    @Transactional
+    public boolean deleteReview(UserPrincipal userPrincipal, Long reviewId) {
+
+        User user = userRepository.findById(userPrincipal.getId()).get();
+
+        Review review = reviewRepository.findByUserIdAndReviewId(user.getId(), reviewId);
+
+
+        if (review.getUser().getId().equals(user.getId())) {
+            reviewRepository.delete(review);
+            return true;
+        }
+
+        return false;
     }
 
 }

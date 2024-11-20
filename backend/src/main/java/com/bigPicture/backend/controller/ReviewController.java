@@ -8,22 +8,33 @@ import com.bigPicture.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 public class ReviewController {
 
     private final ReviewService reviewService;
-    //책 등록
+    //리뷰 등록
     @PostMapping("/book/{bookId}/review")
-    public ResponseEntity<?> createBook(@CurrentUser UserPrincipal userPrincipal,
+    public ResponseEntity<?> createReview(@CurrentUser UserPrincipal userPrincipal,
                                         @RequestBody ReviewCreateRequest request,
                                         @PathVariable Long bookId) {
         reviewService.save(userPrincipal,request, bookId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //리뷰 삭제
+    @DeleteMapping("/review/{reviewId}")
+    public ResponseEntity<?> deleteReview(@CurrentUser UserPrincipal userPrincipal,
+                                        @PathVariable Long reviewId) {
+        boolean isDeleted = reviewService.deleteReview(userPrincipal, reviewId);
+        if (isDeleted) {
+            return ResponseEntity.ok("Book deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to delete this book");
+        }
+    }
+
+
 }

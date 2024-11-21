@@ -60,11 +60,25 @@ public class BookController {
         return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
     }
 
+
+    @GetMapping("/book/update/{bookId}")
+    public ResponseEntity<?> getBookDetailsForUpdate(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal) {
+        try {
+            // 책 상세 정보를 가져오는 서비스 호출
+            BookDetailResponse response = bookService.getBookDetailsForUpdate(bookId, userPrincipal);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            // 유효하지 않은 유저 ID
+            return ResponseEntity.status(403).body("수정 권한이 없습니다.");
+        }
+    }
+
     @PutMapping("/book/update/{bookId}")
     public ResponseEntity<?> updateBook(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal, @RequestBody BookUpdateRequest request) {
         bookService.update(bookId, userPrincipal, request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
     @DeleteMapping("/book/delete/{bookId}")
     public ResponseEntity<String> deleteBook(@PathVariable Long bookId, @CurrentUser UserPrincipal userPrincipal) {

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,6 +82,20 @@ public class BookService {
         book.update(request);
     }
 
+    public BookDetailResponse getBookDetailsForUpdate(Long bookId, UserPrincipal userPrincipal) {
+        User user = userRepository.findById(userPrincipal.getId()).orElseThrow( () -> new IllegalArgumentException("Invalid user Id"));
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+
+        // 로그인한 유저가 작성한 책인지 확인
+        if (!book.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
+
+        // 책 상세보기 반환
+        return BookDetailResponse.of(book);
+    }
 
     @Transactional
     public boolean deleteBookById(Long bookId, Long userId) {

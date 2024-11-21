@@ -30,9 +30,9 @@ public class ReviewController {
                                         @PathVariable Long reviewId) {
         boolean isDeleted = reviewService.deleteReview(userPrincipal, reviewId);
         if (isDeleted) {
-            return ResponseEntity.ok("Book deleted successfully");
+            return ResponseEntity.ok("서평이 삭제되었습니다.");
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to delete this book");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("삭제할 권한이 없습니다.");
         }
     }
 

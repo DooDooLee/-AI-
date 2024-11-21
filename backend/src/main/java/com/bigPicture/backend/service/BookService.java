@@ -83,6 +83,10 @@ public class BookService {
     }
 
     public BookDetailResponse getBookDetailsForUpdate(Long bookId, UserPrincipal userPrincipal) {
+        if (userPrincipal == null) {
+            throw new IllegalArgumentException();
+        }
+
         User user = userRepository.findById(userPrincipal.getId()).orElseThrow( () -> new IllegalArgumentException("Invalid user Id"));
 
         Book book = bookRepository.findById(bookId)

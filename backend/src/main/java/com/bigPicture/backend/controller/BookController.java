@@ -52,6 +52,15 @@ public class BookController {
     }
 
 
+    @GetMapping("/book/list/like")
+    public ResponseEntity<?> findLikeUserBooks(@RequestParam int page) {
+        int size = 20; // 페이지 당 책의 수
+        List<BookInfoResponse> bookInfoResponses = bookService.getLikePaginatedBooks(page, size);
+//        BooksResponse response = new BooksResponse(bookInfoResponses);
+        return new ResponseEntity<>(bookInfoResponses, HttpStatus.OK);
+    }
+
+
     @GetMapping("/book/search")
     public ResponseEntity<?> searchBooks(@RequestParam String bookName, @RequestParam int page) {
 

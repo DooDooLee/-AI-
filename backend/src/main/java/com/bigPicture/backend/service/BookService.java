@@ -62,6 +62,16 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public List<BookInfoResponse> getLikePaginatedBooks(int page, int size) {
+        int offset = (page - 1) * size;
+        List<Book> books = bookRepository.findAllByOrderBybookLikeDesc();
+        return books.stream()
+                .skip(offset)
+                .limit(size)
+                .map(BookInfoResponse::of)
+                .collect(Collectors.toList());
+    }
+
     public List<BookInfoResponse> getOldPaginatedBooks(int page, int size) {
         int offset = (page - 1) * size;
         List<Book> books = bookRepository.findAllByOrderByIdAsc();

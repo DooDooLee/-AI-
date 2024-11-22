@@ -1,4 +1,5 @@
 .wrapper {
+  flex: 2 1 0;
   margin: 0 50px;
   width: 675px;
   height: 600px;
@@ -14,11 +15,12 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  gap: 10px;
   width: 450px;
-  height: 400px;
   background: #fcf4e2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+  padding: 10px;
 }
 .innerWrapper > div {
   width: 400px;
@@ -27,8 +29,15 @@
   border-radius: 30px;
 }
 
+.wrapper img {
+  width: inherit;
+  height: inherit;
+  border-radius: 30px;
+  object-fit: contain;
+}
+
 .wrapper button {
-  width: 110px;
+  width: 130px;
   height: 50px;
   margin: 0 10px;
   font-size: 18px;
@@ -37,4 +46,13 @@
   background: #f3e7ca;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+  cursor: pointer;
+}
+
+.wrapper button:hover {
+  background-color: #dacfb5;
+}
+
+.wrapper button:active {
+  background-color: #aaa18d;
 }

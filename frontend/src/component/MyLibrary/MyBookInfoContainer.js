@@ -9,9 +9,17 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
   const navigate = useNavigate();
 
   //UTC -> KST 변환해 출력
-  const KST = new Date(selectedBook.createdAt + '+00:00');
-  const writtenTime =
-    KST.getFullYear() + '-' + (KST.getMonth() + 1) + '-' + KST.getDate();
+  let writtenTime = '';
+  if (selectedBook.createdAt !== '') {
+    const KST = new Date(selectedBook.createdAt + '+00:00');
+    writtenTime =
+      KST.getFullYear() +
+      '. ' +
+      (KST.getMonth() + 1) +
+      '. ' +
+      KST.getDate() +
+      '.';
+  }
 
   //책 읽기 함수
   const handleBookRead = (bookId, coverUrl, title) => {

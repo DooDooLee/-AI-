@@ -50,6 +50,19 @@ function ListBody() {
     }
   };
 
+  //UTC -> KST 변환한 문자열 반환하는 함수
+  const UTCtoKST = (UTC) => {
+    const KST = new Date(UTC + '+00:00');
+    const writtenTime =
+      KST.getFullYear() +
+      '. ' +
+      (KST.getMonth() + 1) +
+      '. ' +
+      KST.getDate() +
+      '.';
+    return writtenTime;
+  };
+
   const fetchBooks = async (page, sortOrder) => {
     try {
       const token = Cookies.get('authToken');
@@ -70,10 +83,11 @@ function ListBody() {
           Authorization: `Bearer ${token}`,
         },
       });
+
       const formattedBooks = response.data.map((book) => ({
         ...book,
         bookLike: book.bookLike ?? 0,
-        createdAt: book.createdAt.split('T')[0],
+        createdAt: UTCtoKST(book.createdAt),
       }));
       if (searchTerm && enterPressed) {
         setSearchResults((prevResults) =>

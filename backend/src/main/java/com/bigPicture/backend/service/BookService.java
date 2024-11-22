@@ -64,7 +64,7 @@ public class BookService {
 
     public List<BookInfoResponse> getLikePaginatedBooks(int page, int size) {
         int offset = (page - 1) * size;
-        List<Book> books = bookRepository.findAllByOrderBybookLikeDesc();
+        List<Book> books = bookRepository.findAllByOrderByBookLikeDesc();
         return books.stream()
                 .skip(offset)
                 .limit(size)

@@ -77,7 +77,7 @@ function MyBookListContainer({ onBookClick, currentBookMenu, onMenuChange }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   //내가 쓴 책 페치 함수
   const fetchMyBooks = useCallback(async () => {
@@ -109,11 +109,11 @@ function MyBookListContainer({ onBookClick, currentBookMenu, onMenuChange }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     fetchFavoriteBooks();
-  }, [navigate]);
+  }, [navigate, fetchFavoriteBooks]);
 
   const handleNextPage = () => {
     if ((currentPage + 1) * booksPerPage < books.length) {

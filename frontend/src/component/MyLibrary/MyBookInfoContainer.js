@@ -9,13 +9,21 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
   const navigate = useNavigate();
 
   //UTC -> KST 변환해 출력
-  const KST = new Date(selectedBook.createdAt + '+00:00');
-  const writtenTime =
-    KST.getFullYear() + '-' + (KST.getMonth() + 1) + '-' + KST.getDate();
+  let writtenTime = '';
+  if (selectedBook.createdAt !== '') {
+    const KST = new Date(selectedBook.createdAt + '+00:00');
+    writtenTime =
+      KST.getFullYear() +
+      '. ' +
+      (KST.getMonth() + 1) +
+      '. ' +
+      KST.getDate() +
+      '.';
+  }
 
   //책 읽기 함수
   const handleBookRead = (bookId, coverUrl, title) => {
-    if (selectedBook.title == '') {
+    if (selectedBook.title === '') {
       alert('책을 선택하세요.');
       return;
     }
@@ -29,7 +37,7 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
 
   //즐겨찾기 해제 함수
   const handleFavoriteCancel = async (bookId) => {
-    if (bookId == -1) {
+    if (bookId === -1) {
       alert('책을 선택하세요.');
       return;
     }
@@ -52,7 +60,7 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
 
   //책 삭제 함수
   const handleBookDelete = async (bookId) => {
-    if (bookId == -1) {
+    if (bookId === -1) {
       alert('책을 선택하세요.');
       return;
     }

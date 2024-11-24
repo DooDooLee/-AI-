@@ -4,8 +4,14 @@
     align-items: center;
     justify-content: space-around;
     margin-bottom: 30px;
-
     min-width: 320px;
+}
+
+.bookCover {
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .bookinfo {
@@ -16,16 +22,28 @@
 
 .bookname {
     font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .author {
     font-size: 16px;
+    margin-top: 4px;
+    color: #666;
 }
 
 .likes {
     font-size: 16px;
-
+    margin-top: 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: #888;
+}
+
+.likes img {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
 }

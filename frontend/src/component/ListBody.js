@@ -75,7 +75,7 @@ function ListBody() {
         } else if (sortOrder === 'old') {
           url = `http://15.164.245.179:8080/book/list/old?page=${page}`;
         } else if (sortOrder === 'popular') {
-          url = `http://15.164.245.179:8080/book/list/popular?page=${page}`;
+          url = `http://15.164.245.179:8080/book/list/like?page=${page}`;
         }
       }
       const response = await axios.get(url, {

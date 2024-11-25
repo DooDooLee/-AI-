@@ -190,3 +190,8 @@
   height: auto;
   border-radius: 20px;
 }
+
+.custom-placeholder::placeholder {
+  font-size: 18px; /* 원하는 크기 설정 */
+  color: gray; /* 필요하면 색상도 추가 */
+}

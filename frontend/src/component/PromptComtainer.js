@@ -33,34 +33,45 @@ const PromptContainer = () => {
   //이미지 생성 버튼 클릭 시 콜백 함수
   const handleSubmit = async () => {
     setLoading(true);
+    let retry = false; // 재시도 여부
     try {
       const token = Cookies.get('authToken');
       const apiUrl = autoPrompt
         ? 'http://15.164.245.179:8080/image/auto'
         : 'http://15.164.245.179:8080/image';
 
-      // autoPrompt와 currentIndex 조건에 따라 promptValue 설정
       const currentPage = pages[currentIndex] || {};
       const promptValue = autoPrompt
         ? currentIndex === -1
           ? title
-          : pages[currentIndex]?.content || '' // autoPrompt가 true일 때 currentPage의 content 사용
-        : prompt; // 그 외에는 사용자가 입력한 prompt 사용
+          : pages[currentIndex]?.content || ''
+        : prompt;
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          prompt: promptValue,
-          seed: seed || undefined,
-          sizeNumber: sizeNumber,
-        }),
-      });
-      const data = await response.json();
+      const makeRequest = async () => {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            prompt: promptValue,
+            seed: seed || undefined,
+            sizeNumber: sizeNumber,
+          }),
+        });
+        if (response.status === 500) {
+          if (!retry) {
+            retry = true; // 재시도 플래그 설정
+            return makeRequest(); // 다시 요청
+          } else {
+            throw new Error('500 Internal Server Error');
+          }
+        }
+        return response.json(); // 정상적인 경우 데이터 반환
+      };
 
+      const data = await makeRequest(); // 요청 실행
       const seedString = data.seed ? data.seed.toString() : '';
 
       setTimeout(() => {
@@ -118,9 +129,12 @@ const PromptContainer = () => {
         return;
       }
 
-      setGeneratedImage('');
-      setCurrentIndex(0);
+      setGeneratedImage(''); // 현재 표시된 이미지 초기화
+      setCurrentIndex(0); // 첫 번째 페이지로 이동
       setPrompt('');
+
+      // 첫 번째 페이지 이미지를 설정
+      setGeneratedImage(pages[0]?.image || ''); // 첫 번째 페이지 이미지 불러오기
     } else {
       const currentPage = pages[currentIndex] || {};
       if (!currentPage.content && !currentPage.image) {
@@ -128,7 +142,6 @@ const PromptContainer = () => {
         return;
       }
 
-      // 현재 페이지가 마지막 페이지인지 확인하고, 마지막 페이지가 아니라면 다음 페이지로 이동
       setPages((prevPages) => {
         const newPages = [...prevPages];
         if (currentIndex < prevPages.length - 1) {
@@ -141,11 +154,31 @@ const PromptContainer = () => {
           });
           setCurrentIndex(currentIndex + 1);
         }
-        console.log('Updated Pages:', newPages); // 페이지 배열 로그 출력
-        setGeneratedImage(''); // 다음 페이지로 이동 시 이미지 초기화
-        setPrompt(''); //다음 페이지 이동 시 프롬프트 초기화
+
+        // 다음 페이지 이미지를 설정
+        setGeneratedImage(newPages[currentIndex + 1]?.image || ''); // 다음 페이지 이미지 불러오기
+
         return newPages;
       });
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentIndex > 0) {
+      setPages((prevPages) => {
+        const newPages = [...prevPages];
+        setCurrentIndex(currentIndex - 1);
+        setGeneratedImage(newPages[currentIndex - 1]?.image || ''); // 이전 페이지 이미지 불러오기
+
+        return newPages;
+      });
+    } else if (currentIndex === 0) {
+      // 제목(표지)로 돌아갈 때
+      setCurrentIndex(-1);
+      setGeneratedImage(coverImage);
+      setPrompt('');
+    } else {
+      alert('첫 번째 페이지입니다.');
     }
   };
   const handleContentChange = (e) => {
@@ -218,7 +251,7 @@ const PromptContainer = () => {
   return (
     <div id="wrapper" className={styles.wrapper}>
       <div id="left" className={styles.left}>
-        {loading && <p style={{ marginTop: '10px' }}>로딩 중...</p>}
+        {loading && <p style={{ marginTop: '10px' }}>그림 생성 중...</p>}
         {!loading && generatedImage && (
           <img
             src={generatedImage}
@@ -325,8 +358,12 @@ const PromptContainer = () => {
       </form>
       <div id="buttonArea" className={styles.buttonArea}>
         <div>
-          <button id="tempSaveBtn" className={styles.tempSaveBtn}>
-            임시 저장
+          <button
+            id="tempSaveBtn"
+            className={styles.tempSaveBtn}
+            onClick={handlePreviousPage}
+          >
+            이전 페이지
           </button>
         </div>
         <div>

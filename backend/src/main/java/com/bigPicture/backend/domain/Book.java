@@ -73,7 +73,6 @@ public class Book {
     }
 
     public void update(BookUpdateRequest request) {
-        this.bookLike = request.getBookLike();
         this.cover = request.getCover();
         this.title = request.getTitle();
 

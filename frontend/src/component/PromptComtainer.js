@@ -358,6 +358,7 @@ const PromptContainer = () => {
             id="tempSaveBtn"
             className={styles.tempSaveBtn}
             onClick={handlePreviousPage}
+            disabled={loading} // 로딩 중일 때 비활성화
           >
             이전 페이지
           </button>
@@ -367,6 +368,7 @@ const PromptContainer = () => {
             id="nextPageBtn"
             className={styles.rightBtn}
             onClick={handleNextPage}
+            disabled={loading} // 로딩 중일 때 비활성화
             style={currentIndex === -1 ? {} : { fontSize: '18px' }}
           >
             {currentIndex === -1 ? '표지 완성' : '다음 페이지'}
@@ -375,6 +377,7 @@ const PromptContainer = () => {
             id="completeBtn"
             className={styles.rightBtn}
             onClick={handleCreateBook}
+            disabled={loading} // 로딩 중일 때 비활성화
           >
             제작 완성
           </button>

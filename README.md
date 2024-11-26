@@ -16,7 +16,6 @@
   <br>
   
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io-badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <br>
 </div>
 
@@ -46,5 +45,5 @@
 <div align=center><h2>📑 Wiki</h2></div>
 
 <div align=center>
-<img src="https://github.com/DooDooLee/Big-Picture/assets/126196812/ccee2977-afc4-4dc3-b6d3-5ff3935539c8">
+<img src="https://github.com/user-attachments/assets/22d69db5-c94f-48d0-9f17-ed310ee9f733">
 </div>

@@ -70,16 +70,6 @@ const ImageConfig = forwardRef(function ImageConfig(props, ref) {
             <label htmlFor="size3">4:3</label>
           </span>
         </div>
-        <h4>키워드 선택</h4>
-        <div className={styles.keywordBox}>
-          <input
-            type="checkbox"
-            name="keyword"
-            id="keyword1"
-            value="keyword1"
-          />
-          <label htmlFor="keyword1">keyword1</label>
-        </div>
         <button type="button" onClick={onFinishBtnClick}>
           완료
         </button>

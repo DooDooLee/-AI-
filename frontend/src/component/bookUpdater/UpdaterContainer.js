@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from '../styles/PromptContainer.module.css';
+import styles from '../../styles/PromptContainer.module.css';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import ImageConfig from './ImageConfig';
+import ImageConfig from '../ImageConfig';
+import { useLocation } from 'react-router-dom';
 
-const PromptContainer = () => {
+const UpdaterContainer = () => {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [generatedImage, setGeneratedImage] = useState('');
@@ -16,20 +17,60 @@ const PromptContainer = () => {
   const navigate = useNavigate();
   const [sizeNumber, setSizeNumber] = useState(1);
   const [autoPrompt, setAutoprompt] = useState(false);
+  const [bookData, setBookData] = useState(null);
+  const [bookId, setBookId] = useState(null); // bookId 상태 추가
+  const { search } = useLocation(); // URL 쿼리 파라미터 가져오기
 
   useEffect(() => {
-    setCurrentIndex(-1);
-    const token = Cookies.get('authToken'); // 쿠키에서 토큰 불러오기
-    if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
-      navigate('/');
+    const params = new URLSearchParams(search);
+    const id = params.get('bookId');
+    if (id) {
+      setBookId(id); // bookId 상태 업데이트
+    } else {
+      console.error('bookId가 URL에 없습니다.');
+      navigate('/'); // bookId가 없으면 홈 화면으로 리다이렉트
     }
-  }, [navigate]);
-
+  }, [search, navigate]);
   useEffect(() => {
-    setCurrentIndex(-1); // 처음에는 제목 입력을 받기 위해 -1로 설정
-  }, []);
+    // URL에서 bookId를 가져와서 책 정보를 API에서 불러오기
+    const fetchBookData = async () => {
+      try {
+        const token = Cookies.get('authToken');
+        const response = await fetch(
+          `http://15.164.245.179:8080/book/update/${bookId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
+        if (response.status === 403) {
+          alert('수정 권한이 없습니다.');
+          navigate('/'); // 권한이 없으면 홈 화면으로 이동
+          return;
+        }
+
+        if (response.ok) {
+          const data = await response.json();
+          setBookData(data); // 책 데이터 상태에 저장
+          setTitle(data.title); // 제목 설정
+          setCoverImage(data.cover); // 표지 이미지 설정
+          setGeneratedImage(data.cover);
+          setPages(data.pages); // 페이지 내용 설정
+        } else {
+          console.error('책 정보를 가져오는 데 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchBookData(); // 책 데이터 가져오기
+  }, [bookId, navigate]);
   //이미지 생성 버튼 클릭 시 콜백 함수
   const handleSubmit = async () => {
     setLoading(true);
@@ -202,21 +243,24 @@ const PromptContainer = () => {
     }
 
     try {
-      const response = await fetch('http://15.164.245.179:8080/book/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: title || 'Your Book Title', // 책 제목 추가
-          cover: coverImage || 'Cover Image URL', // 표지 이미지 추가
-          pages: validPages.map((page, index) => ({
-            ...page,
-            pageNumber: index + 1,
-          })), // 페이지 번호 추가,
-        }),
-      });
+      const response = await fetch(
+        `http://15.164.245.179:8080/book/update/${bookId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: title || 'Your Book Title', // 책 제목 추가
+            cover: coverImage || 'Cover Image URL', // 표지 이미지 추가
+            pages: validPages.map((page, index) => ({
+              ...page,
+              pageNumber: index + 1,
+            })), // 페이지 번호 추가,
+          }),
+        }
+      );
       if (response.ok) {
         alert('제작이 완료되었습니다.');
         navigate('/');
@@ -372,7 +416,7 @@ const PromptContainer = () => {
             className={styles.rightBtn}
             onClick={handleCreateBook}
           >
-            제작 완성
+            수정 완성
           </button>
         </div>
       </div>
@@ -380,4 +424,4 @@ const PromptContainer = () => {
   );
 };
 
-export default PromptContainer;
+export default UpdaterContainer;

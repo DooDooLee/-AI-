@@ -109,7 +109,17 @@ function MyBookInfoContainer({ selectedBook, currentBookMenu }) {
         </button>
         {currentBookMenu ? ( //1이면 내가 쓴 책, 0이면 즐겨찾기한 책
           <>
-            <button>책 수정</button>
+            <button
+              onClick={() => {
+                if (selectedBook.bookId === -1) {
+                  alert('수정할 책을 선택하세요.');
+                  return;
+                }
+                navigate(`/BookUpdater?bookId=${selectedBook.bookId}`);
+              }}
+            >
+              책 수정
+            </button>
             <button
               onClick={() => {
                 handleBookDelete(selectedBook.bookId);

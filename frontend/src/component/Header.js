@@ -5,35 +5,30 @@ import styles from '../styles/Header.module.css';
 
 function Header() {
   const logo_uri = process.env.PUBLIC_URL + '/public_assets/logo.svg';
-  const search_uri = process.env.PUBLIC_URL + '/public_assets/search.svg';
-  const menu_uri = process.env.PUBLIC_URL + '/public_assets/menu.svg';
   const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleLogin = () => {
-    const redirectUri = encodeURIComponent(window.location.href);
-    window.location.href = `http://15.164.245.179:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
+  // 로그인 성공 처리 함수
+  const handleLoginSuccess = (token) => {
+    // 토큰 쿠키 저장
+    Cookies.set('authToken', token, { expires: 7 });
+
+    // 사용자 정보 가져오기
+    fetchUserInfo(token);
   };
 
-  const handleLogout = () => {
-    Cookies.remove('authToken');
-    Cookies.remove('userName');
-
-    setUserName(null);
-
-    navigate('/');
-  };
-
+  // URL에서 토큰 추출
   useEffect(() => {
-    // 현재 URL에서 토큰을 가져옴
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    const handleLoginSuccess = (token) => {
-      Cookies.set('authToken', token, { expires: 7 }); // 쿠키에 7일간 저장
-      fetchUserInfo(token);
-    };
-    if (token) {
+    const tokens = urlParams.getAll('token'); // 모든 'token' 파라미터를 배열로 가져옴
+
+    if (tokens.length > 0) {
+      const token = tokens[0]; // 첫 번째 토큰 사용
+      console.log('Extracted token:', token);
+
       handleLoginSuccess(token);
+
       // URL에서 토큰 제거
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
@@ -47,6 +42,46 @@ function Header() {
     }
   }, []);
 
+  const handleLogin = () => {
+    const redirectUri = encodeURIComponent(window.location.href);
+    window.location.href = `http://15.164.245.179:8080/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
+  };
+
+  const handleLogout = () => {
+    const accessToken = Cookies.get('authToken');
+
+    if (!accessToken) {
+      alert('로그인이 되어 있지 않습니다.');
+      return;
+    }
+
+    const redirectUri = encodeURIComponent(
+      `${window.location.origin}?logout=true`
+    );
+    const clientId = '6bb885296e1ea5722e9042f02f4fbbbe';
+
+    window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=${redirectUri}`;
+  };
+
+  // 로그아웃 처리
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+
+    if (urlParams.get('logout') === 'true') {
+      // 쿠키 삭제 및 상태 초기화
+      Cookies.remove('authToken');
+      Cookies.remove('userName');
+      setUserName(null);
+
+      // URL에서 로그아웃 파라미터 제거
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // 페이지 새로고침
+      window.location.reload();
+    }
+  }, [location.search]);
+
+  // 사용자 정보 가져오기
   const fetchUserInfo = (token) => {
     fetch('http://15.164.245.179:8080/user/me', {
       method: 'GET',
@@ -57,7 +92,6 @@ function Header() {
       .then((response) => response.json())
       .then((data) => {
         Cookies.set('userName', data.userName, { expires: 7 });
-        Cookies.set('authToken', token, { expires: 7 });
         setUserName(data.userName);
       })
       .catch((error) =>
@@ -65,7 +99,8 @@ function Header() {
       );
   };
 
-  const pathname = useLocation().pathname; //홈 페이지일 때 스타일 적용을 다르게 하기 위함
+  const pathname = useLocation().pathname;
+
   return (
     <div
       className={`${styles.wrapper} ${

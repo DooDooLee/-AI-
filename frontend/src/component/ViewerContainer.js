@@ -41,7 +41,7 @@ function ViewerContainer({ bookId, setShowingCover }) {
   };
 
   if (!bookData) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const currentPage = bookData.pages[currentPageIndex];

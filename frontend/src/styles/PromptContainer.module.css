@@ -195,3 +195,19 @@
   font-size: 18px; /* 원하는 크기 설정 */
   color: gray; /* 필요하면 색상도 추가 */
 }
+
+.loadingSpinner {
+  border: 10px solid rgba(0, 0, 0, 0.1);
+  border-top: 10px solid pink;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-top: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

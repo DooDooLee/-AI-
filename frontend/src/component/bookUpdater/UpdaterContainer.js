@@ -287,13 +287,16 @@ const UpdaterContainer = () => {
   return (
     <div id="wrapper" className={styles.wrapper}>
       <div id="left" className={styles.left}>
-        {loading && <p style={{ marginTop: '10px' }}>그림 생성 중...</p>}
-        {!loading && generatedImage && (
-          <img
-            src={generatedImage}
-            alt="생성된 이미지"
-            className={styles.generatedImage}
-          />
+        {loading ? (
+          <div className={styles.loadingSpinner}></div>
+        ) : (
+          generatedImage && (
+            <img
+              src={generatedImage}
+              alt="생성된 이미지"
+              className={styles.generatedImage}
+            />
+          )
         )}
         <span className={styles.pageNumber}>
           {currentIndex + 2} {/* 페이지 번호를 1에서 시작하도록 조정 */}

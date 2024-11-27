@@ -221,7 +221,7 @@ function ListBody() {
       <div className={styles.searchBar}>
         <input
           type="text"
-          placeholder="도서명, 저자명으로 검색 가능"
+          placeholder="도서명으로 검색 가능"
           className={styles.searchInput}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
